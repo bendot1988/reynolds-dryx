@@ -2,31 +2,67 @@
 export interface Props {
   title: string;
   subtitle?: string;
+  /** Absolute or site-root path, e.g. /assets/reynolds/hero.jpg */
   bgImage?: string;
+  /** CSS `object-position` for the photo (e.g. `center 35%`, `center top`) */
+  bgPosition?: string;
+  /** Darken image for text contrast; 0–1, default 0.7 */
+  overlayOpacity?: number;
   breadcrumb?: string;
 }
 
-const { title, subtitle, bgImage, breadcrumb } = Astro.props;
+const {
+  title,
+  subtitle,
+  bgImage,
+  bgPosition = 'center',
+  overlayOpacity = 0.7,
+  breadcrumb,
+} = Astro.props;
+
+const overlayStyle = `background-color: rgba(0,0,0,${overlayOpacity});`;
 ---
 
 <section
-  class="relative bg-[#111111] pt-32 pb-20 px-6 lg:px-10 overflow-hidden"
-  style={bgImage ? `background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${bgImage}); background-size: cover; background-position: center;` : ''}
+  class:list={[
+    'relative pt-32 pb-20 px-6 lg:px-10 overflow-hidden',
+    bgImage ? 'min-h-[22rem] sm:min-h-[26rem]' : 'bg-[#111111]',
+  ]}
 >
-  <!-- Background pattern -->
-  {!bgImage && (
-    <div class="absolute inset-0 opacity-5">
-      <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%); background-size: 20px 20px;"></div>
-    </div>
-  )}
+  {
+    bgImage ? (
+      <>
+        <div class="absolute inset-0 z-0">
+          <img
+            src={bgImage}
+            alt=""
+            class="h-full w-full object-cover"
+            style={`object-position: ${bgPosition};`}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            aria-hidden="true"
+          />
+          <div class="absolute inset-0 z-[1]" style={overlayStyle} aria-hidden="true" />
+        </div>
+      </>
+    ) : (
+      <div class="absolute inset-0 opacity-5 z-0">
+        <div
+          class="absolute inset-0"
+          style="background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%); background-size: 20px 20px;"
+        />
+      </div>
+    )
+  }
 
-  <div class="relative z-10 max-w-7xl mx-auto">
+  <div class="relative z-10 max-w-7xl mx-auto w-full">
     {breadcrumb && (
       <p class="text-red-500 text-xs font-bold tracking-widest uppercase mb-4">{breadcrumb}</p>
     )}
-    <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight mb-4">{title}</h1>
+    <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight mb-4 text-balance">{title}</h1>
     {subtitle && (
-      <p class="text-white/70 text-lg lg:text-xl max-w-2xl">{subtitle}</p>
+      <p class="text-white/80 text-lg lg:text-xl max-w-2xl leading-relaxed text-pretty">{subtitle}</p>
     )}
   </div>
 </section>
