@@ -323,7 +323,7 @@ a.rd-hero-cta.rd-btn-outline::after {
   border-radius: 0 0 var(--rd-radius-sm) var(--rd-radius-sm);
 }
 
-/* White solid on red band (footer) — same motion; accent uses brand red */
+/* White solid on red band (footer) — accent bar contrasts with red section */
 a.rd-hero-cta--on-red.rd-btn-primary {
   background-color: #fff;
   color: var(--rd-red);
@@ -339,7 +339,7 @@ a.rd-hero-cta--on-red.rd-btn-primary:focus-visible {
 }
 
 a.rd-hero-cta--on-red.rd-btn-primary::after {
-  background-color: var(--rd-red);
+  background-color: var(--rd-black);
 }
 
 .rd-btn-outline-red {
