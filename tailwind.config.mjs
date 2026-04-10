@@ -7,7 +7,7 @@ export default {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
-        'rd-red': '#dc2626',
+        'rd-red': '#e23125',
         'rd-dark': '#111111',
       },
     },
