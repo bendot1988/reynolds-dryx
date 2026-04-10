@@ -114,8 +114,151 @@ body.js-ready [data-animate].animate-in {
 }
 
 /* =============================================
+   Smart link underlines (hover / keyboard focus)
+   ============================================= */
+.rd-link-underline,
+.rd-footer-cta {
+  position: relative;
+  text-decoration: none;
+}
+
+.rd-link-underline::after,
+.rd-footer-cta::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.18em;
+  height: max(1px, 0.08em);
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.rd-link-underline:hover::after,
+.rd-link-underline:focus-visible::after,
+.rd-footer-cta:hover::after,
+.rd-footer-cta:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Bordered footer / hero CTAs — line sits inside padding */
+.rd-footer-cta::after {
+  left: 1.85rem;
+  right: 1.85rem;
+  bottom: 0.72rem;
+  height: 1px;
+}
+
+/* Bordered pill-style links (e.g. “View All Projects”) */
+.rd-link-underline--inset::after {
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 0.48rem;
+  height: 1px;
+}
+
+/* Filled red link-style buttons (Tailwind + Apply Now, etc.) */
+a.rd-link-underline-fill {
+  position: relative;
+  text-decoration: none;
+}
+
+a.rd-link-underline-fill::after {
+  content: '';
+  position: absolute;
+  left: 1.2rem;
+  right: 1.2rem;
+  bottom: 0.52rem;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.92);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+a.rd-link-underline-fill:hover::after,
+a.rd-link-underline-fill:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rd-link-underline::after,
+  .rd-link-underline--inset::after,
+  .rd-footer-cta::after,
+  a.rd-link-underline-fill::after,
+  .rd-btn-primary::after,
+  .rd-btn-outline::after,
+  .rd-btn-outline-red::after,
+  .prose a::after {
+    transition-duration: 0.05s;
+  }
+}
+
+/* Article body links inside .prose */
+.prose a {
+  position: relative;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.prose a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.12em;
+  height: max(1px, 0.07em);
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.prose a:hover::after,
+.prose a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* =============================================
    Reynolds Dryline — Buttons
    ============================================= */
+.rd-btn-primary,
+.rd-btn-outline,
+.rd-btn-outline-red {
+  position: relative;
+}
+
+.rd-btn-primary::after,
+.rd-btn-outline::after,
+.rd-btn-outline-red::after {
+  content: '';
+  position: absolute;
+  left: 1.1rem;
+  right: 1.1rem;
+  bottom: 0.4rem;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  opacity: 0.92;
+}
+
+.rd-btn-primary:hover::after,
+.rd-btn-primary:focus-visible::after,
+.rd-btn-outline:hover::after,
+.rd-btn-outline:focus-visible::after,
+.rd-btn-outline-red:hover::after,
+.rd-btn-outline-red:focus-visible::after {
+  transform: scaleX(1);
+}
+
 .rd-btn-primary {
   display: inline-flex;
   align-items: center;

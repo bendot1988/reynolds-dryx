@@ -34,7 +34,7 @@ const navLinks = [
       {navLinks.map(link => (
         <a
           href={link.href}
-          class={`text-xs font-bold tracking-widest uppercase transition-colors duration-200 ${
+          class={`rd-link-underline text-xs font-bold tracking-widest uppercase transition-colors duration-200 ${
             currentPath === link.href || currentPath.startsWith(link.href + '/')
               ? 'text-white'
               : 'text-white/70 hover:text-white'
@@ -49,7 +49,7 @@ const navLinks = [
     <div class="flex items-center gap-4">
       <a
         href="tel:01509816600"
-        class="hidden sm:flex items-center gap-2 text-white/80 hover:text-white text-sm font-semibold transition-colors duration-200"
+        class="rd-link-underline hidden sm:flex items-center gap-2 text-white/80 hover:text-white text-sm font-semibold transition-colors duration-200"
         aria-label="Call us on 01509 816 600"
       >
         <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -94,7 +94,7 @@ const navLinks = [
         {navLinks.map((link, i) => (
           <a
             href={link.href}
-            class="text-white text-lg font-bold tracking-widest uppercase hover:text-red-500 transition-colors duration-200"
+            class="rd-link-underline text-white text-lg font-bold tracking-widest uppercase hover:text-red-500 transition-colors duration-200"
             style={`--stagger: ${100 + i * 60}ms`}
           >
             {link.label}
@@ -104,7 +104,7 @@ const navLinks = [
       <div class="mt-8 pt-8 border-t border-white/10">
         <a
           href="tel:01509816600"
-          class="flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors duration-200"
+          class="rd-link-underline flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors duration-200"
         >
           <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>

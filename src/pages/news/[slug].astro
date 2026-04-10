@@ -107,7 +107,7 @@ function formatDate(date: Date) {
   <!-- Article Hero -->
   <section class="relative bg-[#111111] pt-32 pb-0 overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 lg:px-10 pb-12">
-      <a href="/news" class="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors duration-200">
+      <a href="/news" class="rd-link-underline inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors duration-200">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
@@ -141,19 +141,19 @@ function formatDate(date: Date) {
   <section class="bg-white py-16 px-6 lg:px-10">
     <div class="max-w-3xl mx-auto">
       <div
-        class="prose prose-lg prose-headings:font-black prose-headings:text-gray-900 prose-p:text-gray-600 prose-p:leading-relaxed prose-a:text-red-600 prose-a:no-underline hover:prose-a:underline max-w-none"
+        class="prose prose-lg prose-headings:font-black prose-headings:text-gray-900 prose-p:text-gray-600 prose-p:leading-relaxed prose-a:text-red-600 max-w-none"
         set:html={article.body}
       />
 
       <!-- Share / Back -->
       <div class="mt-12 pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <a href="/news" class="inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase hover:gap-3 transition-all duration-200">
+        <a href="/news" class="rd-link-underline inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase hover:gap-3 transition-all duration-200">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
           All News
         </a>
-        <a href="/contact" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 text-xs tracking-widest uppercase transition-colors duration-200">
+        <a href="/contact" class="rd-link-underline-fill inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 text-xs tracking-widest uppercase transition-colors duration-200">
           Contact Us
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
