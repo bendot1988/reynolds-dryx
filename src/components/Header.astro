@@ -16,13 +16,17 @@ const navLinks = [
 ---
 
 <header id="rd-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-  <div id="rd-header-inner" class="flex items-center justify-between px-6 lg:px-10 h-16 lg:h-18 transition-all duration-300">
+  <div id="rd-header-inner" class="flex items-center justify-between px-6 lg:px-10 h-16 lg:h-20 transition-all duration-300">
     <!-- Logo -->
     <a href="/" class="flex-shrink-0" aria-label="Reynolds Dryline Home">
-      <div class="flex flex-col leading-none">
-        <span class="text-white font-black text-xl lg:text-2xl tracking-tight">Reynolds</span>
-        <span class="text-white font-light text-sm lg:text-base tracking-[0.3em] uppercase border border-white/40 px-1 -mt-0.5">Dryline</span>
-      </div>
+      <img
+        src="/assets/reynolds/logo-reynolds.svg"
+        alt="Reynolds Dryline"
+        class="h-10 lg:h-12 w-auto brightness-0 invert"
+        width="220"
+        height="48"
+        loading="eager"
+      />
     </a>
 
     <!-- Desktop Navigation -->
@@ -30,7 +34,7 @@ const navLinks = [
       {navLinks.map(link => (
         <a
           href={link.href}
-          class={`text-xs font-semibold tracking-widest uppercase transition-colors duration-200 ${
+          class={`text-xs font-bold tracking-widest uppercase transition-colors duration-200 ${
             currentPath === link.href || currentPath.startsWith(link.href + '/')
               ? 'text-white'
               : 'text-white/70 hover:text-white'
@@ -45,7 +49,7 @@ const navLinks = [
     <div class="flex items-center gap-4">
       <a
         href="tel:01509816600"
-        class="hidden sm:flex items-center gap-2 text-white/80 hover:text-white text-sm font-medium transition-colors duration-200"
+        class="hidden sm:flex items-center gap-2 text-white/80 hover:text-white text-sm font-semibold transition-colors duration-200"
         aria-label="Call us on 01509 816 600"
       >
         <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -77,14 +81,11 @@ const navLinks = [
 
   <!-- Mobile Menu -->
   <div id="rd-mobile-menu-root" aria-hidden="true">
-    <!-- Backdrop -->
     <div
       id="rd-mobile-dismiss"
       class="fixed inset-0 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40"
       tabindex="-1"
     ></div>
-
-    <!-- Panel -->
     <div
       id="rd-mobile-panel"
       class="rd-mobile-menu fixed top-0 right-0 bottom-0 w-80 bg-black z-50 flex flex-col p-8 pt-20"
@@ -93,7 +94,7 @@ const navLinks = [
         {navLinks.map((link, i) => (
           <a
             href={link.href}
-            class="text-white text-lg font-semibold tracking-widest uppercase hover:text-red-500 transition-colors duration-200"
+            class="text-white text-lg font-bold tracking-widest uppercase hover:text-red-500 transition-colors duration-200"
             style={`--stagger: ${100 + i * 60}ms`}
           >
             {link.label}
@@ -130,11 +131,9 @@ const navLinks = [
   function setMenuOpen(open: boolean) {
     menuOpen = open;
     if (!mobileToggle || !mobileMenuRoot || !mobilePanel || !mobileDismiss) return;
-
     mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     mobileMenuRoot.setAttribute('aria-hidden', open ? 'false' : 'true');
     mobilePanel.classList.toggle('is-open', open);
-
     if (open) {
       mobileDismiss.classList.remove('opacity-0', 'pointer-events-none');
       mobileDismiss.classList.add('opacity-100');
@@ -144,7 +143,6 @@ const navLinks = [
       mobileDismiss.classList.remove('opacity-100');
       mobileDismiss.setAttribute('tabindex', '-1');
     }
-
     iconMenu?.classList.toggle('hidden', open);
     iconClose?.classList.toggle('hidden', !open);
     document.body.style.overflow = open ? 'hidden' : '';
@@ -153,16 +151,11 @@ const navLinks = [
   function updateHeader() {
     if (!headerInner) return;
     const currentScrollY = window.scrollY;
-    const scrollingDown = currentScrollY > lastScrollY;
-
     if (currentScrollY <= 30) {
       headerInner.classList.remove('bg-black/95', 'shadow-lg', 'shadow-black/50');
-    } else if (scrollingDown && currentScrollY > 100) {
-      if (menuOpen) setMenuOpen(false);
     } else {
       headerInner.classList.add('bg-black/95', 'shadow-lg', 'shadow-black/50');
     }
-
     lastScrollY = currentScrollY;
   }
 

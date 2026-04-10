@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+/* =============================================
+   Montserrat font — primary brand font
+   ============================================= */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap');
 @import "tailwindcss";
 
 /* =============================================
@@ -10,13 +13,23 @@
   --rd-black: #111111;
   --rd-dark: #1a1a1a;
   --rd-gray: #f5f5f5;
+
+  /* Border radius scale */
+  --rd-radius-sm: 5px;   /* buttons, badges, tags */
+  --rd-radius-md: 10px;  /* inputs, small cards */
+  --rd-radius-lg: 15px;  /* images, large cards, panels */
 }
 
 /* =============================================
-   Reynolds Dryline — Typography
+   Reynolds Dryline — Base Typography
    ============================================= */
-.rd-font {
-  font-family: 'Inter', system-ui, sans-serif;
+body {
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 800;
 }
 
 /* =============================================
@@ -63,49 +76,147 @@ body.js-ready [data-animate].animate-in {
    Reynolds Dryline — Navigation
    ============================================= */
 .rd-nav-link {
-  @apply text-sm font-medium tracking-widest uppercase text-white/80 hover:text-white transition-colors duration-200;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.8);
+  transition: color 0.2s;
 }
 
+.rd-nav-link:hover,
 .rd-nav-link.active {
-  @apply text-white;
+  color: #fff;
 }
 
 /* =============================================
    Reynolds Dryline — Buttons
    ============================================= */
 .rd-btn-primary {
-  @apply inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 text-sm tracking-wider uppercase transition-all duration-200;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--rd-red);
+  color: #fff;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--rd-radius-sm);
+  transition: background-color 0.2s, transform 0.15s;
+  border: none;
+  cursor: pointer;
+}
+
+.rd-btn-primary:hover {
+  background-color: var(--rd-red-dark);
+  transform: translateY(-1px);
 }
 
 .rd-btn-outline {
-  @apply inline-flex items-center gap-2 border-2 border-white text-white hover:bg-white hover:text-black font-bold px-6 py-3 text-sm tracking-wider uppercase transition-all duration-200;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid #fff;
+  color: #fff;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--rd-radius-sm);
+  transition: background-color 0.2s, color 0.2s, transform 0.15s;
+  cursor: pointer;
+  background: transparent;
+}
+
+.rd-btn-outline:hover {
+  background-color: #fff;
+  color: #000;
+  transform: translateY(-1px);
 }
 
 .rd-btn-outline-red {
-  @apply inline-flex items-center gap-2 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white font-bold px-6 py-3 text-sm tracking-wider uppercase transition-all duration-200;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 2px solid var(--rd-red);
+  color: var(--rd-red);
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--rd-radius-sm);
+  transition: background-color 0.2s, color 0.2s, transform 0.15s;
+  cursor: pointer;
+  background: transparent;
+}
+
+.rd-btn-outline-red:hover {
+  background-color: var(--rd-red);
+  color: #fff;
+  transform: translateY(-1px);
 }
 
 /* =============================================
    Reynolds Dryline — Section labels
    ============================================= */
 .rd-label {
-  @apply text-xs font-bold tracking-widest uppercase text-red-600;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rd-red);
 }
 
 /* =============================================
-   Reynolds Dryline — Cards
+   Reynolds Dryline — Sector cards (hover reveal)
    ============================================= */
-.rd-project-card {
-  @apply relative overflow-hidden bg-black;
-  /* Note: use 'group' class directly in HTML, not via @apply */
+.rd-sector-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: var(--rd-radius-lg);
 }
 
-.rd-project-card img {
-  @apply w-full h-64 object-cover opacity-70 transition-all duration-500;
+.rd-sector-card img {
+  width: 100%;
+  height: 20rem;
+  object-fit: cover;
+  transition: transform 0.7s ease;
 }
 
-.rd-project-card:hover img {
-  @apply opacity-50 scale-105;
+.rd-sector-card:hover img {
+  transform: scale(1.05);
+}
+
+.rd-sector-card-overlay {
+  position: absolute;
+  inset: 0;
+  /* Stronger gradient so description text is readable on hover */
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.05) 100%);
+  border-radius: var(--rd-radius-lg);
+  transition: background 0.4s ease;
+}
+
+.rd-sector-card:hover .rd-sector-card-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.15) 100%);
+}
+
+.rd-sector-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem;
+  color: #fff;
 }
 
 /* =============================================
@@ -137,45 +248,61 @@ body.js-ready [data-animate].animate-in {
 }
 
 /* =============================================
-   Reynolds Dryline — Sector cards
-   ============================================= */
-.rd-sector-card {
-  @apply relative overflow-hidden cursor-pointer;
-}
-
-.rd-sector-card img {
-  @apply w-full h-80 object-cover transition-transform duration-700 group-hover:scale-105;
-}
-
-.rd-sector-card-overlay {
-  @apply absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent;
-}
-
-.rd-sector-card-content {
-  @apply absolute bottom-0 left-0 right-0 p-6 text-white;
-}
-
-/* =============================================
    Reynolds Dryline — Form inputs
    ============================================= */
 .rd-input {
-  @apply w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  border-radius: var(--rd-radius-md);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.rd-input:focus {
+  border-color: var(--rd-red);
 }
 
 .rd-textarea {
-  @apply w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200 resize-none;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  border-radius: var(--rd-radius-md);
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+
+.rd-textarea:focus {
+  border-color: var(--rd-red);
 }
 
 /* =============================================
    Reynolds Dryline — Red divider
    ============================================= */
 .rd-divider {
-  @apply w-12 h-1 bg-red-600 mt-3 mb-0;
+  width: 3rem;
+  height: 4px;
+  background-color: var(--rd-red);
+  margin-top: 0.75rem;
+  border-radius: 2px;
 }
 
 /* =============================================
    Reynolds Dryline — Tag badges
    ============================================= */
 .rd-tag {
-  @apply inline-block text-xs font-semibold px-3 py-1 bg-white/10 text-white border border-white/20;
+  display: inline-block;
+  font-size: 0.7rem;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--rd-radius-sm);
 }
