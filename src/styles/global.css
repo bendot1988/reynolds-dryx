@@ -306,6 +306,36 @@ a.rd-link-underline-fill:focus-visible::after {
   transform: translateY(-1px);
 }
 
+/* Home hero only: no hover fill / lift; bottom-edge accent bar (roll out later if approved) */
+a.rd-hero-cta.rd-btn-primary,
+a.rd-hero-cta.rd-btn-outline {
+  overflow: hidden;
+}
+
+a.rd-hero-cta.rd-btn-primary:hover,
+a.rd-hero-cta.rd-btn-primary:focus-visible {
+  background-color: var(--rd-red);
+  transform: none;
+}
+
+a.rd-hero-cta.rd-btn-outline:hover,
+a.rd-hero-cta.rd-btn-outline:focus-visible {
+  background-color: transparent;
+  color: #fff;
+  transform: none;
+}
+
+a.rd-hero-cta.rd-btn-primary::after,
+a.rd-hero-cta.rd-btn-outline::after {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  opacity: 1;
+  background-color: #fff;
+  border-radius: 0 0 var(--rd-radius-sm) var(--rd-radius-sm);
+}
+
 .rd-btn-outline-red {
   display: inline-flex;
   align-items: center;
