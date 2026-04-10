@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+/* =============================================
+   Reynolds Dryline — Custom CSS Variables
+   ============================================= */
+:root {
+  --rd-red: #CC0000;
+  --rd-red-dark: #AA0000;
+  --rd-black: #111111;
+  --rd-dark: #1a1a1a;
+  --rd-gray: #f5f5f5;
+}
+
+/* =============================================
+   Reynolds Dryline — Typography
+   ============================================= */
+.rd-font {
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* =============================================
+   Reynolds Dryline — Scroll Animations
+   ============================================= */
+body.js-ready [data-animate] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+body.js-ready [data-animate].animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =============================================
+   Reynolds Dryline — Hero section
+   ============================================= */
+.rd-hero {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.rd-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/assets/reynolds/hero-bg.jpg') center/cover no-repeat;
+  opacity: 0.15;
+  z-index: 0;
+}
+
+.rd-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* =============================================
+   Reynolds Dryline — Navigation
+   ============================================= */
+.rd-nav-link {
+  @apply text-sm font-medium tracking-widest uppercase text-white/80 hover:text-white transition-colors duration-200;
+}
+
+.rd-nav-link.active {
+  @apply text-white;
+}
+
+/* =============================================
+   Reynolds Dryline — Buttons
+   ============================================= */
+.rd-btn-primary {
+  @apply inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 text-sm tracking-wider uppercase transition-all duration-200;
+}
+
+.rd-btn-outline {
+  @apply inline-flex items-center gap-2 border-2 border-white text-white hover:bg-white hover:text-black font-bold px-6 py-3 text-sm tracking-wider uppercase transition-all duration-200;
+}
+
+.rd-btn-outline-red {
+  @apply inline-flex items-center gap-2 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white font-bold px-6 py-3 text-sm tracking-wider uppercase transition-all duration-200;
+}
+
+/* =============================================
+   Reynolds Dryline — Section labels
+   ============================================= */
+.rd-label {
+  @apply text-xs font-bold tracking-widest uppercase text-red-600;
+}
+
+/* =============================================
+   Reynolds Dryline — Cards
+   ============================================= */
+.rd-project-card {
+  @apply relative overflow-hidden bg-black;
+  /* Note: use 'group' class directly in HTML, not via @apply */
+}
+
+.rd-project-card img {
+  @apply w-full h-64 object-cover opacity-70 transition-all duration-500;
+}
+
+.rd-project-card:hover img {
+  @apply opacity-50 scale-105;
+}
+
+/* =============================================
+   Reynolds Dryline — Partner logos strip
+   ============================================= */
+@keyframes rd-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.rd-partners-marquee {
+  animation: rd-marquee 30s linear infinite;
+}
+
+.rd-partners-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* =============================================
+   Reynolds Dryline — Mobile menu
+   ============================================= */
+.rd-mobile-menu {
+  clip-path: circle(0% at calc(100% - 1.5rem) 2rem);
+  transition: clip-path 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.rd-mobile-menu.is-open {
+  clip-path: circle(150% at calc(100% - 1.5rem) 2rem);
+}
+
+/* =============================================
+   Reynolds Dryline — Sector cards
+   ============================================= */
+.rd-sector-card {
+  @apply relative overflow-hidden cursor-pointer;
+}
+
+.rd-sector-card img {
+  @apply w-full h-80 object-cover transition-transform duration-700 group-hover:scale-105;
+}
+
+.rd-sector-card-overlay {
+  @apply absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent;
+}
+
+.rd-sector-card-content {
+  @apply absolute bottom-0 left-0 right-0 p-6 text-white;
+}
+
+/* =============================================
+   Reynolds Dryline — Form inputs
+   ============================================= */
+.rd-input {
+  @apply w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200;
+}
+
+.rd-textarea {
+  @apply w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200 resize-none;
+}
+
+/* =============================================
+   Reynolds Dryline — Red divider
+   ============================================= */
+.rd-divider {
+  @apply w-12 h-1 bg-red-600 mt-3 mb-0;
+}
+
+/* =============================================
+   Reynolds Dryline — Tag badges
+   ============================================= */
+.rd-tag {
+  @apply inline-block text-xs font-semibold px-3 py-1 bg-white/10 text-white border border-white/20;
+}

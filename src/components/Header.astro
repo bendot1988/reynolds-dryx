@@ -1,0 +1,179 @@
+---
+export interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const navLinks = [
+  { href: '/about', label: 'About' },
+  { href: '/services', label: 'Services' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/careers', label: 'Careers' },
+  { href: '/news', label: 'News' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<header id="rd-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div id="rd-header-inner" class="flex items-center justify-between px-6 lg:px-10 h-16 lg:h-18 transition-all duration-300">
+    <!-- Logo -->
+    <a href="/" class="flex-shrink-0" aria-label="Reynolds Dryline Home">
+      <div class="flex flex-col leading-none">
+        <span class="text-white font-black text-xl lg:text-2xl tracking-tight">Reynolds</span>
+        <span class="text-white font-light text-sm lg:text-base tracking-[0.3em] uppercase border border-white/40 px-1 -mt-0.5">Dryline</span>
+      </div>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
+      {navLinks.map(link => (
+        <a
+          href={link.href}
+          class={`text-xs font-semibold tracking-widest uppercase transition-colors duration-200 ${
+            currentPath === link.href || currentPath.startsWith(link.href + '/')
+              ? 'text-white'
+              : 'text-white/70 hover:text-white'
+          }`}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Phone + Mobile Toggle -->
+    <div class="flex items-center gap-4">
+      <a
+        href="tel:01509816600"
+        class="hidden sm:flex items-center gap-2 text-white/80 hover:text-white text-sm font-medium transition-colors duration-200"
+        aria-label="Call us on 01509 816 600"
+      >
+        <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+        </svg>
+        01509 816 600
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button
+        id="rd-mobile-toggle"
+        class="lg:hidden flex flex-col gap-1.5 p-2 text-white"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        <span id="rd-icon-menu" class="flex flex-col gap-1.5">
+          <span class="w-6 h-0.5 bg-white block transition-all duration-300"></span>
+          <span class="w-6 h-0.5 bg-white block transition-all duration-300"></span>
+          <span class="w-6 h-0.5 bg-white block transition-all duration-300"></span>
+        </span>
+        <span id="rd-icon-close" class="hidden">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="rd-mobile-menu-root" aria-hidden="true">
+    <!-- Backdrop -->
+    <div
+      id="rd-mobile-dismiss"
+      class="fixed inset-0 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40"
+      tabindex="-1"
+    ></div>
+
+    <!-- Panel -->
+    <div
+      id="rd-mobile-panel"
+      class="rd-mobile-menu fixed top-0 right-0 bottom-0 w-80 bg-black z-50 flex flex-col p-8 pt-20"
+    >
+      <nav class="flex flex-col gap-6" aria-label="Mobile navigation">
+        {navLinks.map((link, i) => (
+          <a
+            href={link.href}
+            class="text-white text-lg font-semibold tracking-widest uppercase hover:text-red-500 transition-colors duration-200"
+            style={`--stagger: ${100 + i * 60}ms`}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+      <div class="mt-8 pt-8 border-t border-white/10">
+        <a
+          href="tel:01509816600"
+          class="flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors duration-200"
+        >
+          <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+          </svg>
+          01509 816 600
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const headerInner = document.getElementById('rd-header-inner') as HTMLElement | null;
+  const mobileToggle = document.getElementById('rd-mobile-toggle') as HTMLButtonElement | null;
+  const mobileMenuRoot = document.getElementById('rd-mobile-menu-root');
+  const mobileDismiss = document.getElementById('rd-mobile-dismiss');
+  const mobilePanel = document.getElementById('rd-mobile-panel');
+  const iconMenu = document.getElementById('rd-icon-menu');
+  const iconClose = document.getElementById('rd-icon-close');
+
+  let lastScrollY = window.scrollY;
+  let menuOpen = false;
+
+  function setMenuOpen(open: boolean) {
+    menuOpen = open;
+    if (!mobileToggle || !mobileMenuRoot || !mobilePanel || !mobileDismiss) return;
+
+    mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    mobileMenuRoot.setAttribute('aria-hidden', open ? 'false' : 'true');
+    mobilePanel.classList.toggle('is-open', open);
+
+    if (open) {
+      mobileDismiss.classList.remove('opacity-0', 'pointer-events-none');
+      mobileDismiss.classList.add('opacity-100');
+      mobileDismiss.removeAttribute('tabindex');
+    } else {
+      mobileDismiss.classList.add('opacity-0', 'pointer-events-none');
+      mobileDismiss.classList.remove('opacity-100');
+      mobileDismiss.setAttribute('tabindex', '-1');
+    }
+
+    iconMenu?.classList.toggle('hidden', open);
+    iconClose?.classList.toggle('hidden', !open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  function updateHeader() {
+    if (!headerInner) return;
+    const currentScrollY = window.scrollY;
+    const scrollingDown = currentScrollY > lastScrollY;
+
+    if (currentScrollY <= 30) {
+      headerInner.classList.remove('bg-black/95', 'shadow-lg', 'shadow-black/50');
+    } else if (scrollingDown && currentScrollY > 100) {
+      if (menuOpen) setMenuOpen(false);
+    } else {
+      headerInner.classList.add('bg-black/95', 'shadow-lg', 'shadow-black/50');
+    }
+
+    lastScrollY = currentScrollY;
+  }
+
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  mobileToggle?.addEventListener('click', () => setMenuOpen(!menuOpen));
+  mobileDismiss?.addEventListener('click', () => setMenuOpen(false));
+  mobilePanel?.querySelectorAll('a').forEach(el => {
+    el.addEventListener('click', () => setMenuOpen(false));
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && menuOpen) setMenuOpen(false);
+  });
+</script>

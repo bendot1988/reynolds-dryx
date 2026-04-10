@@ -1,0 +1,163 @@
+---
+import ReynoldsLayout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+
+const services = [
+  {
+    slug: 'metal-stud-partitioning',
+    title: 'Metal Stud Partitioning',
+    desc: 'Our metal stud partitioning systems provide flexible, high-performance internal wall solutions for commercial, residential, and industrial projects. We deliver systems that meet the most demanding acoustic, fire, and structural requirements.',
+    features: [
+      'Single and double layer boarding',
+      'Acoustic performance up to Rw 65dB',
+      'Fire resistance up to 4 hours',
+      'Structural and non-structural systems',
+      'Curved and feature partitions',
+    ],
+    image: '/assets/reynolds/drylining-01.jpg',
+  },
+  {
+    slug: 'suspended-ceilings',
+    title: 'Suspended Ceilings',
+    desc: 'From standard grid and tile systems to bespoke feature ceilings, our suspended ceiling installations combine technical precision with aesthetic excellence. We work with all major manufacturers to deliver the right solution for your project.',
+    features: [
+      'Standard grid and tile systems',
+      'Plasterboard and MF ceilings',
+      'Feature and bespoke ceiling designs',
+      'Acoustic and fire-rated systems',
+      'Bulkheads and soffits',
+    ],
+    image: '/assets/reynolds/project-building.jpg',
+  },
+  {
+    slug: 'structural-framing-systems',
+    title: 'Structural Framing Systems (SFS)',
+    desc: 'Our structural framing system expertise enables us to deliver complex external wall solutions for multi-storey buildings. SFS provides the structural backbone for external cladding and facade systems.',
+    features: [
+      'Light gauge steel framing',
+      'External wall infill systems',
+      'Spandrel panel systems',
+      'Rainscreen support systems',
+      'Complex geometry and curved facades',
+    ],
+    image: '/assets/reynolds/project-lisbon-st-leeds.jpg',
+  },
+  {
+    slug: 'insulation-sound-proofing',
+    title: 'Insulation & Sound Proofing',
+    desc: 'We install a comprehensive range of insulation products to meet thermal, acoustic, and fire performance requirements. Our expertise ensures that the right insulation solution is specified and installed correctly.',
+    features: [
+      'Mineral wool and rigid board insulation',
+      'Acoustic floor and wall systems',
+      'Thermal performance solutions',
+      'Fire barrier installations',
+      'Specialist acoustic consultancy',
+    ],
+    image: '/assets/reynolds/project-bletchley.jpg',
+  },
+  {
+    slug: 'professional-plastering',
+    title: 'Professional Plastering',
+    desc: 'Our skilled plasterers deliver flawless finishes across all project types. From standard skim coats to specialist decorative plasterwork, we have the expertise to achieve the quality your project demands.',
+    features: [
+      'Wet plaster and skim coat finishes',
+      'Dry lining and plasterboard',
+      'Specialist and decorative plasterwork',
+      'Render systems',
+      'Remedial and repair works',
+    ],
+    image: '/assets/reynolds/project-28rs.jpg',
+  },
+];
+---
+
+<ReynoldsLayout
+  title="Our Services | Reynolds Dryline — Specialist Building Finishes"
+  description="Reynolds Dryline provides metal stud partitioning, suspended ceilings, structural framing systems, insulation, and professional plastering across the UK."
+  canonical="https://www.reynoldsdryline.co.uk/services"
+>
+  <Header currentPath="/services" />
+
+  <PageHero
+    title="Our Services"
+    subtitle="Complete building finishes solutions. From metal stud partitioning to professional plastering, we deliver every element of the internal envelope."
+    breadcrumb="What We Do"
+  />
+
+  <!-- Services list -->
+  <section class="bg-white py-20 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto space-y-24">
+      {services.map((service, i) => (
+        <div
+          id={service.slug}
+          class={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${i % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}
+          data-animate
+        >
+          <!-- Image -->
+          <div class={`relative overflow-hidden ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+            <img
+              src={service.image}
+              alt={service.title}
+              class="w-full h-96 object-cover"
+              loading="lazy"
+            />
+            <div class="absolute top-0 left-0 bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-4 py-2">
+              Service {String(i + 1).padStart(2, '0')}
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class={i % 2 === 1 ? 'lg:order-1' : ''}>
+            <p class="rd-label mb-3">Our Services</p>
+            <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-4">{service.title}</h2>
+            <div class="w-10 h-1 bg-red-600 mb-6"></div>
+            <p class="text-gray-600 leading-relaxed mb-8">{service.desc}</p>
+
+            <ul class="space-y-3 mb-8">
+              {service.features.map(feature => (
+                <li class="flex items-center gap-3 text-sm text-gray-700">
+                  <svg class="w-5 h-5 text-red-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <a href="/contact" class="rd-btn-primary">
+              Enquire About This Service
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-[#111111] py-20 px-6 lg:px-10">
+    <div class="max-w-4xl mx-auto text-center" data-animate>
+      <h2 class="text-4xl lg:text-5xl font-black text-white mb-6">Ready to Discuss Your Project?</h2>
+      <p class="text-white/70 text-lg mb-10">
+        Our team of specialists is ready to provide expert advice and competitive pricing for your next project.
+      </p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/contact" class="rd-btn-primary">
+          Get a Quote
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a href="tel:01509816600" class="rd-btn-outline">
+          Call 01509 816 600
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</ReynoldsLayout>

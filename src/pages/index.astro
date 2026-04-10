@@ -1,0 +1,542 @@
+---
+import ReynoldsLayout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<ReynoldsLayout
+  title="Reynolds Dryline | Providing Complete Dryline Solutions Since 1963"
+  description="Leaders in specialist building finishes. Fulfilling high-value projects to programme, budget, and unmatched quality standards. Established 1963."
+  canonical="https://www.reynoldsdryline.co.uk/"
+>
+  <Header currentPath="/" />
+
+  <!-- ============================================================
+       HERO SECTION
+  ============================================================ -->
+  <section class="rd-hero min-h-screen flex flex-col justify-center px-6 lg:px-10 pt-16">
+    <div class="max-w-7xl mx-auto w-full py-24 lg:py-32">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-4 py-2 mb-8" data-animate data-delay="0">
+        Since 1963
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-5xl sm:text-6xl lg:text-8xl font-black text-white leading-[0.95] mb-6 max-w-4xl" data-animate data-delay="100">
+        Providing Complete<br />
+        <span class="text-red-500">Dryline</span> Solutions
+      </h1>
+
+      <!-- Subheading -->
+      <p class="text-white/70 text-lg lg:text-xl max-w-xl mb-10 leading-relaxed" data-animate data-delay="200">
+        Leaders in specialist building finishes. Fulfilling high-value projects to programme, budget, and unmatched quality standards.
+      </p>
+
+      <!-- CTAs -->
+      <div class="flex flex-wrap gap-4" data-animate data-delay="300">
+        <a href="/projects" class="rd-btn-primary">
+          Explore Our Projects
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a href="/services" class="rd-btn-outline">
+          Our Services
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/40 animate-bounce">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STATS / USPs SECTION
+  ============================================================ -->
+  <section class="bg-white py-20 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+      <!-- Stat 1 -->
+      <div class="text-center" data-animate>
+        <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mx-auto mb-5">
+          <svg class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-black text-gray-900 mb-2">Established 1963</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Six decades of unwavering commitment to quality and service. Heritage you can trust.</p>
+      </div>
+
+      <!-- Stat 2 -->
+      <div class="text-center" data-animate data-delay="100">
+        <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mx-auto mb-5">
+          <svg class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-black text-gray-900 mb-2">The Most Trusted</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">We're not the biggest, but our reputation for reliability and expertise is unmatched.</p>
+      </div>
+
+      <!-- Stat 3 -->
+      <div class="text-center" data-animate data-delay="200">
+        <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mx-auto mb-5">
+          <svg class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-black text-gray-900 mb-2">Delivery Driven</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Ready to fulfill high-value projects to programme and within budget. Always.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CORE COMPETENCIES / SECTORS
+  ============================================================ -->
+  <section class="bg-white py-20 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto">
+      <!-- Section header -->
+      <div class="text-center mb-14" data-animate>
+        <p class="rd-label mb-3">Core Competencies</p>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-4">Expertise Across All Sectors</h2>
+        <div class="w-12 h-1 bg-red-600 mx-auto"></div>
+      </div>
+
+      <!-- Sector grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Multi-Room Residential -->
+        <div class="rd-sector-card" data-animate>
+          <img
+            src="/assets/reynolds/project-lisbon-st-leeds.jpg"
+            alt="Multi-Room Residential drylining project"
+            class="w-full h-80 object-cover"
+            loading="lazy"
+          />
+          <div class="rd-sector-card-overlay"></div>
+          <div class="rd-sector-card-content">
+            <div class="flex items-center gap-2 mb-3">
+              <svg class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-black text-white mb-2">Multi-Room Residential</h3>
+            <p class="text-white/70 text-sm leading-relaxed mb-4">High-density residential projects, including student accommodation and luxury apartments, delivering acoustic performance and superior finishes.</p>
+            <a href="/services" class="inline-flex items-center gap-2 text-white text-sm font-bold tracking-wider uppercase hover:text-red-400 transition-colors duration-200">
+              Learn More
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Commercial Office Space -->
+        <div class="rd-sector-card" data-animate data-delay="100">
+          <img
+            src="/assets/reynolds/drylining-01.jpg"
+            alt="Commercial Office Space drylining project"
+            class="w-full h-80 object-cover"
+            loading="lazy"
+          />
+          <div class="rd-sector-card-overlay"></div>
+          <div class="rd-sector-card-content">
+            <div class="flex items-center gap-2 mb-3">
+              <svg class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-black text-white mb-2">Commercial Office Space</h3>
+            <p class="text-white/70 text-sm leading-relaxed mb-4">Bespoke drylining and ceiling solutions for modern corporate environments, focusing on aesthetics and functionality.</p>
+            <a href="/services" class="inline-flex items-center gap-2 text-white text-sm font-bold tracking-wider uppercase hover:text-red-400 transition-colors duration-200">
+              Learn More
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Industrial & Warehousing -->
+        <div class="rd-sector-card" data-animate data-delay="200">
+          <img
+            src="/assets/reynolds/project-building.jpg"
+            alt="Industrial and Warehousing drylining project"
+            class="w-full h-80 object-cover"
+            loading="lazy"
+          />
+          <div class="rd-sector-card-overlay"></div>
+          <div class="rd-sector-card-content">
+            <div class="flex items-center gap-2 mb-3">
+              <svg class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-black text-white mb-2">Industrial &amp; Warehousing</h3>
+            <p class="text-white/70 text-sm leading-relaxed mb-4">Specialised fit-outs for large-scale warehouses incorporating multi-story office blocks with fire and acoustic requirements.</p>
+            <a href="/services" class="inline-flex items-center gap-2 text-white text-sm font-bold tracking-wider uppercase hover:text-red-400 transition-colors duration-200">
+              Learn More
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hotels & Leisure -->
+        <div class="rd-sector-card" data-animate data-delay="300">
+          <img
+            src="/assets/reynolds/project-bletchley.jpg"
+            alt="Hotels and Leisure drylining project"
+            class="w-full h-80 object-cover"
+            loading="lazy"
+          />
+          <div class="rd-sector-card-overlay"></div>
+          <div class="rd-sector-card-content">
+            <div class="flex items-center gap-2 mb-3">
+              <svg class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-black text-white mb-2">Hotels &amp; Leisure</h3>
+            <p class="text-white/70 text-sm leading-relaxed mb-4">Premium finishes for the hospitality sector, ensuring rapid deployment and durable, high-quality results.</p>
+            <a href="/services" class="inline-flex items-center gap-2 text-white text-sm font-bold tracking-wider uppercase hover:text-red-400 transition-colors duration-200">
+              Learn More
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LATEST PROJECTS
+  ============================================================ -->
+  <section class="bg-[#111111] py-20 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto">
+      <!-- Section header -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4" data-animate>
+        <div>
+          <p class="rd-label mb-3">Track Record</p>
+          <h2 class="text-4xl lg:text-5xl font-black text-white">Latest Projects</h2>
+        </div>
+        <a href="/projects" class="inline-flex items-center gap-2 border border-white/30 text-white hover:border-red-600 hover:text-red-500 text-xs font-bold tracking-widest uppercase px-6 py-3 transition-all duration-200 whitespace-nowrap">
+          View All Projects
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Projects grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Bendigo Building -->
+        <div class="bg-[#1a1a1a] flex flex-col sm:flex-row overflow-hidden group" data-animate>
+          <div class="sm:w-48 flex-shrink-0 overflow-hidden">
+            <img
+              src="/assets/reynolds/project-28rs.jpg"
+              alt="Bendigo Building, Nottingham"
+              class="w-full h-48 sm:h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-black text-red-500 mb-4">Bendigo Building</h3>
+              <ul class="space-y-2 text-sm text-white/70">
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-white/30 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                  Nottingham, UK
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-white/30 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  </svg>
+                  Contractor: Graham
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-white/30 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                  </svg>
+                  Value: £4.4m
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-white/30 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+                  </svg>
+                  Completed: On Going
+                </li>
+              </ul>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="rd-tag">Metal Stud Partitioning</span>
+              <span class="rd-tag">Suspended Ceilings</span>
+              <span class="rd-tag">SFS</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lancaster Street -->
+        <div class="bg-[#1a1a1a] flex flex-col sm:flex-row overflow-hidden group" data-animate data-delay="100">
+          <div class="sm:w-48 flex-shrink-0 overflow-hidden">
+            <img
+              src="/assets/reynolds/project-untitled.jpg"
+              alt="Lancaster Street, Birmingham"
+              class="w-full h-48 sm:h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-xl font-black text-red-500 mb-4">Lancaster Street</h3>
+              <ul class="space-y-2 text-sm text-white/70">
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-white/30 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                  </svg>
+                  Birmingham, UK
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-white/30 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                  </svg>
+                  Contractor: Winvic
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-white/30 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+                  </svg>
+                  Value: £4.4m
+                </li>
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-white/30 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
+                  </svg>
+                  Completed: On Going
+                </li>
+              </ul>
+            </div>
+            <div class="flex flex-wrap gap-2 mt-4">
+              <span class="rd-tag">Metal Stud Partitioning</span>
+              <span class="rd-tag">Insulation</span>
+              <span class="rd-tag">Plastering</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHO WE PARTNER WITH
+  ============================================================ -->
+  <section class="bg-white py-20 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12" data-animate>
+        <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-3">Who We Partner With</h2>
+        <div class="w-12 h-1 bg-red-600 mx-auto"></div>
+      </div>
+
+      <!-- Partner logos -->
+      <div class="flex flex-wrap items-center justify-center gap-10 lg:gap-16" data-animate data-delay="100">
+        <img src="/assets/reynolds/partner-clowes.png" alt="Clowes" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
+        <img src="/assets/reynolds/partner-engie.png" alt="ENGIE" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
+        <img src="/assets/reynolds/partner-winvic.png" alt="Winvic" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
+        <img src="/assets/reynolds/partner-gallifordtry.png" alt="Galliford Try" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
+        <img src="/assets/reynolds/partner-bowmer-kirkland.png" alt="Bowmer Kirkland" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
+        <img src="/assets/reynolds/partner-willmott-dixon.png" alt="Willmott Dixon" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
+        <!-- Text-based logos for those without images -->
+        <span class="text-gray-400 font-bold text-lg tracking-wide hover:text-gray-700 transition-colors duration-300">DOWNING</span>
+        <span class="text-gray-400 font-bold text-lg tracking-wide hover:text-gray-700 transition-colors duration-300">GRAHAM</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       NATIONWIDE COVERAGE
+  ============================================================ -->
+  <section class="bg-gray-50 py-20 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div data-animate>
+        <p class="rd-label mb-3">Nationwide Coverage</p>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
+          We operate UK wide in these areas and beyond.
+        </h2>
+        <p class="text-gray-600 text-lg leading-relaxed mb-8">
+          From Sheffield down to London and the M25 area, our teams deliver complete building finishes for projects of all scales. We have the capacity and logistical expertise to manage sites across the country.
+        </p>
+        <a href="/contact" class="rd-btn-primary">
+          Get in Touch
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Map placeholder - Leaflet map would be rendered client-side -->
+      <div class="relative h-96 bg-gray-200 overflow-hidden" data-animate data-delay="100">
+        <div id="rd-coverage-map" class="w-full h-full"></div>
+        <noscript>
+          <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
+            <p>Interactive map requires JavaScript</p>
+          </div>
+        </noscript>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LATEST NEWS
+  ============================================================ -->
+  <section class="bg-white py-20 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-14" data-animate>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-3">Latest Updates</h2>
+        <div class="w-12 h-1 bg-red-600 mx-auto"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Article 1 -->
+        <article class="group" data-animate>
+          <div class="overflow-hidden mb-5">
+            <img
+              src="/assets/reynolds/hero-bg.jpg"
+              alt="Celebrating 60 Years of Excellence"
+              class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3">Heritage</span>
+            <time class="block text-gray-400 text-sm mb-2">Jan 15, 2024</time>
+            <h3 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
+              <a href="/news/celebrating-60-years-of-excellence">Celebrating 60 Years of Excellence</a>
+            </h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-4">From our humble beginnings in 1963 to becoming one of the most trusted names in the UK building finishes sector.</p>
+            <a href="/news/celebrating-60-years-of-excellence" class="inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase hover:gap-3 transition-all duration-200">
+              Read Article
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Article 2 -->
+        <article class="group" data-animate data-delay="100">
+          <div class="overflow-hidden mb-5">
+            <img
+              src="/assets/reynolds/project-28rs.jpg"
+              alt="Reynolds Dryline Wins Major Nottingham Contract"
+              class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3">Projects</span>
+            <time class="block text-gray-400 text-sm mb-2">Feb 02, 2024</time>
+            <h3 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
+              <a href="/news/reynolds-dryline-wins-major-nottingham-contract">Reynolds Dryline Wins Major Nottingham Contract</a>
+            </h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-4">We are proud to announce our partnership with Graham on the prestigious Bendigo Building development.</p>
+            <a href="/news/reynolds-dryline-wins-major-nottingham-contract" class="inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase hover:gap-3 transition-all duration-200">
+              Read Article
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Article 3 -->
+        <article class="group" data-animate data-delay="200">
+          <div class="overflow-hidden mb-5">
+            <img
+              src="/assets/reynolds/drylining-01.jpg"
+              alt="Advancing Sustainable Construction Finishes"
+              class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3">Innovation</span>
+            <time class="block text-gray-400 text-sm mb-2">Mar 10, 2024</time>
+            <h3 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
+              <a href="/news/advancing-sustainable-construction-finishes">Advancing Sustainable Construction Finishes</a>
+            </h3>
+            <p class="text-gray-500 text-sm leading-relaxed mb-4">Implementing new insulation and drylining techniques that reduce building carbon footprints across all our sites.</p>
+            <a href="/news/advancing-sustainable-construction-finishes" class="inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase hover:gap-3 transition-all duration-200">
+              Read Article
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</ReynoldsLayout>
+
+<!-- Leaflet map for coverage section -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script>
+  import L from 'leaflet';
+
+  // Fix default marker icons
+  delete (L.Icon.Default.prototype as any)._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  });
+
+  const mapEl = document.getElementById('rd-coverage-map');
+  if (mapEl) {
+    const map = L.map('rd-coverage-map', {
+      center: [52.5, -1.5],
+      zoom: 6,
+      scrollWheelZoom: false,
+      zoomControl: true,
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 19,
+    }).addTo(map);
+
+    // Project locations
+    const locations = [
+      { lat: 52.9548, lng: -1.1581, name: 'Bendigo Building, Nottingham' },
+      { lat: 52.4862, lng: -1.8904, name: 'Lancaster Street, Birmingham' },
+      { lat: 53.7997, lng: -1.5492, name: 'Leeds' },
+      { lat: 51.5074, lng: -0.1278, name: 'London' },
+      { lat: 52.6369, lng: -1.1398, name: 'Leicester' },
+      { lat: 53.3811, lng: -1.4701, name: 'Sheffield' },
+    ];
+
+    const redIcon = L.divIcon({
+      className: '',
+      html: '<div style="width:12px;height:12px;background:#CC0000;border-radius:50%;border:2px solid white;box-shadow:0 1px 3px rgba(0,0,0,0.4);"></div>',
+      iconSize: [12, 12],
+      iconAnchor: [6, 6],
+    });
+
+    locations.forEach(loc => {
+      L.marker([loc.lat, loc.lng], { icon: redIcon })
+        .addTo(map)
+        .bindPopup(`<strong>${loc.name}</strong>`);
+    });
+  }
+</script>

@@ -1,0 +1,187 @@
+---
+import ReynoldsLayout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import { getCollection } from 'astro:content';
+
+// Get CMS blog posts if available
+let posts: any[] = [];
+try {
+  const allPosts = await getCollection('news');
+  posts = allPosts.sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
+} catch (e) {
+  // Collection may not exist yet
+}
+
+// Static fallback posts
+const staticPosts = [
+  {
+    slug: 'celebrating-60-years-of-excellence',
+    data: {
+      title: 'Celebrating 60 Years of Excellence',
+      description: 'From our humble beginnings in 1963 to becoming one of the most trusted names in the UK building finishes sector.',
+      pubDate: new Date('2024-01-15'),
+      image: '/assets/reynolds/hero-bg.jpg',
+      category: 'Heritage',
+      author: 'Reynolds Dryline',
+    },
+  },
+  {
+    slug: 'reynolds-dryline-wins-major-nottingham-contract',
+    data: {
+      title: 'Reynolds Dryline Wins Major Nottingham Contract',
+      description: 'We are proud to announce our partnership with Graham on the prestigious Bendigo Building development in Nottingham city centre.',
+      pubDate: new Date('2024-02-02'),
+      image: '/assets/reynolds/project-28rs.jpg',
+      category: 'Projects',
+      author: 'Reynolds Dryline',
+    },
+  },
+  {
+    slug: 'advancing-sustainable-construction-finishes',
+    data: {
+      title: 'Advancing Sustainable Construction Finishes',
+      description: 'Implementing new insulation and drylining techniques that reduce building carbon footprints across all our sites.',
+      pubDate: new Date('2024-03-10'),
+      image: '/assets/reynolds/drylining-01.jpg',
+      category: 'Innovation',
+      author: 'Reynolds Dryline',
+    },
+  },
+  {
+    slug: 'lancaster-street-birmingham-project-update',
+    data: {
+      title: 'Lancaster Street, Birmingham — Project Update',
+      description: 'An update on our ongoing Lancaster Street student accommodation project in Birmingham, delivered in partnership with Winvic.',
+      pubDate: new Date('2024-04-05'),
+      image: '/assets/reynolds/project-untitled.jpg',
+      category: 'Projects',
+      author: 'Reynolds Dryline',
+    },
+  },
+  {
+    slug: 'health-and-safety-excellence-award',
+    data: {
+      title: 'Reynolds Dryline Recognised for Health & Safety Excellence',
+      description: 'Our commitment to the highest standards of health and safety has been recognised with an industry commendation.',
+      pubDate: new Date('2024-05-20'),
+      image: '/assets/reynolds/project-building.jpg',
+      category: 'Company News',
+      author: 'Reynolds Dryline',
+    },
+  },
+  {
+    slug: 'bletchley-view-project-completed',
+    data: {
+      title: 'Bletchley View Forward Fund — Project Completed',
+      description: 'We are delighted to announce the successful completion of the Bletchley View development in Milton Keynes.',
+      pubDate: new Date('2024-06-15'),
+      image: '/assets/reynolds/project-bletchley.jpg',
+      category: 'Projects',
+      author: 'Reynolds Dryline',
+    },
+  },
+];
+
+const displayPosts = posts.length > 0 ? posts : staticPosts;
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+---
+
+<ReynoldsLayout
+  title="News & Updates | Reynolds Dryline"
+  description="The latest news, project updates, and industry insights from Reynolds Dryline — specialists in building finishes since 1963."
+  canonical="https://www.reynoldsdryline.co.uk/news"
+>
+  <Header currentPath="/news" />
+
+  <PageHero
+    title="News &amp; Updates"
+    subtitle="The latest from Reynolds Dryline — project updates, company news, and insights from the building finishes sector."
+    breadcrumb="Latest News"
+  />
+
+  <!-- News grid -->
+  <section class="bg-white py-20 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto">
+      <!-- Featured post (first article) -->
+      {displayPosts.length > 0 && (
+        <article class="grid grid-cols-1 lg:grid-cols-2 gap-0 mb-16 group border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300" data-animate>
+          <div class="overflow-hidden">
+            <img
+              src={displayPosts[0].data.image || '/assets/reynolds/hero-bg.jpg'}
+              alt={displayPosts[0].data.title}
+              class="w-full h-64 lg:h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-8 lg:p-12 flex flex-col justify-center">
+            <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-4 w-fit">
+              {displayPosts[0].data.category || 'News'}
+            </span>
+            <time class="text-gray-400 text-sm mb-3">{formatDate(new Date(displayPosts[0].data.pubDate))}</time>
+            <h2 class="text-2xl lg:text-3xl font-black text-gray-900 mb-4 group-hover:text-red-600 transition-colors duration-200">
+              <a href={`/news/${displayPosts[0].slug}`}>{displayPosts[0].data.title}</a>
+            </h2>
+            <p class="text-gray-600 leading-relaxed mb-6">{displayPosts[0].data.description}</p>
+            <a
+              href={`/news/${displayPosts[0].slug}`}
+              class="inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase hover:gap-3 transition-all duration-200"
+            >
+              Read Article
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </article>
+      )}
+
+      <!-- Remaining posts grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {displayPosts.slice(1).map((post, i) => (
+          <article class="group border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300" data-animate data-delay={`${(i % 3) * 100}`}>
+            <div class="overflow-hidden">
+              <img
+                src={post.data.image || '/assets/reynolds/hero-bg.jpg'}
+                alt={post.data.title}
+                class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+            </div>
+            <div class="p-6">
+              <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3">
+                {post.data.category || 'News'}
+              </span>
+              <time class="block text-gray-400 text-sm mb-2">{formatDate(new Date(post.data.pubDate))}</time>
+              <h2 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
+                <a href={`/news/${post.slug}`}>{post.data.title}</a>
+              </h2>
+              <p class="text-gray-500 text-sm leading-relaxed mb-4">{post.data.description}</p>
+              <a
+                href={`/news/${post.slug}`}
+                class="inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase hover:gap-3 transition-all duration-200"
+              >
+                Read Article
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      {displayPosts.length === 0 && (
+        <div class="text-center py-20">
+          <p class="text-gray-400 text-lg">No articles published yet. Check back soon.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <Footer />
+</ReynoldsLayout>

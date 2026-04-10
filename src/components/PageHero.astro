@@ -1,0 +1,32 @@
+---
+export interface Props {
+  title: string;
+  subtitle?: string;
+  bgImage?: string;
+  breadcrumb?: string;
+}
+
+const { title, subtitle, bgImage, breadcrumb } = Astro.props;
+---
+
+<section
+  class="relative bg-[#111111] pt-32 pb-20 px-6 lg:px-10 overflow-hidden"
+  style={bgImage ? `background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${bgImage}); background-size: cover; background-position: center;` : ''}
+>
+  <!-- Background pattern -->
+  {!bgImage && (
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%); background-size: 20px 20px;"></div>
+    </div>
+  )}
+
+  <div class="relative z-10 max-w-7xl mx-auto">
+    {breadcrumb && (
+      <p class="text-red-500 text-xs font-bold tracking-widest uppercase mb-4">{breadcrumb}</p>
+    )}
+    <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight mb-4">{title}</h1>
+    {subtitle && (
+      <p class="text-white/70 text-lg lg:text-xl max-w-2xl">{subtitle}</p>
+    )}
+  </div>
+</section>

@@ -1,0 +1,211 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Media files stored in the repo under public/assets/reynolds
+media_folder: "public/assets/reynolds"
+public_folder: "/assets/reynolds"
+
+# Site URL for previews
+site_url: https://www.reynoldsdryline.co.uk
+
+# Editorial workflow — adds a "Drafts" staging area before publishing
+publish_mode: editorial_workflow
+
+collections:
+  # ─────────────────────────────────────────────
+  # PROJECTS collection
+  # ─────────────────────────────────────────────
+  - name: "projects"
+    label: "Projects"
+    label_singular: "Project"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}} — {{location}}"
+    fields:
+      - label: "Project Title"
+        name: "title"
+        widget: "string"
+        hint: "The name of the project, e.g. Bendigo Building, Nottingham."
+
+      - label: "Location"
+        name: "location"
+        widget: "string"
+        hint: "City and country, e.g. Nottingham, UK."
+
+      - label: "Main Contractor"
+        name: "contractor"
+        widget: "string"
+        hint: "The main contractor, e.g. Graham, Winvic, Bowmer Kirkland."
+
+      - label: "Contract Value"
+        name: "value"
+        widget: "string"
+        hint: "The contract value, e.g. £4.4m."
+
+      - label: "Project Status"
+        name: "status"
+        widget: "select"
+        options:
+          - { label: "On Going", value: "On Going" }
+          - { label: "Completed", value: "Completed" }
+          - { label: "Upcoming", value: "Upcoming" }
+        default: "Completed"
+
+      - label: "Sector"
+        name: "sector"
+        widget: "select"
+        options:
+          - { label: "Residential", value: "Residential" }
+          - { label: "Commercial", value: "Commercial" }
+          - { label: "Industrial", value: "Industrial" }
+          - { label: "Hotels & Leisure", value: "Hotels & Leisure" }
+          - { label: "Education", value: "Education" }
+          - { label: "Healthcare", value: "Healthcare" }
+        default: "Residential"
+
+      - label: "Featured Image"
+        name: "image"
+        widget: "image"
+        required: false
+        hint: "Upload a project image. Recommended size: 1200×800px."
+        media_folder: "/public/assets/reynolds"
+        public_folder: "/assets/reynolds"
+
+      - label: "Short Description"
+        name: "description"
+        widget: "text"
+        hint: "A short summary of the project shown on the projects listing page. Keep it under 200 characters."
+
+      - label: "Services Provided"
+        name: "services"
+        widget: "list"
+        default: []
+        hint: "List the services provided on this project, e.g. Metal Stud Partitioning, Suspended Ceilings."
+
+      - label: "Featured Project?"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "Toggle on to show this project on the homepage."
+
+      - label: "Project Details"
+        name: "body"
+        widget: "markdown"
+        hint: "Full project description. Include details about scope, challenges, and outcomes."
+
+  # ─────────────────────────────────────────────
+  # NEWS / BLOG collection
+  # ─────────────────────────────────────────────
+  - name: "news"
+    label: "News & Blog"
+    label_singular: "Article"
+    folder: "src/content/news"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}} — {{pubDate}}"
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        hint: "The article headline."
+
+      - label: "Short Description"
+        name: "description"
+        widget: "text"
+        hint: "A short summary shown in search results and on the news listing page. Keep it under 160 characters."
+
+      - label: "Publish Date"
+        name: "pubDate"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "DD/MM/YYYY"
+        time_format: false
+        hint: "The date the article will be published."
+
+      - label: "Author"
+        name: "author"
+        widget: "string"
+        default: "Reynolds Dryline"
+        hint: "Author name displayed on the article."
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Projects", value: "Projects" }
+          - { label: "Company News", value: "Company News" }
+          - { label: "Heritage", value: "Heritage" }
+          - { label: "Innovation", value: "Innovation" }
+          - { label: "Industry News", value: "Industry News" }
+          - { label: "Careers", value: "Careers" }
+        default: "Company News"
+
+      - label: "Featured Image"
+        name: "image"
+        widget: "image"
+        required: false
+        hint: "Upload a featured image for the article. Recommended size: 1200×630px."
+        media_folder: "/public/assets/reynolds"
+        public_folder: "/assets/reynolds"
+
+      - label: "Featured Article?"
+        name: "featured"
+        widget: "boolean"
+        default: false
+        hint: "Toggle on to highlight this article on the news homepage."
+
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        hint: "Write the full article content here."
+
+  # ─────────────────────────────────────────────
+  # SITE SETTINGS (singleton)
+  # ─────────────────────────────────────────────
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - label: "General Settings"
+        name: "general"
+        file: "src/content/settings/general.json"
+        fields:
+          - label: "Site Title"
+            name: "siteTitle"
+            widget: "string"
+            default: "Reynolds Dryline"
+
+          - label: "Site Description"
+            name: "siteDescription"
+            widget: "text"
+            default: "Leaders in specialist building finishes. Providing complete dryline solutions since 1963."
+
+          - label: "Phone Number"
+            name: "phone"
+            widget: "string"
+            default: "01509 816 600"
+
+          - label: "Email Address"
+            name: "email"
+            widget: "string"
+            default: "info@reynoldsltd.co.uk"
+
+          - label: "Office Address"
+            name: "address"
+            widget: "text"
+            default: "9 Quorn Business Quarter, Loughborough Road, Mountsorrel, Leicestershire, LE12 7XF"
+
+          - label: "LinkedIn URL"
+            name: "linkedin"
+            widget: "string"
+            required: false
+
+          - label: "Instagram URL"
+            name: "instagram"
+            widget: "string"
+            required: false

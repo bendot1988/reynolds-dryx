@@ -1,0 +1,203 @@
+---
+import ReynoldsLayout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<ReynoldsLayout
+  title="About Reynolds Dryline | Our Story Since 1963"
+  description="Learn about Reynolds Dryline — over 60 years of excellence in specialist building finishes, metal stud partitioning, suspended ceilings and drylining across the UK."
+  canonical="https://www.reynoldsdryline.co.uk/about"
+>
+  <Header currentPath="/about" />
+
+  <PageHero
+    title="About Reynolds Dryline"
+    subtitle="Over 60 years of excellence in specialist building finishes. Our story is built on expertise, integrity, and a relentless commitment to quality."
+    breadcrumb="Our Story"
+  />
+
+  <!-- Our Story -->
+  <section class="bg-white py-20 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div data-animate>
+        <p class="rd-label mb-3">Our Heritage</p>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
+          Building Excellence Since 1963
+        </h2>
+        <div class="space-y-4 text-gray-600 leading-relaxed">
+          <p>
+            L Reynolds (Building Systems) Ltd was founded in 1963 with a simple but powerful vision: to provide the highest quality building finishes with unmatched reliability and expertise. Over six decades later, that vision remains at the heart of everything we do.
+          </p>
+          <p>
+            From our base in Leicestershire, we have grown to become one of the most trusted specialist subcontractors in the UK, delivering complete dryline solutions for some of the country's most prestigious construction projects.
+          </p>
+          <p>
+            Our reputation has been built not on being the biggest, but on being the most dependable. When contractors need a partner they can rely on to deliver to programme, within budget, and to the highest quality standards — they call Reynolds Dryline.
+          </p>
+        </div>
+      </div>
+
+      <div class="relative" data-animate data-delay="100">
+        <img
+          src="/assets/reynolds/project-bletchley.jpg"
+          alt="Reynolds Dryline project - Bletchley View"
+          class="w-full h-96 object-cover"
+          loading="lazy"
+        />
+        <!-- Year badge -->
+        <div class="absolute -bottom-6 -left-6 bg-red-600 text-white p-6 text-center">
+          <span class="text-5xl font-black block">60+</span>
+          <span class="text-sm font-bold tracking-widest uppercase">Years of Excellence</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="bg-gray-50 py-20 px-6 lg:px-10 mt-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-14" data-animate>
+        <p class="rd-label mb-3">What Drives Us</p>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-4">Our Core Values</h2>
+        <div class="w-12 h-1 bg-red-600 mx-auto"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {[
+          {
+            icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />`,
+            title: 'Quality',
+            desc: 'We never compromise on the standard of our work. Every project receives the same meticulous attention to detail, regardless of scale.',
+          },
+          {
+            icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />`,
+            title: 'Reliability',
+            desc: 'Our clients know that when Reynolds Dryline commits to a programme, we deliver. On time, every time.',
+          },
+          {
+            icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />`,
+            title: 'Partnership',
+            desc: 'We build long-term relationships with contractors and clients, working collaboratively to achieve the best outcomes for every project.',
+          },
+          {
+            icon: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />`,
+            title: 'Innovation',
+            desc: 'We continuously invest in our people, processes, and techniques to stay at the forefront of the building finishes sector.',
+          },
+        ].map((val, i) => (
+          <div class="bg-white p-8 border-t-4 border-red-600" data-animate data-delay={`${i * 100}`}>
+            <div class="w-12 h-12 bg-gray-100 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={val.icon} />
+            </div>
+            <h3 class="text-xl font-black text-gray-900 mb-3">{val.title}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">{val.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team / Leadership -->
+  <section class="bg-white py-20 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-14" data-animate>
+        <p class="rd-label mb-3">The Team</p>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-4">Expert Management</h2>
+        <div class="w-12 h-1 bg-red-600 mx-auto mb-6"></div>
+        <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+          Our leadership team brings decades of combined experience in specialist building finishes, ensuring every project benefits from deep technical knowledge and industry insight.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          {
+            name: 'Managing Director',
+            role: 'Leadership & Strategy',
+            desc: 'Overseeing the strategic direction of Reynolds Dryline, ensuring we continue to deliver exceptional results for our clients.',
+          },
+          {
+            name: 'Operations Director',
+            role: 'Project Delivery',
+            desc: 'Managing the day-to-day operations across all active sites, ensuring projects are delivered to programme and budget.',
+          },
+          {
+            name: 'Commercial Director',
+            role: 'Commercial & Estimating',
+            desc: 'Leading our commercial team to provide competitive, accurate pricing and manage contract negotiations.',
+          },
+        ].map((member, i) => (
+          <div class="text-center" data-animate data-delay={`${i * 100}`}>
+            <div class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-5 flex items-center justify-center">
+              <svg class="w-10 h-10 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-black text-gray-900 mb-1">{member.name}</h3>
+            <p class="text-red-600 text-sm font-bold tracking-widest uppercase mb-3">{member.role}</p>
+            <p class="text-gray-500 text-sm leading-relaxed">{member.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats bar -->
+  <section class="bg-[#111111] py-16 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+      {[
+        { number: '1963', label: 'Year Founded' },
+        { number: '60+', label: 'Years Experience' },
+        { number: '£100m+', label: 'Projects Delivered' },
+        { number: 'UK Wide', label: 'Coverage' },
+      ].map((stat, i) => (
+        <div data-animate data-delay={`${i * 100}`}>
+          <div class="text-4xl lg:text-5xl font-black text-white mb-2">{stat.number}</div>
+          <div class="text-white/50 text-sm font-bold tracking-widest uppercase">{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Accreditations -->
+  <section class="bg-white py-20 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12" data-animate>
+        <p class="rd-label mb-3">Compliance & Quality</p>
+        <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-4">Accreditations &amp; Certifications</h2>
+        <div class="w-12 h-1 bg-red-600 mx-auto"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-animate data-delay="100">
+        {[
+          {
+            title: 'Health & Safety',
+            desc: 'We maintain the highest standards of health and safety across all our sites, with regular training and audits.',
+          },
+          {
+            title: 'Quality Management',
+            desc: 'Our quality management systems ensure consistent, high-quality delivery on every project we undertake.',
+          },
+          {
+            title: 'Environmental',
+            desc: 'We are committed to reducing our environmental impact through responsible sourcing and waste management.',
+          },
+        ].map(cert => (
+          <div class="border border-gray-200 p-8 text-center">
+            <div class="w-16 h-16 bg-red-50 border-2 border-red-600 flex items-center justify-center mx-auto mb-5">
+              <svg class="w-8 h-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="text-lg font-black text-gray-900 mb-3">{cert.title}</h3>
+            <p class="text-gray-500 text-sm leading-relaxed">{cert.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</ReynoldsLayout>

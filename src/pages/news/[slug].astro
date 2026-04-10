@@ -1,0 +1,167 @@
+---
+import ReynoldsLayout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+// Static fallback articles
+const staticArticles: Record<string, any> = {
+  'celebrating-60-years-of-excellence': {
+    title: 'Celebrating 60 Years of Excellence',
+    description: 'From our humble beginnings in 1963 to becoming one of the most trusted names in the UK building finishes sector.',
+    pubDate: new Date('2024-01-15'),
+    image: '/assets/reynolds/hero-bg.jpg',
+    category: 'Heritage',
+    author: 'Reynolds Dryline',
+    body: `
+      <p>In 2023, Reynolds Dryline celebrated a remarkable milestone — 60 years of delivering exceptional building finishes across the United Kingdom. What began as a small, family-run business in Leicestershire has grown into one of the most respected specialist subcontractors in the country.</p>
+
+      <h2>Our Founding Story</h2>
+      <p>L Reynolds (Building Systems) Ltd was founded in 1963 by a craftsman with a passion for quality and a determination to build something lasting. From the very beginning, the company was built on the principles of reliability, quality, and integrity — values that remain at the heart of everything we do today.</p>
+
+      <h2>Six Decades of Growth</h2>
+      <p>Over the past six decades, we have grown from a small local contractor to a nationally recognised specialist subcontractor, delivering projects from Sheffield to London and beyond. Our portfolio spans residential, commercial, industrial, and leisure sectors, with project values ranging from hundreds of thousands to tens of millions of pounds.</p>
+
+      <h2>Looking to the Future</h2>
+      <p>As we look ahead, we remain committed to the same principles that have guided us for 60 years. We will continue to invest in our people, embrace new technologies and techniques, and build on the relationships that have made Reynolds Dryline the trusted partner of choice for the UK's leading contractors.</p>
+
+      <p>Thank you to everyone who has been part of our journey — our clients, our partners, and most importantly, our team.</p>
+    `,
+  },
+  'reynolds-dryline-wins-major-nottingham-contract': {
+    title: 'Reynolds Dryline Wins Major Nottingham Contract',
+    description: 'We are proud to announce our partnership with Graham on the prestigious Bendigo Building development in Nottingham city centre.',
+    pubDate: new Date('2024-02-02'),
+    image: '/assets/reynolds/project-28rs.jpg',
+    category: 'Projects',
+    author: 'Reynolds Dryline',
+    body: `
+      <p>Reynolds Dryline is delighted to announce the award of a major contract to deliver the drylining and building finishes package for the Bendigo Building development in Nottingham city centre.</p>
+
+      <h2>About the Project</h2>
+      <p>The Bendigo Building is a significant residential development in the heart of Nottingham, comprising hundreds of high-quality apartments. Reynolds Dryline has been appointed by main contractor Graham to deliver the complete internal building finishes package, including metal stud partitioning, suspended ceilings, and structural framing systems.</p>
+
+      <h2>Our Scope of Works</h2>
+      <p>Our scope on this project includes the installation of metal stud partitioning systems throughout the building, suspended ceiling systems in common areas and apartments, structural framing systems (SFS) for the external envelope, and acoustic and fire-rated systems to meet the project's demanding performance requirements.</p>
+
+      <h2>A Strong Partnership</h2>
+      <p>We are proud to be working with Graham on this prestigious project. Our teams have worked together on previous developments, and we look forward to building on that strong working relationship to deliver an exceptional result for the client.</p>
+    `,
+  },
+  'advancing-sustainable-construction-finishes': {
+    title: 'Advancing Sustainable Construction Finishes',
+    description: 'Implementing new insulation and drylining techniques that reduce building carbon footprints across all our sites.',
+    pubDate: new Date('2024-03-10'),
+    image: '/assets/reynolds/drylining-01.jpg',
+    category: 'Innovation',
+    author: 'Reynolds Dryline',
+    body: `
+      <p>At Reynolds Dryline, we recognise that the construction industry has a significant role to play in addressing the climate challenge. That's why we are continuously investing in new techniques, materials, and processes that reduce the environmental impact of our work.</p>
+
+      <h2>Sustainable Insulation Solutions</h2>
+      <p>We have been working with our supply chain partners to introduce a range of sustainable insulation products that deliver exceptional thermal and acoustic performance while significantly reducing embodied carbon. These include recycled mineral wool products, bio-based insulation materials, and high-performance rigid board systems.</p>
+
+      <h2>Reducing Waste on Site</h2>
+      <p>We have implemented a comprehensive waste management programme across all our sites, with the goal of diverting at least 90% of construction waste from landfill. This includes careful material planning to minimise offcuts, on-site segregation of waste streams, and partnerships with specialist recycling facilities.</p>
+
+      <h2>Committed to a Greener Future</h2>
+      <p>Our commitment to sustainability is not just about compliance — it's about doing the right thing for future generations. We will continue to invest in sustainable practices and work with our clients and supply chain partners to drive positive change across the sector.</p>
+    `,
+  },
+};
+
+export async function getStaticPaths() {
+  return Object.keys({
+    'celebrating-60-years-of-excellence': true,
+    'reynolds-dryline-wins-major-nottingham-contract': true,
+    'advancing-sustainable-construction-finishes': true,
+    'lancaster-street-birmingham-project-update': true,
+    'health-and-safety-excellence-award': true,
+    'bletchley-view-project-completed': true,
+  }).map(slug => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params;
+const article = staticArticles[slug] || {
+  title: 'Article Not Found',
+  description: '',
+  pubDate: new Date(),
+  image: '/assets/reynolds/hero-bg.jpg',
+  category: 'News',
+  author: 'Reynolds Dryline',
+  body: '<p>This article could not be found.</p>',
+};
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+---
+
+<ReynoldsLayout
+  title={`${article.title} | Reynolds Dryline News`}
+  description={article.description}
+  canonical={`https://www.reynoldsdryline.co.uk/news/${slug}`}
+  ogImage={article.image}
+>
+  <Header currentPath="/news" />
+
+  <!-- Article Hero -->
+  <section class="relative bg-[#111111] pt-32 pb-0 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 pb-12">
+      <a href="/news" class="inline-flex items-center gap-2 text-white/50 hover:text-white text-sm mb-8 transition-colors duration-200">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        Back to News
+      </a>
+      <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-4">
+        {article.category}
+      </span>
+      <h1 class="text-4xl lg:text-6xl font-black text-white leading-tight mb-4 max-w-4xl">
+        {article.title}
+      </h1>
+      <div class="flex items-center gap-4 text-white/50 text-sm">
+        <time>{formatDate(new Date(article.pubDate))}</time>
+        <span>·</span>
+        <span>{article.author}</span>
+      </div>
+    </div>
+
+    <!-- Hero image -->
+    <div class="max-w-7xl mx-auto px-6 lg:px-10">
+      <img
+        src={article.image}
+        alt={article.title}
+        class="w-full h-64 lg:h-96 object-cover"
+        loading="eager"
+      />
+    </div>
+  </section>
+
+  <!-- Article body -->
+  <section class="bg-white py-16 px-6 lg:px-10">
+    <div class="max-w-3xl mx-auto">
+      <div
+        class="prose prose-lg prose-headings:font-black prose-headings:text-gray-900 prose-p:text-gray-600 prose-p:leading-relaxed prose-a:text-red-600 prose-a:no-underline hover:prose-a:underline max-w-none"
+        set:html={article.body}
+      />
+
+      <!-- Share / Back -->
+      <div class="mt-12 pt-8 border-t border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <a href="/news" class="inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase hover:gap-3 transition-all duration-200">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          All News
+        </a>
+        <a href="/contact" class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white font-bold px-6 py-3 text-xs tracking-widest uppercase transition-colors duration-200">
+          Contact Us
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</ReynoldsLayout>

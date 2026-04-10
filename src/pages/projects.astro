@@ -1,0 +1,229 @@
+---
+import ReynoldsLayout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import { getCollection } from 'astro:content';
+
+// Get CMS projects if available
+let cmsProjects: any[] = [];
+try {
+  cmsProjects = await getCollection('projects');
+} catch (e) {
+  // Collection may not exist yet
+}
+
+// Static fallback projects
+const staticProjects = [
+  {
+    title: 'Bendigo Building',
+    location: 'Nottingham, UK',
+    contractor: 'Graham',
+    value: '£4.4m',
+    status: 'On Going',
+    sector: 'Residential',
+    image: '/assets/reynolds/project-28rs.jpg',
+    services: ['Metal Stud Partitioning', 'Suspended Ceilings', 'SFS'],
+    description: 'A major residential development in Nottingham city centre, delivering high-quality drylining and ceiling solutions across multiple floors.',
+  },
+  {
+    title: 'Lancaster Street',
+    location: 'Birmingham, UK',
+    contractor: 'Winvic',
+    value: '£4.4m',
+    status: 'On Going',
+    sector: 'Residential',
+    image: '/assets/reynolds/project-untitled.jpg',
+    services: ['Metal Stud Partitioning', 'Insulation', 'Plastering'],
+    description: 'Student accommodation development in Birmingham, requiring precise acoustic performance and high-quality finishes throughout.',
+  },
+  {
+    title: 'Lisbon Street, Leeds',
+    location: 'Leeds, UK',
+    contractor: 'Winvic',
+    value: '£3.2m',
+    status: 'Completed',
+    sector: 'Residential',
+    image: '/assets/reynolds/project-lisbon-st-leeds.jpg',
+    services: ['Metal Stud Partitioning', 'Suspended Ceilings', 'Plastering'],
+    description: 'A high-density residential project in Leeds, delivering complete building finishes to a tight programme.',
+  },
+  {
+    title: 'Bletchley View',
+    location: 'Milton Keynes, UK',
+    contractor: 'Bowmer Kirkland',
+    value: '£2.8m',
+    status: 'Completed',
+    sector: 'Residential',
+    image: '/assets/reynolds/project-bletchley.jpg',
+    services: ['SFS', 'Metal Stud Partitioning', 'Insulation'],
+    description: 'Forward-funded residential development in Milton Keynes, featuring complex SFS external wall systems.',
+  },
+  {
+    title: 'Commercial Office Development',
+    location: 'East Midlands, UK',
+    contractor: 'Galliford Try',
+    value: '£1.9m',
+    status: 'Completed',
+    sector: 'Commercial',
+    image: '/assets/reynolds/drylining-01.jpg',
+    services: ['Metal Stud Partitioning', 'Suspended Ceilings'],
+    description: 'Modern commercial office space requiring bespoke ceiling and partition solutions to meet client specifications.',
+  },
+  {
+    title: 'Industrial Warehouse Complex',
+    location: 'Midlands, UK',
+    contractor: 'Engie',
+    value: '£2.1m',
+    status: 'Completed',
+    sector: 'Industrial',
+    image: '/assets/reynolds/project-building.jpg',
+    services: ['Metal Stud Partitioning', 'Suspended Ceilings', 'Fire Barriers'],
+    description: 'Large-scale industrial warehouse with integrated multi-storey office block, requiring specialist fire and acoustic solutions.',
+  },
+];
+
+const projects = cmsProjects.length > 0 ? cmsProjects : staticProjects;
+const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Leisure'];
+---
+
+<ReynoldsLayout
+  title="Project Portfolio | Reynolds Dryline"
+  description="Browse Reynolds Dryline's project portfolio. We have delivered high-value drylining and building finishes projects across the UK for leading contractors."
+  canonical="https://www.reynoldsdryline.co.uk/projects"
+>
+  <Header currentPath="/projects" />
+
+  <PageHero
+    title="Project Portfolio"
+    subtitle="A selection of our completed and ongoing projects, showcasing the breadth and quality of our work across the UK."
+    breadcrumb="Our Work"
+  />
+
+  <!-- Filter bar -->
+  <section class="bg-white border-b border-gray-200 px-6 lg:px-10 py-5 sticky top-16 z-30">
+    <div class="max-w-7xl mx-auto flex flex-wrap gap-3 items-center">
+      <span class="text-xs font-bold tracking-widest uppercase text-gray-500 mr-2">Filter:</span>
+      {sectors.map(sector => (
+        <button
+          class="rd-filter-btn text-xs font-bold tracking-widest uppercase px-4 py-2 border transition-all duration-200"
+          data-sector={sector}
+          class:list={[
+            sector === 'All'
+              ? 'bg-red-600 text-white border-red-600'
+              : 'bg-white text-gray-600 border-gray-300 hover:border-red-600 hover:text-red-600'
+          ]}
+        >
+          {sector}
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <!-- Projects grid -->
+  <section class="bg-white py-16 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="rd-projects-grid">
+        {staticProjects.map((project, i) => (
+          <article
+            class="rd-project-item group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            data-sector={project.sector}
+            data-animate
+            data-delay={`${(i % 3) * 100}`}
+          >
+            <div class="overflow-hidden">
+              <img
+                src={project.image}
+                alt={project.title}
+                class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+            </div>
+            <div class="p-6">
+              <!-- Sector badge -->
+              <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3">
+                {project.sector}
+              </span>
+
+              <h2 class="text-xl font-black text-gray-900 mb-1">{project.title}</h2>
+              <p class="text-gray-500 text-sm mb-4">{project.location}</p>
+              <p class="text-gray-600 text-sm leading-relaxed mb-5">{project.description}</p>
+
+              <!-- Project details -->
+              <div class="grid grid-cols-2 gap-3 mb-5 text-xs">
+                <div class="bg-gray-50 p-3">
+                  <span class="block text-gray-400 font-bold tracking-widest uppercase mb-1">Contractor</span>
+                  <span class="text-gray-900 font-semibold">{project.contractor}</span>
+                </div>
+                <div class="bg-gray-50 p-3">
+                  <span class="block text-gray-400 font-bold tracking-widest uppercase mb-1">Value</span>
+                  <span class="text-gray-900 font-semibold">{project.value}</span>
+                </div>
+                <div class="bg-gray-50 p-3 col-span-2">
+                  <span class="block text-gray-400 font-bold tracking-widest uppercase mb-1">Status</span>
+                  <span class={`font-semibold ${project.status === 'On Going' ? 'text-green-600' : 'text-gray-900'}`}>
+                    {project.status}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Services tags -->
+              <div class="flex flex-wrap gap-2">
+                {project.services.map(service => (
+                  <span class="text-xs font-semibold px-2 py-1 bg-gray-100 text-gray-600">{service}</span>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-[#111111] py-20 px-6 lg:px-10">
+    <div class="max-w-4xl mx-auto text-center" data-animate>
+      <h2 class="text-4xl lg:text-5xl font-black text-white mb-6">Have a Project in Mind?</h2>
+      <p class="text-white/70 text-lg mb-10">
+        We'd love to discuss how Reynolds Dryline can help deliver your next project to the highest standards.
+      </p>
+      <a href="/contact" class="rd-btn-primary">
+        Get in Touch
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <Footer />
+</ReynoldsLayout>
+
+<script>
+  const filterBtns = document.querySelectorAll('.rd-filter-btn');
+  const projectItems = document.querySelectorAll('.rd-project-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sector = btn.getAttribute('data-sector');
+
+      // Update active button
+      filterBtns.forEach(b => {
+        b.classList.remove('bg-red-600', 'text-white', 'border-red-600');
+        b.classList.add('bg-white', 'text-gray-600', 'border-gray-300');
+      });
+      btn.classList.add('bg-red-600', 'text-white', 'border-red-600');
+      btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-300');
+
+      // Filter projects
+      projectItems.forEach(item => {
+        const itemSector = item.getAttribute('data-sector');
+        if (sector === 'All' || itemSector === sector) {
+          (item as HTMLElement).style.display = '';
+        } else {
+          (item as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

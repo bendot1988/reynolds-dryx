@@ -1,0 +1,287 @@
+---
+import ReynoldsLayout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+---
+
+<ReynoldsLayout
+  title="Contact Reynolds Dryline | Get in Touch"
+  description="Contact Reynolds Dryline for expert drylining, metal stud partitioning, suspended ceilings and building finishes. Based in Leicestershire, working nationwide."
+  canonical="https://www.reynoldsdryline.co.uk/contact"
+>
+  <Header currentPath="/contact" />
+
+  <PageHero
+    title="Get in Touch"
+    subtitle="Whether you have a project enquiry, want to discuss a tender, or simply want to learn more about our services — we'd love to hear from you."
+    breadcrumb="Contact Us"
+  />
+
+  <!-- Contact Content -->
+  <section class="bg-white py-20 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+      <!-- Contact Form -->
+      <div>
+        <h2 class="text-3xl font-black text-gray-900 mb-2">Send Us a Message</h2>
+        <div class="w-10 h-1 bg-red-600 mb-8"></div>
+
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          class="space-y-5"
+          id="rd-contact-form"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="hidden">
+            <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label for="first-name" class="block text-xs font-bold tracking-widest uppercase text-gray-700 mb-2">First Name *</label>
+              <input
+                type="text"
+                id="first-name"
+                name="first-name"
+                required
+                class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
+                placeholder="John"
+              />
+            </div>
+            <div>
+              <label for="last-name" class="block text-xs font-bold tracking-widest uppercase text-gray-700 mb-2">Last Name *</label>
+              <input
+                type="text"
+                id="last-name"
+                name="last-name"
+                required
+                class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
+                placeholder="Smith"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="company" class="block text-xs font-bold tracking-widest uppercase text-gray-700 mb-2">Company</label>
+            <input
+              type="text"
+              id="company"
+              name="company"
+              class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
+              placeholder="Your Company Ltd"
+            />
+          </div>
+
+          <div>
+            <label for="email" class="block text-xs font-bold tracking-widest uppercase text-gray-700 mb-2">Email Address *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
+              placeholder="john@company.co.uk"
+            />
+          </div>
+
+          <div>
+            <label for="phone" class="block text-xs font-bold tracking-widest uppercase text-gray-700 mb-2">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
+              placeholder="01509 000 000"
+            />
+          </div>
+
+          <div>
+            <label for="project-type" class="block text-xs font-bold tracking-widest uppercase text-gray-700 mb-2">Project Type</label>
+            <select
+              id="project-type"
+              name="project-type"
+              class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200 bg-white"
+            >
+              <option value="">Select a service...</option>
+              <option value="metal-stud-partitioning">Metal Stud Partitioning</option>
+              <option value="suspended-ceilings">Suspended Ceilings</option>
+              <option value="structural-framing-systems">Structural Framing Systems (SFS)</option>
+              <option value="insulation-sound-proofing">Insulation &amp; Sound Proofing</option>
+              <option value="professional-plastering">Professional Plastering</option>
+              <option value="general-enquiry">General Enquiry</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="message" class="block text-xs font-bold tracking-widest uppercase text-gray-700 mb-2">Message *</label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows="5"
+              class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200 resize-none"
+              placeholder="Tell us about your project..."
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 text-sm tracking-widest uppercase transition-colors duration-200 flex items-center justify-center gap-2"
+          >
+            Send Message
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </button>
+        </form>
+
+        <!-- Success message (hidden by default) -->
+        <div id="rd-form-success" class="hidden mt-6 bg-green-50 border border-green-200 p-6 text-center">
+          <svg class="w-10 h-10 text-green-500 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3 class="text-lg font-bold text-gray-900 mb-1">Message Sent!</h3>
+          <p class="text-gray-600 text-sm">Thank you for getting in touch. We'll get back to you within one business day.</p>
+        </div>
+      </div>
+
+      <!-- Contact Info + Map -->
+      <div>
+        <h2 class="text-3xl font-black text-gray-900 mb-2">Contact Details</h2>
+        <div class="w-10 h-1 bg-red-600 mb-8"></div>
+
+        <div class="space-y-6 mb-10">
+          <!-- Address -->
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-red-600 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-900 mb-1">Office Address</h3>
+              <address class="text-gray-600 text-sm not-italic leading-relaxed">
+                9 Quorn Business Quarter,<br />
+                Loughborough Road,<br />
+                Mountsorrel,<br />
+                Leicestershire, LE12 7XF
+              </address>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-red-600 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-900 mb-1">Phone</h3>
+              <a href="tel:01509816600" class="text-gray-600 text-sm hover:text-red-600 transition-colors duration-200">01509 816 600</a>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-red-600 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-900 mb-1">Email</h3>
+              <a href="mailto:info@reynoldsltd.co.uk" class="text-gray-600 text-sm hover:text-red-600 transition-colors duration-200">info@reynoldsltd.co.uk</a>
+            </div>
+          </div>
+
+          <!-- Hours -->
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 bg-red-600 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-900 mb-1">Office Hours</h3>
+              <p class="text-gray-600 text-sm">Monday – Friday: 8:00am – 5:00pm</p>
+              <p class="text-gray-600 text-sm">Saturday &amp; Sunday: Closed</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="h-72 bg-gray-100 overflow-hidden" id="rd-contact-map"></div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</ReynoldsLayout>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script>
+  import L from 'leaflet';
+
+  delete (L.Icon.Default.prototype as any)._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  });
+
+  const mapEl = document.getElementById('rd-contact-map');
+  if (mapEl) {
+    const map = L.map('rd-contact-map', {
+      center: [52.7175, -1.1474],
+      zoom: 14,
+      scrollWheelZoom: false,
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+      subdomains: 'abcd',
+      maxZoom: 19,
+    }).addTo(map);
+
+    const redIcon = L.divIcon({
+      className: '',
+      html: '<div style="width:16px;height:16px;background:#CC0000;border-radius:50%;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.4);"></div>',
+      iconSize: [16, 16],
+      iconAnchor: [8, 8],
+    });
+
+    L.marker([52.7175, -1.1474], { icon: redIcon })
+      .addTo(map)
+      .bindPopup('<strong>Reynolds Dryline</strong><br>9 Quorn Business Quarter<br>Mountsorrel, LE12 7XF')
+      .openPopup();
+  }
+
+  // Form handling
+  const form = document.getElementById('rd-contact-form') as HTMLFormElement | null;
+  const successMsg = document.getElementById('rd-form-success');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+
+      if (response.ok) {
+        form.style.display = 'none';
+        successMsg?.classList.remove('hidden');
+      }
+    } catch (err) {
+      console.error('Form submission error:', err);
+    }
+  });
+</script>
