@@ -116,14 +116,12 @@ body.js-ready [data-animate].animate-in {
 /* =============================================
    Smart link underlines (hover / keyboard focus)
    ============================================= */
-.rd-link-underline,
-.rd-footer-cta {
+.rd-link-underline {
   position: relative;
   text-decoration: none;
 }
 
-.rd-link-underline::after,
-.rd-footer-cta::after {
+.rd-link-underline::after {
   content: '';
   position: absolute;
   left: 0;
@@ -138,18 +136,8 @@ body.js-ready [data-animate].animate-in {
 }
 
 .rd-link-underline:hover::after,
-.rd-link-underline:focus-visible::after,
-.rd-footer-cta:hover::after,
-.rd-footer-cta:focus-visible::after {
+.rd-link-underline:focus-visible::after {
   transform: scaleX(1);
-}
-
-/* Bordered footer / hero CTAs — line sits inside padding */
-.rd-footer-cta::after {
-  left: 1.85rem;
-  right: 1.85rem;
-  bottom: 0.72rem;
-  height: 1px;
 }
 
 /* Bordered pill-style links (e.g. “View All Projects”) */
@@ -188,7 +176,6 @@ a.rd-link-underline-fill:focus-visible::after {
 @media (prefers-reduced-motion: reduce) {
   .rd-link-underline::after,
   .rd-link-underline--inset::after,
-  .rd-footer-cta::after,
   a.rd-link-underline-fill::after,
   .rd-btn-primary::after,
   .rd-btn-outline::after,
@@ -306,7 +293,7 @@ a.rd-link-underline-fill:focus-visible::after {
   transform: translateY(-1px);
 }
 
-/* Home hero only: no hover fill / lift; bottom-edge accent bar (roll out later if approved) */
+/* Hero + footer CTA band: no hover fill / lift; bottom-edge accent bar */
 a.rd-hero-cta.rd-btn-primary,
 a.rd-hero-cta.rd-btn-outline {
   overflow: hidden;
@@ -334,6 +321,25 @@ a.rd-hero-cta.rd-btn-outline::after {
   opacity: 1;
   background-color: #fff;
   border-radius: 0 0 var(--rd-radius-sm) var(--rd-radius-sm);
+}
+
+/* White solid on red band (footer) — same motion; accent uses brand red */
+a.rd-hero-cta--on-red.rd-btn-primary {
+  background-color: #fff;
+  color: var(--rd-red);
+  padding: 1rem 2rem;
+  font-size: 0.875rem;
+}
+
+a.rd-hero-cta--on-red.rd-btn-primary:hover,
+a.rd-hero-cta--on-red.rd-btn-primary:focus-visible {
+  background-color: #fff;
+  color: var(--rd-red);
+  transform: none;
+}
+
+a.rd-hero-cta--on-red.rd-btn-primary::after {
+  background-color: var(--rd-red);
 }
 
 .rd-btn-outline-red {

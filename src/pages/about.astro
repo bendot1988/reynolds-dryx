@@ -3,6 +3,26 @@ import ReynoldsLayout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
+
+const teamPortraitUrl = 'https://reynoldsltd.co.uk/wp-content/uploads/2022/07/5.jpg';
+
+const team = [
+  {
+    name: 'Managing Director',
+    role: 'Leadership & Strategy',
+    desc: 'Overseeing the strategic direction of Reynolds Dryline, ensuring we continue to deliver exceptional results for our clients.',
+  },
+  {
+    name: 'Operations Director',
+    role: 'Project Delivery',
+    desc: 'Managing the day-to-day operations across all active sites, ensuring projects are delivered to programme and budget.',
+  },
+  {
+    name: 'Commercial Director',
+    role: 'Commercial & Estimating',
+    desc: 'Leading our commercial team to provide competitive, accurate pricing and manage contract negotiations.',
+  },
+];
 ---
 
 <ReynoldsLayout
@@ -40,28 +60,30 @@ import PageHero from '../components/PageHero.astro';
       </div>
 
       <div class="relative" data-animate data-delay="100">
-        <img
-          src="/assets/reynolds/project-bletchley.jpg"
-          alt="Reynolds Dryline project - Bletchley View"
-          class="w-full h-96 object-cover"
-          loading="lazy"
-        />
+        <div class="rounded-2xl overflow-hidden shadow-xl ring-1 ring-black/5">
+          <img
+            src="/assets/reynolds/project-bletchley.jpg"
+            alt="Reynolds Dryline project - Bletchley View"
+            class="w-full h-96 object-cover"
+            loading="lazy"
+          />
+        </div>
         <!-- Year badge -->
-        <div class="absolute -bottom-6 -left-6 bg-red-600 text-white p-6 text-center">
-          <span class="text-5xl font-black block">60+</span>
-          <span class="text-sm font-bold tracking-widest uppercase">Years of Excellence</span>
+        <div class="absolute -bottom-6 -left-2 sm:-left-4 bg-red-600 text-white p-5 sm:p-6 text-center rounded-2xl shadow-lg max-[480px]:left-2">
+          <span class="text-4xl sm:text-5xl font-black block">60+</span>
+          <span class="text-xs sm:text-sm font-bold tracking-widest uppercase">Years of Excellence</span>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Values -->
-  <section class="bg-gray-50 py-20 px-6 lg:px-10 mt-8">
+  <section class="bg-gray-50 py-20 px-6 lg:px-10 mt-8 rounded-t-[2rem] sm:rounded-t-[2.5rem]">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-14" data-animate>
         <p class="rd-label mb-3">What Drives Us</p>
         <h2 class="text-5xl lg:text-6xl font-black text-gray-900 mb-4">Our Core Values</h2>
-        <div class="w-12 h-1 bg-red-600 mx-auto"></div>
+        <div class="w-12 h-1 bg-red-600 mx-auto rounded-full"></div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -87,8 +109,12 @@ import PageHero from '../components/PageHero.astro';
             desc: 'We continuously invest in our people, processes, and techniques to stay at the forefront of the building finishes sector.',
           },
         ].map((val, i) => (
-          <div class="bg-white p-8 border-t-4 border-red-600" data-animate data-delay={`${i * 100}`}>
-            <div class="w-12 h-12 bg-gray-100 flex items-center justify-center mb-5">
+          <div
+            class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm border-t-4 border-t-red-600 hover:shadow-md transition-shadow duration-300"
+            data-animate
+            data-delay={`${i * 100}`}
+          >
+            <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center mb-5">
               <svg class="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" set:html={val.icon} />
             </div>
             <h3 class="text-xl font-black text-gray-900 mb-3">{val.title}</h3>
@@ -99,46 +125,50 @@ import PageHero from '../components/PageHero.astro';
     </div>
   </section>
 
-  <!-- Team / Leadership -->
+  <!-- Meet the Team -->
   <section class="bg-white py-20 px-6 lg:px-10">
     <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-14" data-animate>
-        <p class="rd-label mb-3">The Team</p>
-        <h2 class="text-5xl lg:text-6xl font-black text-gray-900 mb-4">Expert Management</h2>
-        <div class="w-12 h-1 bg-red-600 mx-auto mb-6"></div>
-        <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-          Our leadership team brings decades of combined experience in specialist building finishes, ensuring every project benefits from deep technical knowledge and industry insight.
+      <div class="text-center mb-14 lg:mb-16" data-animate>
+        <p class="rd-label mb-3">Our People</p>
+        <h2 class="text-5xl lg:text-6xl font-black text-gray-900 mb-4">Meet the Team</h2>
+        <div class="w-12 h-1 bg-red-600 mx-auto mb-6 rounded-full"></div>
+        <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+          Our leadership brings decades of combined experience in specialist building finishes — the faces behind our commitment to quality on every project.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {[
-          {
-            name: 'Managing Director',
-            role: 'Leadership & Strategy',
-            desc: 'Overseeing the strategic direction of Reynolds Dryline, ensuring we continue to deliver exceptional results for our clients.',
-          },
-          {
-            name: 'Operations Director',
-            role: 'Project Delivery',
-            desc: 'Managing the day-to-day operations across all active sites, ensuring projects are delivered to programme and budget.',
-          },
-          {
-            name: 'Commercial Director',
-            role: 'Commercial & Estimating',
-            desc: 'Leading our commercial team to provide competitive, accurate pricing and manage contract negotiations.',
-          },
-        ].map((member, i) => (
-          <div class="text-center" data-animate data-delay={`${i * 100}`}>
-            <div class="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-5 flex items-center justify-center">
-              <svg class="w-10 h-10 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-              </svg>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+        {team.map((member, i) => (
+          <article
+            class:list={[
+              'rd-team-card group relative flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-md hover:shadow-xl transition-all duration-500',
+              { 'lg:translate-y-6': i === 1 },
+            ]}
+            data-animate
+            data-delay={`${i * 100}`}
+          >
+            <!-- Brand initial backdrop -->
+            <div class="rd-team-card__bg-r absolute inset-0 pointer-events-none overflow-hidden rounded-2xl" aria-hidden="true">
+              <span class="rd-team-card__letter">R</span>
             </div>
-            <h3 class="text-xl font-black text-gray-900 mb-1">{member.name}</h3>
-            <p class="text-red-600 text-sm font-bold tracking-widest uppercase mb-3">{member.role}</p>
-            <p class="text-gray-500 text-sm leading-relaxed">{member.desc}</p>
-          </div>
+
+            <div class="relative z-[1] flex flex-col flex-1">
+              <div class="relative aspect-[3/4] overflow-hidden m-3 mb-0 rounded-xl bg-gray-50 ring-1 ring-gray-100">
+                <img
+                  src={teamPortraitUrl}
+                  alt={`${member.name} — Reynolds Dryline leadership`}
+                  class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="relative z-[1] p-6 pt-5 text-center flex-1 flex flex-col">
+                <h3 class="text-xl font-black text-gray-900 mb-1">{member.name}</h3>
+                <p class="text-red-600 text-sm font-bold tracking-widest uppercase mb-3">{member.role}</p>
+                <p class="text-gray-500 text-sm leading-relaxed flex-1">{member.desc}</p>
+              </div>
+            </div>
+          </article>
         ))}
       </div>
     </div>
@@ -146,28 +176,32 @@ import PageHero from '../components/PageHero.astro';
 
   <!-- Stats bar -->
   <section class="bg-[#111111] py-16 px-6 lg:px-10">
-    <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 text-center">
       {[
         { number: '1963', label: 'Year Founded' },
         { number: '60+', label: 'Years Experience' },
         { number: '£100m+', label: 'Projects Delivered' },
         { number: 'UK Wide', label: 'Coverage' },
       ].map((stat, i) => (
-        <div data-animate data-delay={`${i * 100}`}>
-          <div class="text-4xl lg:text-5xl font-black text-white mb-2">{stat.number}</div>
-          <div class="text-white/50 text-sm font-bold tracking-widest uppercase">{stat.label}</div>
+        <div
+          class="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-8 lg:py-10"
+          data-animate
+          data-delay={`${i * 100}`}
+        >
+          <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-2">{stat.number}</div>
+          <div class="text-white/50 text-xs sm:text-sm font-bold tracking-widest uppercase">{stat.label}</div>
         </div>
       ))}
     </div>
   </section>
 
   <!-- Accreditations -->
-  <section class="bg-white py-20 px-6 lg:px-10">
+  <section class="bg-white py-20 px-6 lg:px-10 rounded-b-[2rem] sm:rounded-b-[2.5rem]">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-12" data-animate>
         <p class="rd-label mb-3">Compliance & Quality</p>
         <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-4">Accreditations &amp; Certifications</h2>
-        <div class="w-12 h-1 bg-red-600 mx-auto"></div>
+        <div class="w-12 h-1 bg-red-600 mx-auto rounded-full"></div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-animate data-delay="100">
@@ -185,8 +219,8 @@ import PageHero from '../components/PageHero.astro';
             desc: 'We are committed to reducing our environmental impact through responsible sourcing and waste management.',
           },
         ].map(cert => (
-          <div class="border border-gray-200 p-8 text-center">
-            <div class="w-16 h-16 bg-red-50 border-2 border-red-600 flex items-center justify-center mx-auto mb-5">
+          <div class="border border-gray-200 p-8 text-center rounded-2xl bg-gray-50/50 hover:bg-white hover:shadow-lg hover:border-gray-200 transition-all duration-300">
+            <div class="w-16 h-16 bg-red-50 border-2 border-red-600 rounded-xl flex items-center justify-center mx-auto mb-5">
               <svg class="w-8 h-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
@@ -201,3 +235,36 @@ import PageHero from '../components/PageHero.astro';
 
   <Footer />
 </ReynoldsLayout>
+
+<style>
+  .rd-team-card__bg-r {
+    background: linear-gradient(165deg, #fff 0%, #fdf6f7 45%, #fce8ec 100%);
+  }
+
+  .rd-team-card__letter {
+    position: absolute;
+    right: -0.05em;
+    top: 50%;
+    transform: translateY(-52%);
+    font-size: clamp(6.5rem, 28vw, 11rem);
+    font-weight: 900;
+    line-height: 0.85;
+    letter-spacing: -0.06em;
+    color: rgba(226, 49, 37, 0.14);
+    user-select: none;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    .rd-team-card__letter {
+      font-size: clamp(7rem, 19vw, 9.5rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .rd-team-card__letter {
+      font-size: clamp(6rem, 13vw, 8.5rem);
+    }
+  }
+</style>
