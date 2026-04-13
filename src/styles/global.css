@@ -508,3 +508,15 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
   border: 1px solid rgba(255,255,255,0.2);
   border-radius: var(--rd-radius-sm);
 }
+
+.rd-tag-light {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-family: 'Montserrat', system-ui, sans-serif;
+  font-weight: 600;
+  padding: 0.2rem 0.65rem;
+  background: #f3f4f6;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--rd-radius-sm);
+}
