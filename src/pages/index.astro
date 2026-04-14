@@ -69,41 +69,47 @@ import Footer from '../components/Footer.astro';
   </section>
 
   <!-- ============================================================
-       STATS / USPs SECTION
+       PHOTO-BACKED STATS / COUNTERS
   ============================================================ -->
-  <section class="bg-white py-20 px-6 lg:px-10">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
-      <!-- Stat 1 -->
-      <div class="text-center" data-animate>
-        <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mx-auto mb-5">
-          <svg class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-black text-gray-900 mb-2">Established 1963</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">Six decades of unwavering commitment to quality and service. Heritage you can trust.</p>
+  <section class="relative py-20 px-6 lg:px-10 overflow-hidden">
+    <img
+      src="/assets/reynolds/home-stats-bg.png"
+      alt="Reynolds Dryline team installing internal walls"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-black/55"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto">
+      <div class="text-center mb-10 lg:mb-12" data-animate>
+        <p class="rd-label !text-white/80 mb-3">By The Numbers</p>
+        <h2 class="text-4xl lg:text-5xl font-black text-white">Built on Proven Delivery</h2>
       </div>
 
-      <!-- Stat 2 -->
-      <div class="text-center" data-animate data-delay="100">
-        <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mx-auto mb-5">
-          <svg class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-black text-gray-900 mb-2">The Most Trusted</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">We're not the biggest, but our reputation for reliability and expertise is unmatched.</p>
-      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+        <article class="bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate>
+          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Stud Wall Installed</p>
+          <p class="text-4xl lg:text-5xl font-black leading-none mb-4">
+            <span data-counter data-target="4800000" data-suffix="+">4,800,000+</span>
+          </p>
+          <p class="text-white/85 text-sm font-semibold tracking-wide uppercase">sq ft delivered across UK projects</p>
+        </article>
 
-      <!-- Stat 3 -->
-      <div class="text-center" data-animate data-delay="200">
-        <div class="w-14 h-14 rounded-full border-2 border-gray-200 flex items-center justify-center mx-auto mb-5">
-          <svg class="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-black text-gray-900 mb-2">Delivery Driven</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">Ready to fulfill high-value projects to programme and within budget. Always.</p>
+        <article class="bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate data-delay="100">
+          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Buildings Completed</p>
+          <p class="text-4xl lg:text-5xl font-black leading-none mb-4">
+            <span data-counter data-target="350" data-suffix="+">350+</span>
+          </p>
+          <p class="text-white/85 text-sm font-semibold tracking-wide uppercase">projects handed over to date</p>
+        </article>
+
+        <article class="bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate data-delay="200">
+          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Project Value Delivered</p>
+          <p class="text-4xl lg:text-5xl font-black leading-none mb-4">
+            <span data-counter data-target="950" data-prefix="£" data-suffix="m+">£950m+</span>
+          </p>
+          <p class="text-white/85 text-sm font-semibold tracking-wide uppercase">construction value delivered</p>
+        </article>
       </div>
     </div>
   </section>
@@ -508,6 +514,70 @@ import Footer from '../components/Footer.astro';
 
   <Footer />
 </ReynoldsLayout>
+
+<script is:inline>
+  (function () {
+    const counters = document.querySelectorAll('[data-counter]');
+    if (!counters.length) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const numberFormatter = new Intl.NumberFormat('en-GB');
+
+    function renderCounter(el, value) {
+      const prefix = el.getAttribute('data-prefix') || '';
+      const suffix = el.getAttribute('data-suffix') || '';
+      el.textContent = `${prefix}${numberFormatter.format(value)}${suffix}`;
+    }
+
+    function animateCounter(el) {
+      const target = Number(el.getAttribute('data-target') || '0');
+      if (!Number.isFinite(target) || target <= 0) {
+        renderCounter(el, 0);
+        return;
+      }
+      if (prefersReducedMotion) {
+        renderCounter(el, target);
+        return;
+      }
+
+      // Keep real values as static fallback, then animate once observed.
+      renderCounter(el, 0);
+      const duration = 1700;
+      const start = performance.now();
+
+      function tick(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        renderCounter(el, Math.round(target * eased));
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        }
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    if (typeof window.IntersectionObserver !== 'function') {
+      counters.forEach((counter) => {
+        const target = Number(counter.getAttribute('data-target') || '0');
+        renderCounter(counter, Number.isFinite(target) && target > 0 ? target : 0);
+      });
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        animateCounter(el);
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.45 });
+
+    counters.forEach((counter) => observer.observe(counter));
+  })();
+</script>
 
 <!-- Leaflet map for coverage section -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
