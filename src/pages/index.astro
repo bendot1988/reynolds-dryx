@@ -69,70 +69,6 @@ import Footer from '../components/Footer.astro';
   </section>
 
   <!-- ============================================================
-       PHOTO-BACKED STATS / COUNTERS
-  ============================================================ -->
-  <section class="relative py-20 px-6 lg:px-10 overflow-hidden">
-    <img
-      src="/assets/reynolds/home-stats-bg.png"
-      alt="Reynolds Dryline team installing internal walls"
-      class="absolute inset-0 w-full h-full object-cover"
-      loading="eager"
-    />
-    <div class="absolute inset-0 bg-black/55"></div>
-
-    <div class="relative z-10 max-w-7xl mx-auto">
-      <div class="text-center mb-10 lg:mb-12" data-animate>
-        <p class="rd-label !text-white/80 mb-3">By The Numbers</p>
-        <h2 class="text-4xl lg:text-5xl font-black text-white">Built on Proven Delivery</h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
-        <article class="bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate>
-          <img
-            src="/assets/reynolds/stats-icon-studwall.png"
-            alt="Stud wall icon"
-            class="h-20 w-auto mb-5 object-contain"
-            loading="lazy"
-          />
-          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Stud Wall Installed</p>
-          <p class="text-4xl lg:text-5xl font-black leading-none mb-4">
-            <span data-counter data-target="4800000" data-suffix="+">4,800,000+</span>
-          </p>
-          <p class="text-white/85 text-sm font-semibold tracking-wide uppercase">sq ft delivered across UK projects</p>
-        </article>
-
-        <article class="bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate data-delay="100">
-          <img
-            src="/assets/reynolds/stats-icon-buildings.png"
-            alt="Buildings icon"
-            class="h-20 w-auto mb-5 object-contain"
-            loading="lazy"
-          />
-          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Buildings Completed</p>
-          <p class="text-4xl lg:text-5xl font-black leading-none mb-4">
-            <span data-counter data-target="350" data-suffix="+">350+</span>
-          </p>
-          <p class="text-white/85 text-sm font-semibold tracking-wide uppercase">projects handed over to date</p>
-        </article>
-
-        <article class="bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate data-delay="200">
-          <img
-            src="/assets/reynolds/stats-icon-revenue.png"
-            alt="Revenue icon"
-            class="h-20 w-auto mb-5 object-contain"
-            loading="lazy"
-          />
-          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Project Value Delivered</p>
-          <p class="text-4xl lg:text-5xl font-black leading-none mb-4">
-            <span data-counter data-target="950" data-prefix="£" data-suffix="m+">£950m+</span>
-          </p>
-          <p class="text-white/85 text-sm font-semibold tracking-wide uppercase">construction value delivered</p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
        CORE COMPETENCIES / SECTORS — with hover-reveal descriptions
   ============================================================ -->
   <section class="bg-white py-20 px-6 lg:px-10">
@@ -261,6 +197,70 @@ import Footer from '../components/Footer.astro';
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PHOTO-BACKED STATS / COUNTERS
+  ============================================================ -->
+  <section class="relative py-20 px-6 lg:px-10 overflow-hidden">
+    <img
+      src="/assets/reynolds/home-stats-bg.png"
+      alt="Reynolds Dryline team installing internal walls"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-black/55"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto">
+      <div class="text-center mb-10 lg:mb-12" data-animate>
+        <p class="rd-label !text-white/80 mb-3">By The Numbers</p>
+        <h2 class="text-4xl lg:text-5xl font-black text-white">Built on Proven Delivery</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+        <article class="bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate>
+          <img
+            src="/assets/reynolds/stats-icon-studwall.png"
+            alt="Stud wall icon"
+            class="h-20 w-auto mb-5 object-contain"
+            loading="lazy"
+          />
+          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Stud Wall Installed</p>
+          <p class="text-4xl lg:text-5xl font-black leading-none mb-4">
+            <span data-counter data-target="4800000" data-suffix="+">4,800,000+</span>
+          </p>
+          <p class="text-white/85 text-sm font-semibold tracking-wide uppercase">sq ft delivered across UK projects</p>
+        </article>
+
+        <article class="bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate data-delay="100">
+          <img
+            src="/assets/reynolds/stats-icon-buildings.png"
+            alt="Buildings icon"
+            class="h-20 w-auto mb-5 object-contain"
+            loading="lazy"
+          />
+          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Buildings Completed</p>
+          <p class="text-4xl lg:text-5xl font-black leading-none mb-4">
+            <span data-counter data-target="350" data-suffix="+">350+</span>
+          </p>
+          <p class="text-white/85 text-sm font-semibold tracking-wide uppercase">projects handed over to date</p>
+        </article>
+
+        <article class="bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate data-delay="200">
+          <img
+            src="/assets/reynolds/stats-icon-revenue.png"
+            alt="Revenue icon"
+            class="h-20 w-auto mb-5 object-contain"
+            loading="lazy"
+          />
+          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Project Value Delivered</p>
+          <p class="text-4xl lg:text-5xl font-black leading-none mb-4">
+            <span data-counter data-target="950" data-prefix="£" data-suffix="m+">£950m+</span>
+          </p>
+          <p class="text-white/85 text-sm font-semibold tracking-wide uppercase">construction value delivered</p>
+        </article>
       </div>
     </div>
   </section>
