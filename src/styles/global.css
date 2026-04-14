@@ -449,6 +449,26 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
   clip-path: circle(150% at calc(100% - 1.5rem) 2rem);
 }
 
+.rd-mobile-nav-link {
+  transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+.rd-mobile-nav-link:hover,
+.rd-mobile-nav-link:focus-visible {
+  color: #fca5a5;
+  transform: translateX(4px);
+}
+
+.rd-mobile-contact-link {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.rd-mobile-contact-link:hover,
+.rd-mobile-contact-link:focus-visible {
+  color: #fff;
+  transform: translateX(2px);
+}
+
 /* =============================================
    Reynolds Dryline — Form inputs
    ============================================= */
