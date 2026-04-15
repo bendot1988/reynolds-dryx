@@ -50,6 +50,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', system-ui, sans-serif;
   font-weight: 800;
+  letter-spacing: -0.015em;
 }
 
 /* Article / prose body headings (raw HTML h2) */
@@ -499,8 +500,8 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
    Reynolds Dryline — Partner logos strip
    ============================================= */
 @keyframes rd-marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
 }
 
 .rd-partners-marquee-shell {
@@ -531,13 +532,17 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
 
 .rd-partners-marquee-track {
   display: flex;
-  width: max-content;
-  animation: rd-marquee 28s linear infinite;
+  width: 200%;
+  animation: rd-marquee 18s linear infinite;
+  will-change: transform;
 }
 
 .rd-partners-marquee-group {
   display: flex;
+  width: 50%;
+  flex: 0 0 50%;
   align-items: center;
+  justify-content: space-around;
   gap: clamp(2rem, 4vw, 3.75rem);
   padding: 1.35rem clamp(1.75rem, 3.5vw, 2.75rem);
 }

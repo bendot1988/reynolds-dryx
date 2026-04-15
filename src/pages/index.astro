@@ -36,7 +36,7 @@ const partnerLogos = [
       class="absolute inset-0 w-full h-full object-cover"
       src="https://tanro.co.uk/wp-content/uploads/2024/07/TanRo-New-Offices-V1.mp4"
       poster="/assets/reynolds/hero-bg.jpg"
-      preload="metadata"
+      preload="auto"
       autoplay
       muted
       loop
@@ -681,19 +681,25 @@ const partnerLogos = [
       return;
     }
 
-    function seekPastIntro() {
+    function seekToIntroOffset() {
       if (!Number.isFinite(heroVideo.duration) || heroVideo.duration <= introOffsetSeconds) return;
-      if (heroVideo.currentTime < introOffsetSeconds || heroVideo.currentTime > heroVideo.duration - 0.2) {
+      if (heroVideo.currentTime < introOffsetSeconds) {
         heroVideo.currentTime = introOffsetSeconds;
       }
     }
 
-    heroVideo.addEventListener('loadedmetadata', seekPastIntro, { once: true });
-    heroVideo.addEventListener('timeupdate', seekPastIntro);
+    heroVideo.addEventListener('loadedmetadata', () => {
+      seekToIntroOffset();
+      const playPromise = heroVideo.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {});
+      }
+    }, { once: true });
 
-    const playPromise = heroVideo.play();
-    if (playPromise && typeof playPromise.catch === 'function') {
-      playPromise.catch(() => {});
+    heroVideo.addEventListener('timeupdate', seekToIntroOffset);
+
+    if (heroVideo.readyState >= 1) {
+      seekToIntroOffset();
     }
   })();
 </script>
