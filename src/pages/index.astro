@@ -681,26 +681,32 @@ const partnerLogos = [
       return;
     }
 
-    function seekToIntroOffset() {
-      if (!Number.isFinite(heroVideo.duration) || heroVideo.duration <= introOffsetSeconds) return;
-      if (heroVideo.currentTime < introOffsetSeconds) {
-        heroVideo.currentTime = introOffsetSeconds;
-      }
-    }
-
-    heroVideo.addEventListener('loadedmetadata', () => {
-      seekToIntroOffset();
+    function playVideo() {
       const playPromise = heroVideo.play();
       if (playPromise && typeof playPromise.catch === 'function') {
         playPromise.catch(() => {});
       }
-    }, { once: true });
+    }
 
-    heroVideo.addEventListener('timeupdate', seekToIntroOffset);
+    function seekToIntroOffset() {
+      try {
+        if (!Number.isFinite(heroVideo.duration) || heroVideo.duration <= introOffsetSeconds) return;
+        const maxStart = Math.max(0, heroVideo.duration - 0.25);
+        const targetStart = Math.min(introOffsetSeconds, maxStart);
+        if (heroVideo.currentTime < targetStart) {
+          heroVideo.currentTime = targetStart;
+        }
+      } catch {
+        // If remote media is not yet seekable, continue playback from start.
+      }
+    }
 
+    heroVideo.addEventListener('loadedmetadata', seekToIntroOffset, { once: true });
+    heroVideo.addEventListener('playing', seekToIntroOffset, { once: true });
     if (heroVideo.readyState >= 1) {
       seekToIntroOffset();
     }
+    playVideo();
   })();
 </script>
 
