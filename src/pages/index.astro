@@ -2,6 +2,8 @@
 import ReynoldsLayout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+const yearsTrading = new Date().getFullYear() - 1963;
 ---
 
 <ReynoldsLayout
@@ -9,6 +11,11 @@ import Footer from '../components/Footer.astro';
   description="Leaders in specialist building finishes. Fulfilling high-value projects to programme, budget, and unmatched quality standards. Established 1963."
   canonical="https://www.reynoldsdryline.co.uk/"
 >
+  <Fragment slot="head">
+    <link rel="preload" href="/assets/reynolds/hero-bg.jpg" as="image" fetchpriority="high" />
+    <link rel="preconnect" href="https://tanro.co.uk" crossorigin />
+  </Fragment>
+
   <Header currentPath="/" />
 
   <!-- ============================================================
@@ -17,8 +24,11 @@ import Footer from '../components/Footer.astro';
   <section class="relative min-h-screen flex flex-col justify-center overflow-hidden">
     <!-- Video background -->
     <video
+      id="rd-hero-video"
       class="absolute inset-0 w-full h-full object-cover"
-      src="https://tanro.co.uk/wp-content/uploads/2024/07/TanRo-New-Offices-V1.mp4"
+      data-src="https://tanro.co.uk/wp-content/uploads/2024/07/TanRo-New-Offices-V1.mp4"
+      poster="/assets/reynolds/hero-bg.jpg"
+      preload="none"
       autoplay
       muted
       loop
@@ -36,26 +46,26 @@ import Footer from '../components/Footer.astro';
       </div>
 
       <!-- Headline -->
-      <h1 class="text-5xl sm:text-6xl lg:text-8xl font-black text-white leading-[0.95] mb-6 max-w-4xl" data-animate data-delay="100">
+      <h1 class="text-6xl sm:text-7xl lg:text-[6.75rem] font-black text-white leading-[0.94] mb-6 max-w-3xl" data-animate data-delay="100">
         Providing Complete<br />
         <span class="text-red-500">Dryline</span> Solutions
       </h1>
 
       <!-- Subheading -->
-      <p class="text-white/75 text-lg lg:text-xl max-w-xl mb-10 leading-relaxed font-medium" data-animate data-delay="200">
+      <p class="text-white/88 text-xl lg:text-2xl max-w-lg mb-10 leading-relaxed font-medium" data-animate data-delay="200">
         Leaders in specialist building finishes. Fulfilling high-value projects to programme, budget, and unmatched quality standards.
       </p>
 
       <!-- CTAs (.rd-hero-cta in global.css; footer band uses .rd-hero-cta--on-red) -->
       <div class="flex flex-wrap gap-4" data-animate data-delay="300">
-        <a href="/projects" class="rd-hero-cta rd-btn-primary">
-          Explore Our Projects
+        <a href="/contact" class="rd-hero-cta rd-btn-primary">
+          Discuss Your Project
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </a>
-        <a href="/services" class="rd-hero-cta rd-btn-outline">
-          Our Services
+        <a href="/projects" class="rd-hero-cta rd-btn-outline">
+          View Projects
         </a>
       </div>
     </div>
@@ -69,14 +79,56 @@ import Footer from '../components/Footer.astro';
   </section>
 
   <!-- ============================================================
+       TRUST STRIP — PROOF ABOVE THE FOLD
+  ============================================================ -->
+  <section class="rd-section--surface border-y border-gray-200/80">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-7 lg:py-8">
+      <div class="rd-panel rd-panel--subtle p-6 lg:p-7 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.4fr] gap-6 lg:gap-8 items-center">
+        <div class="flex items-center gap-4" data-animate>
+          <div class="w-12 h-12 rounded-[10px] bg-red-600 text-white flex items-center justify-center text-xl font-black">
+            {yearsTrading}+
+          </div>
+          <div>
+            <p class="text-[0.68rem] font-bold tracking-[0.18em] uppercase text-gray-500">Years Trading</p>
+            <p class="text-sm text-gray-800 font-semibold">Delivering specialist drylining since 1963</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 flex-wrap" data-animate data-delay="80">
+          <span class="inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">H&amp;S Focused</span>
+          <span class="inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">Compliance Led</span>
+          <span class="inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">Quality Assured</span>
+          <span class="inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">Fully Insured</span>
+        </div>
+
+        <div data-animate data-delay="140">
+          <p class="text-[0.68rem] font-bold tracking-[0.18em] uppercase text-gray-500 mb-3">Trusted By Leading Contractors</p>
+          <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <img src="/assets/reynolds/partner-clowes.png" alt="Clowes" class="h-5 object-contain opacity-70 grayscale" loading="lazy" />
+            <img src="/assets/reynolds/partner-engie.png" alt="ENGIE" class="h-5 object-contain opacity-70 grayscale" loading="lazy" />
+            <img src="/assets/reynolds/partner-winvic.png" alt="Winvic" class="h-5 object-contain opacity-70 grayscale" loading="lazy" />
+            <img src="/assets/reynolds/partner-gallifordtry.png" alt="Galliford Try" class="h-5 object-contain opacity-70 grayscale" loading="lazy" />
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 lg:mt-5 pt-4 lg:pt-5 border-t border-gray-200/80 flex flex-wrap items-center gap-3" data-animate data-delay="200">
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">Typical Response Within 24 Hours</span>
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">Early-Stage Pricing Support</span>
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">Tender &amp; Pre-Construction Input</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        CORE COMPETENCIES / SECTORS — with hover-reveal descriptions
   ============================================================ -->
-  <section class="bg-white py-20 px-6 lg:px-10">
+  <section class="rd-section rd-section--surface px-6 lg:px-10">
     <div class="max-w-7xl mx-auto">
       <!-- Section header -->
       <div class="text-center mb-14" data-animate>
         <p class="rd-label mb-3">Core Competencies</p>
-        <h2 class="text-5xl lg:text-6xl font-black text-gray-900 mb-4">Expertise Across All Sectors</h2>
+        <h2 class="text-5xl lg:text-[4.25rem] font-black text-gray-900 mb-4 leading-[0.98]">Expertise Across All Sectors</h2>
         <div class="w-12 h-1 bg-red-600 mx-auto"></div>
       </div>
 
@@ -204,7 +256,7 @@ import Footer from '../components/Footer.astro';
   <!-- ============================================================
        PHOTO-BACKED STATS / COUNTERS
   ============================================================ -->
-  <section class="relative py-20 px-6 lg:px-10 overflow-hidden">
+  <section class="rd-section relative px-6 lg:px-10 overflow-hidden">
     <img
       src="/assets/reynolds/home-stats-bg.png"
       alt="Reynolds Dryline team installing internal walls"
@@ -216,7 +268,7 @@ import Footer from '../components/Footer.astro';
     <div class="relative z-10 max-w-7xl mx-auto">
       <div class="text-center mb-10 lg:mb-12" data-animate>
         <p class="rd-label !text-white/80 mb-3">By The Numbers</p>
-        <h2 class="text-4xl lg:text-5xl font-black text-white">Built on Proven Delivery</h2>
+        <h2 class="text-5xl lg:text-6xl font-black text-white">Built on Proven Delivery</h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
@@ -227,11 +279,12 @@ import Footer from '../components/Footer.astro';
             class="h-20 w-auto mb-5 object-contain"
             loading="lazy"
           />
-          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Stud Wall Installed</p>
+          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Stud Wall Installed (sq ft)</p>
           <p class="text-4xl lg:text-5xl font-black leading-none mb-4">
             <span data-counter data-target="4800000" data-suffix="+">4,800,000+</span>
           </p>
-          <p class="text-white/85 text-sm font-semibold tracking-wide uppercase">sq ft delivered across UK projects</p>
+          <p class="text-white/90 text-sm font-semibold tracking-wide uppercase">square feet of stud wall delivered</p>
+          <p class="text-white/70 text-[0.68rem] tracking-[0.12em] uppercase mt-3">Since 1963 • Delivered to date</p>
         </article>
 
         <article class="bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate data-delay="100">
@@ -245,7 +298,8 @@ import Footer from '../components/Footer.astro';
           <p class="text-4xl lg:text-5xl font-black leading-none mb-4">
             <span data-counter data-target="350" data-suffix="+">350+</span>
           </p>
-          <p class="text-white/85 text-sm font-semibold tracking-wide uppercase">projects handed over to date</p>
+          <p class="text-white/90 text-sm font-semibold tracking-wide uppercase">buildings and schemes handed over</p>
+          <p class="text-white/70 text-[0.68rem] tracking-[0.12em] uppercase mt-3">Since 1963 • Delivered to date</p>
         </article>
 
         <article class="bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate data-delay="200">
@@ -255,11 +309,12 @@ import Footer from '../components/Footer.astro';
             class="h-20 w-auto mb-5 object-contain"
             loading="lazy"
           />
-          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Project Value Delivered</p>
+          <p class="text-xs font-bold tracking-[0.2em] uppercase text-white/75 mb-4">Project Value Delivered (£m)</p>
           <p class="text-4xl lg:text-5xl font-black leading-none mb-4">
             <span data-counter data-target="950" data-prefix="£" data-suffix="m+">£950m+</span>
           </p>
-          <p class="text-white/85 text-sm font-semibold tracking-wide uppercase">construction value delivered</p>
+          <p class="text-white/90 text-sm font-semibold tracking-wide uppercase">construction value delivered</p>
+          <p class="text-white/70 text-[0.68rem] tracking-[0.12em] uppercase mt-3">Since 1963 • Delivered to date</p>
         </article>
       </div>
     </div>
@@ -268,16 +323,16 @@ import Footer from '../components/Footer.astro';
   <!-- ============================================================
        LATEST PROJECTS
   ============================================================ -->
-  <section class="bg-[#111111] py-20 px-6 lg:px-10">
+  <section class="rd-section rd-section--dark px-6 lg:px-10">
     <div class="max-w-7xl mx-auto">
       <!-- Section header -->
       <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4" data-animate>
         <div>
           <p class="rd-label mb-3">Track Record</p>
-          <h2 class="text-5xl lg:text-6xl font-black text-white">Latest Projects</h2>
+          <h2 class="text-5xl lg:text-[4.1rem] font-black text-white leading-[0.98]">Latest Projects</h2>
         </div>
         <a href="/projects" class="rd-link-underline rd-link-underline--inset inline-flex items-center gap-2 border border-white/30 text-white hover:border-red-600 hover:text-red-500 text-xs font-bold tracking-widest uppercase px-6 py-3 rounded-[5px] transition-all duration-200 whitespace-nowrap">
-          View All Projects
+          View Projects
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
@@ -287,7 +342,7 @@ import Footer from '../components/Footer.astro';
       <!-- Projects grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Bendigo Building -->
-        <div class="bg-white flex flex-col sm:flex-row overflow-hidden group rounded-[15px] border border-gray-200 shadow-xl shadow-black/20" data-animate>
+        <div class="rd-panel bg-white flex flex-col sm:flex-row overflow-hidden group" data-animate>
           <div class="sm:w-48 flex-shrink-0 overflow-hidden rounded-tl-[15px] rounded-tr-[15px] sm:rounded-tr-none sm:rounded-bl-[15px] border-b border-gray-200 sm:border-b-0 sm:border-r sm:border-gray-200">
             <img
               src="/assets/reynolds/project-28rs.jpg"
@@ -335,7 +390,7 @@ import Footer from '../components/Footer.astro';
         </div>
 
         <!-- Lancaster Street -->
-        <div class="bg-white flex flex-col sm:flex-row overflow-hidden group rounded-[15px] border border-gray-200 shadow-xl shadow-black/20" data-animate data-delay="100">
+        <div class="rd-panel bg-white flex flex-col sm:flex-row overflow-hidden group" data-animate data-delay="100">
           <div class="sm:w-48 flex-shrink-0 overflow-hidden rounded-tl-[15px] rounded-tr-[15px] sm:rounded-tr-none sm:rounded-bl-[15px] border-b border-gray-200 sm:border-b-0 sm:border-r sm:border-gray-200">
             <img
               src="/assets/reynolds/project-untitled.jpg"
@@ -388,13 +443,13 @@ import Footer from '../components/Footer.astro';
   <!-- ============================================================
        WHO WE PARTNER WITH
   ============================================================ -->
-  <section class="bg-white py-20 px-6 lg:px-10">
+  <section class="rd-section rd-section--surface px-6 lg:px-10">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-12" data-animate>
         <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-3">Who We Partner With</h2>
         <div class="w-12 h-1 bg-red-600 mx-auto"></div>
       </div>
-      <div class="flex flex-wrap items-center justify-center gap-10 lg:gap-16" data-animate data-delay="100">
+      <div class="rd-panel rd-panel--subtle p-6 lg:p-8 flex flex-wrap items-center justify-center gap-10 lg:gap-16" data-animate data-delay="100">
         <img src="/assets/reynolds/partner-clowes.png" alt="Clowes" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
         <img src="/assets/reynolds/partner-engie.png" alt="ENGIE" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
         <img src="/assets/reynolds/partner-winvic.png" alt="Winvic" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
@@ -410,24 +465,29 @@ import Footer from '../components/Footer.astro';
   <!-- ============================================================
        NATIONWIDE COVERAGE
   ============================================================ -->
-  <section class="bg-gray-50 py-20 px-6 lg:px-10">
+  <section class="rd-section rd-section--muted px-6 lg:px-10">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <div data-animate>
         <p class="rd-label mb-3">Nationwide Coverage</p>
         <h2 class="text-5xl lg:text-6xl font-black text-gray-900 mb-6 leading-tight">
           We operate UK wide in these areas and beyond.
         </h2>
-        <p class="text-gray-600 text-lg leading-relaxed mb-8">
+        <p class="text-gray-700 text-lg leading-relaxed mb-8 max-w-2xl">
           From Sheffield down to London and the M25 area, our teams deliver complete building finishes for projects of all scales.
         </p>
-        <a href="/contact" class="rd-btn-primary">
-          Get in Touch
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
+        <div class="flex flex-wrap gap-4">
+          <a href="/contact" class="rd-btn-primary">
+            Discuss Your Project
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+          <a href="/projects" class="rd-btn-outline-red">
+            View Projects
+          </a>
+        </div>
       </div>
-      <div class="relative h-96 overflow-hidden rounded-[15px]" data-animate data-delay="100">
+      <div class="rd-panel relative h-96 overflow-hidden" data-animate data-delay="100">
         <div id="rd-coverage-map" class="w-full h-full rounded-[15px]"></div>
         <noscript>
           <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
@@ -441,16 +501,16 @@ import Footer from '../components/Footer.astro';
   <!-- ============================================================
        LATEST NEWS
   ============================================================ -->
-  <section class="bg-white py-20 px-6 lg:px-10">
+  <section class="rd-section rd-section--surface px-6 lg:px-10">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-14" data-animate>
-        <h2 class="text-5xl lg:text-6xl font-black text-gray-900 mb-3">Latest Updates</h2>
+        <h2 class="text-5xl lg:text-[4.1rem] font-black text-gray-900 mb-3 leading-[0.98]">Latest Updates</h2>
         <div class="w-12 h-1 bg-red-600 mx-auto"></div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <!-- Article 1 -->
-        <article class="group" data-animate>
+        <article class="rd-panel group overflow-hidden p-5" data-animate>
           <div class="overflow-hidden mb-5 rounded-[15px]">
             <img
               src="/assets/reynolds/hero-bg.jpg"
@@ -476,7 +536,7 @@ import Footer from '../components/Footer.astro';
         </article>
 
         <!-- Article 2 -->
-        <article class="group" data-animate data-delay="100">
+        <article class="rd-panel group overflow-hidden p-5" data-animate data-delay="100">
           <div class="overflow-hidden mb-5 rounded-[15px]">
             <img
               src="/assets/reynolds/project-28rs.jpg"
@@ -502,7 +562,7 @@ import Footer from '../components/Footer.astro';
         </article>
 
         <!-- Article 3 -->
-        <article class="group" data-animate data-delay="200">
+        <article class="rd-panel group overflow-hidden p-5" data-animate data-delay="200">
           <div class="overflow-hidden mb-5 rounded-[15px]">
             <img
               src="/assets/reynolds/drylining-01.jpg"
@@ -540,6 +600,11 @@ import Footer from '../components/Footer.astro';
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const numberFormatter = new Intl.NumberFormat('en-GB');
+    const animationDurationMs = 1600;
+
+    function easeOutStandard(progress) {
+      return 1 - Math.pow(1 - progress, 4);
+    }
 
     function renderCounter(el, value) {
       const prefix = el.getAttribute('data-prefix') || '';
@@ -560,12 +625,11 @@ import Footer from '../components/Footer.astro';
 
       // Keep real values as static fallback, then animate once observed.
       renderCounter(el, 0);
-      const duration = 1700;
       const start = performance.now();
 
       function tick(now) {
-        const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
+        const progress = Math.min((now - start) / animationDurationMs, 1);
+        const eased = easeOutStandard(progress);
         renderCounter(el, Math.round(target * eased));
 
         if (progress < 1) {
@@ -594,6 +658,34 @@ import Footer from '../components/Footer.astro';
     }, { threshold: 0.45 });
 
     counters.forEach((counter) => observer.observe(counter));
+  })();
+</script>
+
+<script is:inline>
+  (function () {
+    const heroVideo = document.getElementById('rd-hero-video');
+    if (!(heroVideo instanceof HTMLVideoElement)) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    function startVideoLoad() {
+      const source = heroVideo.dataset.src;
+      if (!source || heroVideo.getAttribute('src')) return;
+
+      heroVideo.setAttribute('src', source);
+      heroVideo.load();
+      const playPromise = heroVideo.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {});
+      }
+    }
+
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(startVideoLoad, { timeout: 1500 });
+    } else {
+      window.setTimeout(startVideoLoad, 700);
+    }
   })();
 </script>
 
@@ -631,6 +723,30 @@ import Footer from '../components/Footer.astro';
       { lat: 51.5074, lng: -0.1278, name: 'London' },
       { lat: 52.6369, lng: -1.1398, name: 'Leicester' },
       { lat: 53.3811, lng: -1.4701, name: 'Sheffield' },
+      { lat: 54.5973, lng: -5.9301, name: 'Belfast' },
+      { lat: 55.9533, lng: -3.1883, name: 'Edinburgh' },
+      { lat: 55.8642, lng: -4.2518, name: 'Glasgow' },
+      { lat: 57.1497, lng: -2.0943, name: 'Aberdeen' },
+      { lat: 56.4620, lng: -2.9707, name: 'Dundee' },
+      { lat: 54.9783, lng: -1.6178, name: 'Newcastle upon Tyne' },
+      { lat: 54.9069, lng: -1.3838, name: 'Sunderland' },
+      { lat: 54.5742, lng: -1.2350, name: 'Middlesbrough' },
+      { lat: 53.9590, lng: -1.0815, name: 'York' },
+      { lat: 53.7676, lng: -0.3274, name: 'Hull' },
+      { lat: 53.4084, lng: -2.9916, name: 'Liverpool' },
+      { lat: 53.4808, lng: -2.2426, name: 'Manchester' },
+      { lat: 53.0027, lng: -2.1794, name: 'Stoke-on-Trent' },
+      { lat: 52.9225, lng: -1.4746, name: 'Derby' },
+      { lat: 52.4068, lng: -1.5197, name: 'Coventry' },
+      { lat: 51.4545, lng: -2.5879, name: 'Bristol' },
+      { lat: 51.4816, lng: -3.1791, name: 'Cardiff' },
+      { lat: 51.6214, lng: -3.9436, name: 'Swansea' },
+      { lat: 52.6309, lng: 1.2974, name: 'Norwich' },
+      { lat: 52.2053, lng: 0.1218, name: 'Cambridge' },
+      { lat: 51.7520, lng: -1.2577, name: 'Oxford' },
+      { lat: 50.9097, lng: -1.4044, name: 'Southampton' },
+      { lat: 50.3755, lng: -4.1427, name: 'Plymouth' },
+      { lat: 50.7184, lng: -3.5339, name: 'Exeter' },
     ];
 
     const redIcon = L.divIcon({
