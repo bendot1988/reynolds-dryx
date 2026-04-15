@@ -4,6 +4,14 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 const yearsTrading = new Date().getFullYear() - 1963;
+const partnerLogos = [
+  { src: '/assets/reynolds/partner-clowes.png', alt: 'Clowes' },
+  { src: '/assets/reynolds/partner-engie.png', alt: 'ENGIE' },
+  { src: '/assets/reynolds/partner-winvic.png', alt: 'Winvic' },
+  { src: '/assets/reynolds/partner-gallifordtry.png', alt: 'Galliford Try' },
+  { src: '/assets/reynolds/partner-bowmer-kirkland.png', alt: 'Bowmer Kirkland' },
+  { src: '/assets/reynolds/partner-willmott-dixon.png', alt: 'Willmott Dixon' },
+];
 ---
 
 <ReynoldsLayout
@@ -26,9 +34,9 @@ const yearsTrading = new Date().getFullYear() - 1963;
     <video
       id="rd-hero-video"
       class="absolute inset-0 w-full h-full object-cover"
-      data-src="https://tanro.co.uk/wp-content/uploads/2024/07/TanRo-New-Offices-V1.mp4"
+      src="https://tanro.co.uk/wp-content/uploads/2024/07/TanRo-New-Offices-V1.mp4"
       poster="/assets/reynolds/hero-bg.jpg"
-      preload="none"
+      preload="metadata"
       autoplay
       muted
       loop
@@ -89,33 +97,29 @@ const yearsTrading = new Date().getFullYear() - 1963;
             {yearsTrading}+
           </div>
           <div>
-            <p class="text-[0.68rem] font-bold tracking-[0.18em] uppercase text-gray-500">Years Trading</p>
+            <p class="text-[0.68rem] font-bold tracking-[0.11em] uppercase text-gray-500">Years Trading</p>
             <p class="text-sm text-gray-800 font-semibold">Delivering specialist drylining since 1963</p>
           </div>
         </div>
 
-        <div class="flex items-center gap-3 flex-wrap" data-animate data-delay="80">
-          <span class="inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">H&amp;S Focused</span>
-          <span class="inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">Compliance Led</span>
-          <span class="inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">Quality Assured</span>
-          <span class="inline-flex items-center rounded-full border border-gray-300 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">Fully Insured</span>
+        <div class="grid grid-cols-2 gap-2.5" data-animate data-delay="80">
+          <span class="inline-flex items-center justify-center rounded-[10px] border border-gray-300 bg-gray-50 px-3 py-2 text-[0.66rem] font-bold tracking-[0.1em] uppercase text-gray-700">H&amp;S Focused</span>
+          <span class="inline-flex items-center justify-center rounded-[10px] border border-gray-300 bg-gray-50 px-3 py-2 text-[0.66rem] font-bold tracking-[0.1em] uppercase text-gray-700">Compliance Led</span>
+          <span class="inline-flex items-center justify-center rounded-[10px] border border-gray-300 bg-gray-50 px-3 py-2 text-[0.66rem] font-bold tracking-[0.1em] uppercase text-gray-700">Quality Assured</span>
+          <span class="inline-flex items-center justify-center rounded-[10px] border border-gray-300 bg-gray-50 px-3 py-2 text-[0.66rem] font-bold tracking-[0.1em] uppercase text-gray-700">Fully Insured</span>
         </div>
 
         <div data-animate data-delay="140">
-          <p class="text-[0.68rem] font-bold tracking-[0.18em] uppercase text-gray-500 mb-3">Trusted By Leading Contractors</p>
-          <div class="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <img src="/assets/reynolds/partner-clowes.png" alt="Clowes" class="h-5 object-contain opacity-70 grayscale" loading="lazy" />
-            <img src="/assets/reynolds/partner-engie.png" alt="ENGIE" class="h-5 object-contain opacity-70 grayscale" loading="lazy" />
-            <img src="/assets/reynolds/partner-winvic.png" alt="Winvic" class="h-5 object-contain opacity-70 grayscale" loading="lazy" />
-            <img src="/assets/reynolds/partner-gallifordtry.png" alt="Galliford Try" class="h-5 object-contain opacity-70 grayscale" loading="lazy" />
+          <p class="text-[0.68rem] font-bold tracking-[0.11em] uppercase text-gray-500 mb-3">Trusted By Leading Contractors</p>
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center rounded-[8px] border border-gray-300 bg-white px-2.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.06em] uppercase text-gray-700">Clowes</span>
+            <span class="inline-flex items-center rounded-[8px] border border-gray-300 bg-white px-2.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.06em] uppercase text-gray-700">ENGIE</span>
+            <span class="inline-flex items-center rounded-[8px] border border-gray-300 bg-white px-2.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.06em] uppercase text-gray-700">Winvic</span>
+            <span class="inline-flex items-center rounded-[8px] border border-gray-300 bg-white px-2.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.06em] uppercase text-gray-700">Galliford Try</span>
+            <span class="inline-flex items-center rounded-[8px] border border-gray-300 bg-white px-2.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.06em] uppercase text-gray-700">Bowmer + Kirkland</span>
+            <span class="inline-flex items-center rounded-[8px] border border-gray-300 bg-white px-2.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.06em] uppercase text-gray-700">Willmott Dixon</span>
           </div>
         </div>
-      </div>
-
-      <div class="mt-4 lg:mt-5 pt-4 lg:pt-5 border-t border-gray-200/80 flex flex-wrap items-center gap-3" data-animate data-delay="200">
-        <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">Typical Response Within 24 Hours</span>
-        <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">Early-Stage Pricing Support</span>
-        <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-1.5 text-[0.68rem] font-bold tracking-[0.14em] uppercase text-gray-700">Tender &amp; Pre-Construction Input</span>
       </div>
     </div>
   </section>
@@ -449,15 +453,19 @@ const yearsTrading = new Date().getFullYear() - 1963;
         <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-3">Who We Partner With</h2>
         <div class="w-12 h-1 bg-red-600 mx-auto"></div>
       </div>
-      <div class="rd-panel rd-panel--subtle p-6 lg:p-8 flex flex-wrap items-center justify-center gap-10 lg:gap-16" data-animate data-delay="100">
-        <img src="/assets/reynolds/partner-clowes.png" alt="Clowes" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
-        <img src="/assets/reynolds/partner-engie.png" alt="ENGIE" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
-        <img src="/assets/reynolds/partner-winvic.png" alt="Winvic" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
-        <img src="/assets/reynolds/partner-gallifordtry.png" alt="Galliford Try" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
-        <img src="/assets/reynolds/partner-bowmer-kirkland.png" alt="Bowmer Kirkland" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
-        <img src="/assets/reynolds/partner-willmott-dixon.png" alt="Willmott Dixon" class="h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100" loading="lazy" />
-        <span class="text-gray-400 font-bold text-lg tracking-wide hover:text-gray-700 transition-colors duration-300">DOWNING</span>
-        <span class="text-gray-400 font-bold text-lg tracking-wide hover:text-gray-700 transition-colors duration-300">GRAHAM</span>
+      <div class="rd-panel rd-panel--subtle rd-partners-marquee-shell p-0" data-animate data-delay="100">
+        <div class="rd-partners-marquee-track">
+          <div class="rd-partners-marquee-group">
+            {partnerLogos.map((logo) => (
+              <img src={logo.src} alt={logo.alt} class="h-10 lg:h-11 w-auto object-contain rd-partner-logo" loading="lazy" />
+            ))}
+          </div>
+          <div class="rd-partners-marquee-group" aria-hidden="true">
+            {partnerLogos.map((logo) => (
+              <img src={logo.src} alt="" class="h-10 lg:h-11 w-auto object-contain rd-partner-logo" loading="lazy" />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -667,24 +675,25 @@ const yearsTrading = new Date().getFullYear() - 1963;
     if (!(heroVideo instanceof HTMLVideoElement)) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) return;
+    const introOffsetSeconds = 10;
+    if (prefersReducedMotion) {
+      heroVideo.pause();
+      return;
+    }
 
-    function startVideoLoad() {
-      const source = heroVideo.dataset.src;
-      if (!source || heroVideo.getAttribute('src')) return;
-
-      heroVideo.setAttribute('src', source);
-      heroVideo.load();
-      const playPromise = heroVideo.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(() => {});
+    function seekPastIntro() {
+      if (!Number.isFinite(heroVideo.duration) || heroVideo.duration <= introOffsetSeconds) return;
+      if (heroVideo.currentTime < introOffsetSeconds || heroVideo.currentTime > heroVideo.duration - 0.2) {
+        heroVideo.currentTime = introOffsetSeconds;
       }
     }
 
-    if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(startVideoLoad, { timeout: 1500 });
-    } else {
-      window.setTimeout(startVideoLoad, 700);
+    heroVideo.addEventListener('loadedmetadata', seekPastIntro, { once: true });
+    heroVideo.addEventListener('timeupdate', seekPastIntro);
+
+    const playPromise = heroVideo.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {});
     }
   })();
 </script>

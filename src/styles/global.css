@@ -229,6 +229,7 @@ a.rd-link-underline-fill:focus-visible::after {
 .rd-btn-outline,
 .rd-btn-outline-red {
   position: relative;
+  overflow: hidden;
 }
 
 .rd-btn-primary::after,
@@ -236,16 +237,17 @@ a.rd-link-underline-fill:focus-visible::after {
 .rd-btn-outline-red::after {
   content: '';
   position: absolute;
-  left: 1.1rem;
-  right: 1.1rem;
-  bottom: 0.4rem;
-  height: 1px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
   background-color: currentColor;
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform var(--rd-motion-base) var(--rd-motion-ease);
   pointer-events: none;
-  opacity: 0.92;
+  opacity: 1;
+  border-radius: 0 0 var(--rd-radius-sm) var(--rd-radius-sm);
 }
 
 .rd-btn-primary:hover::after,
@@ -266,7 +268,7 @@ a.rd-link-underline-fill:focus-visible::after {
   font-family: 'Montserrat', system-ui, sans-serif;
   font-weight: 700;
   font-size: 0.8rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 0.75rem 1.5rem;
   border-radius: var(--rd-radius-sm);
@@ -279,7 +281,7 @@ a.rd-link-underline-fill:focus-visible::after {
 
 .rd-btn-primary:hover {
   background-color: var(--rd-red-dark);
-  transform: translateY(var(--rd-lift-sm));
+  transform: none;
 }
 
 .rd-btn-outline {
@@ -291,7 +293,7 @@ a.rd-link-underline-fill:focus-visible::after {
   font-family: 'Montserrat', system-ui, sans-serif;
   font-weight: 700;
   font-size: 0.8rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 0.75rem 1.5rem;
   border-radius: var(--rd-radius-sm);
@@ -306,7 +308,7 @@ a.rd-link-underline-fill:focus-visible::after {
 .rd-btn-outline:hover {
   background-color: #fff;
   color: #000;
-  transform: translateY(var(--rd-lift-sm));
+  transform: none;
 }
 
 /* Hero + footer CTA band: no hover fill / lift; bottom-edge accent bar */
@@ -367,7 +369,7 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
   font-family: 'Montserrat', system-ui, sans-serif;
   font-weight: 700;
   font-size: 0.8rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 0.75rem 1.5rem;
   border-radius: var(--rd-radius-sm);
@@ -382,7 +384,7 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
 .rd-btn-outline-red:hover {
   background-color: var(--rd-red);
   color: #fff;
-  transform: translateY(var(--rd-lift-sm));
+  transform: none;
 }
 
 /* =============================================
@@ -501,12 +503,69 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
   to   { transform: translateX(-50%); }
 }
 
-.rd-partners-marquee {
-  animation: rd-marquee 30s linear infinite;
+.rd-partners-marquee-shell {
+  position: relative;
+  overflow: hidden;
 }
 
-.rd-partners-marquee:hover {
+.rd-partners-marquee-shell::before,
+.rd-partners-marquee-shell::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3.5rem;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.rd-partners-marquee-shell::before {
+  left: 0;
+  background: linear-gradient(to right, #fff 20%, rgba(255, 255, 255, 0));
+}
+
+.rd-partners-marquee-shell::after {
+  right: 0;
+  background: linear-gradient(to left, #fff 20%, rgba(255, 255, 255, 0));
+}
+
+.rd-partners-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: rd-marquee 28s linear infinite;
+}
+
+.rd-partners-marquee-group {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 3.75rem);
+  padding: 1.35rem clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.rd-partner-logo {
+  flex: 0 0 auto;
+  opacity: 0.95;
+  transition:
+    opacity var(--rd-motion-fast) var(--rd-motion-ease),
+    transform var(--rd-motion-fast) var(--rd-motion-ease);
+}
+
+.rd-partners-marquee-shell:hover .rd-partners-marquee-track {
   animation-play-state: paused;
+}
+
+.rd-partners-marquee-shell:hover .rd-partner-logo {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rd-partners-marquee-track {
+    animation: none;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 /* =============================================
