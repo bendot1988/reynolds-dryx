@@ -445,6 +445,93 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
 }
 
 /* =============================================
+   Reynolds Dryline — What We Offer rail
+   ============================================= */
+.rd-offer-rail {
+  position: relative;
+  overflow: hidden;
+}
+
+.rd-offer-rail-line {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 3.05rem;
+  height: 1px;
+  background: rgba(184, 25, 30, 0.35);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 900ms var(--rd-motion-ease);
+}
+
+.rd-offer-rail-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.rd-offer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px) scale(0.97);
+  transition:
+    opacity 520ms var(--rd-motion-ease),
+    transform 520ms var(--rd-motion-ease);
+}
+
+.rd-offer-icon {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 9999px;
+  background: var(--rd-red);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 22px rgba(184, 25, 30, 0.35);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.rd-offer-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7f1d1d;
+}
+
+body.js-ready .rd-offer-rail.animate-in .rd-offer-rail-line {
+  transform: scaleX(1);
+}
+
+body.js-ready .rd-offer-rail.animate-in .rd-offer-item {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+body.js-ready .rd-offer-rail.animate-in .rd-offer-item:nth-child(1) { transition-delay: 80ms; }
+body.js-ready .rd-offer-rail.animate-in .rd-offer-item:nth-child(2) { transition-delay: 160ms; }
+body.js-ready .rd-offer-rail.animate-in .rd-offer-item:nth-child(3) { transition-delay: 240ms; }
+body.js-ready .rd-offer-rail.animate-in .rd-offer-item:nth-child(4) { transition-delay: 320ms; }
+
+@media (max-width: 900px) {
+  .rd-offer-rail-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 1.75rem;
+  }
+
+  .rd-offer-rail-line {
+    display: none;
+  }
+}
+
+/* =============================================
    Reynolds Dryline — Sector cards (hover reveal)
    ============================================= */
 .rd-sector-card {
