@@ -281,7 +281,7 @@ a.rd-link-underline-fill:focus-visible::after {
 }
 
 .rd-btn-primary:hover {
-  background-color: var(--rd-red-dark);
+  background-color: var(--rd-red);
   transform: none;
 }
 
@@ -307,8 +307,8 @@ a.rd-link-underline-fill:focus-visible::after {
 }
 
 .rd-btn-outline:hover {
-  background-color: #fff;
-  color: #000;
+  background-color: transparent;
+  color: #fff;
   transform: none;
 }
 
@@ -383,8 +383,8 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
 }
 
 .rd-btn-outline-red:hover {
-  background-color: var(--rd-red);
-  color: #fff;
+  background-color: transparent;
+  color: var(--rd-red);
   transform: none;
 }
 
