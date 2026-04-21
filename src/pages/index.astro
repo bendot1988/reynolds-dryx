@@ -2,15 +2,14 @@
 import ReynoldsLayout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import LogoMarquee from '../components/LogoMarquee.astro';
 
-const yearsTrading = new Date().getFullYear() - 1963;
 const partnerLogos = [
   { src: '/assets/reynolds/partner-clowes.png', alt: 'Clowes' },
   { src: '/assets/reynolds/partner-engie.png', alt: 'ENGIE' },
   { src: '/assets/reynolds/partner-winvic.png', alt: 'Winvic' },
   { src: '/assets/reynolds/partner-gallifordtry.png', alt: 'Galliford Try' },
   { src: '/assets/reynolds/partner-bowmer-kirkland.png', alt: 'Bowmer Kirkland' },
-  { src: '/assets/reynolds/partner-willmott-dixon.png', alt: 'Willmott Dixon' },
 ];
 ---
 
@@ -29,7 +28,7 @@ const partnerLogos = [
   <!-- ============================================================
        HERO SECTION — Full-screen video background
   ============================================================ -->
-  <section class="relative min-h-screen flex flex-col justify-center overflow-hidden">
+  <section class="relative h-screen flex flex-col justify-center overflow-hidden">
     <!-- Video background -->
     <video
       id="rd-hero-video"
@@ -47,14 +46,14 @@ const partnerLogos = [
     <div class="absolute inset-0 bg-black/65"></div>
 
     <!-- Content -->
-    <div class="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-10 py-32 lg:py-40">
+    <div class="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-10 py-32 lg:py-40 lg:pt-[55vh] lg:pb-24 md:-translate-y-6 lg:-translate-y-8">
       <!-- Badge -->
       <div class="inline-flex items-center gap-2 bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-4 py-2 mb-8 rounded-[5px]" data-animate data-delay="0">
         Since 1963
       </div>
 
       <!-- Headline -->
-      <h1 class="text-6xl sm:text-7xl lg:text-[6.75rem] font-black text-white leading-[0.94] mb-6 max-w-3xl" data-animate data-delay="100">
+      <h1 class="text-6xl sm:text-7xl lg:text-[5rem] font-black text-white leading-[0.94] mb-6 max-w-3xl" data-animate data-delay="100">
         Providing Complete<br />
         <span class="text-red-500">Dryline</span> Solutions
       </h1>
@@ -87,40 +86,22 @@ const partnerLogos = [
   </section>
 
   <!-- ============================================================
-       TRUST STRIP — PROOF ABOVE THE FOLD
+       TRUST STRIP — SIMPLE FULL-WIDTH CREDENTIALS BAND
   ============================================================ -->
-  <section class="rd-section--surface border-y border-gray-200/80">
-    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-7 lg:py-8">
-      <div class="rd-panel rd-panel--subtle p-6 lg:p-7 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr_1.4fr] gap-6 lg:gap-8 items-center">
-        <div class="flex items-center gap-4" data-animate>
-          <div class="w-12 h-12 rounded-[10px] bg-red-600 text-white flex items-center justify-center text-xl font-black">
-            {yearsTrading}+
-          </div>
-          <div>
-            <p class="text-[0.68rem] font-bold tracking-[0.11em] uppercase text-gray-500">Years Trading</p>
-            <p class="text-sm text-gray-800 font-semibold">Delivering specialist drylining since 1963</p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2.5" data-animate data-delay="80">
-          <span class="inline-flex items-center justify-center rounded-[10px] border border-gray-300 bg-gray-50 px-3 py-2 text-[0.66rem] font-bold tracking-[0.1em] uppercase text-gray-700">H&amp;S Focused</span>
-          <span class="inline-flex items-center justify-center rounded-[10px] border border-gray-300 bg-gray-50 px-3 py-2 text-[0.66rem] font-bold tracking-[0.1em] uppercase text-gray-700">Compliance Led</span>
-          <span class="inline-flex items-center justify-center rounded-[10px] border border-gray-300 bg-gray-50 px-3 py-2 text-[0.66rem] font-bold tracking-[0.1em] uppercase text-gray-700">Quality Assured</span>
-          <span class="inline-flex items-center justify-center rounded-[10px] border border-gray-300 bg-gray-50 px-3 py-2 text-[0.66rem] font-bold tracking-[0.1em] uppercase text-gray-700">Fully Insured</span>
-        </div>
-
-        <div data-animate data-delay="140">
-          <p class="text-[0.68rem] font-bold tracking-[0.11em] uppercase text-gray-500 mb-3">Trusted By Leading Contractors</p>
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="inline-flex items-center rounded-[8px] border border-gray-300 bg-white px-2.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.06em] uppercase text-gray-700">Clowes</span>
-            <span class="inline-flex items-center rounded-[8px] border border-gray-300 bg-white px-2.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.06em] uppercase text-gray-700">ENGIE</span>
-            <span class="inline-flex items-center rounded-[8px] border border-gray-300 bg-white px-2.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.06em] uppercase text-gray-700">Winvic</span>
-            <span class="inline-flex items-center rounded-[8px] border border-gray-300 bg-white px-2.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.06em] uppercase text-gray-700">Galliford Try</span>
-            <span class="inline-flex items-center rounded-[8px] border border-gray-300 bg-white px-2.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.06em] uppercase text-gray-700">Bowmer + Kirkland</span>
-            <span class="inline-flex items-center rounded-[8px] border border-gray-300 bg-white px-2.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.06em] uppercase text-gray-700">Willmott Dixon</span>
-          </div>
-        </div>
-      </div>
+  <section class="w-full bg-black border-y border-white/10">
+    <div class="w-full grid grid-cols-2 lg:grid-cols-4">
+      <p class="py-4 px-4 text-center text-white/75 text-[0.68rem] font-bold tracking-[0.14em] uppercase border-b border-white/10 lg:border-b-0 lg:border-r lg:border-white/10">
+        H&amp;S Focused
+      </p>
+      <p class="py-4 px-4 text-center text-white/75 text-[0.68rem] font-bold tracking-[0.14em] uppercase border-b border-white/10 lg:border-b-0 lg:border-r lg:border-white/10">
+        Compliance Led
+      </p>
+      <p class="py-4 px-4 text-center text-white/75 text-[0.68rem] font-bold tracking-[0.14em] uppercase lg:border-r lg:border-white/10">
+        Quality Assured
+      </p>
+      <p class="py-4 px-4 text-center text-white/75 text-[0.68rem] font-bold tracking-[0.14em] uppercase">
+        Fully Insured
+      </p>
     </div>
   </section>
 
@@ -500,19 +481,8 @@ const partnerLogos = [
         <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-3">Who We Partner With</h2>
         <div class="w-12 h-1 bg-red-600 mx-auto"></div>
       </div>
-      <div class="rd-panel rd-panel--subtle rd-partners-marquee-shell p-0" data-animate data-delay="100">
-        <div class="rd-partners-marquee-track">
-          <div class="rd-partners-marquee-group">
-            {partnerLogos.map((logo) => (
-              <img src={logo.src} alt={logo.alt} class="h-10 lg:h-11 w-auto object-contain rd-partner-logo" loading="lazy" />
-            ))}
-          </div>
-          <div class="rd-partners-marquee-group" aria-hidden="true">
-            {partnerLogos.map((logo) => (
-              <img src={logo.src} alt="" class="h-10 lg:h-11 w-auto object-contain rd-partner-logo" loading="lazy" />
-            ))}
-          </div>
-        </div>
+      <div class="rd-panel rd-panel--subtle p-0" data-animate data-delay="100">
+        <LogoMarquee logos={partnerLogos} />
       </div>
     </div>
   </section>

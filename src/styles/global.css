@@ -27,6 +27,8 @@
   --rd-border-soft: rgba(17, 24, 39, 0.1);
   --rd-shadow-soft: 0 10px 30px rgba(17, 17, 17, 0.07);
   --rd-shadow-panel: 0 16px 40px rgba(17, 17, 17, 0.12);
+  --rd-focus-ring: rgba(226, 49, 37, 0.55);
+  --rd-focus-offset: 2px;
   --rd-motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
   --rd-motion-fast: 180ms;
   --rd-motion-base: 280ms;
@@ -45,6 +47,11 @@
    ============================================= */
 body {
   font-family: 'Montserrat', system-ui, sans-serif;
+}
+
+:where(a, button, [role='button'], input, textarea, select):focus-visible {
+  outline: 3px solid var(--rd-focus-ring);
+  outline-offset: var(--rd-focus-offset);
 }
 
 h1, h2, h3, h4, h5, h6 {

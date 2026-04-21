@@ -1,0 +1,92 @@
+---
+export interface LogoItem {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  logos: LogoItem[];
+}
+
+const { logos } = Astro.props as Props;
+---
+
+<div class="logo-marquee" aria-label="Partner logos marquee">
+  <div class="logo-marquee-track">
+    <ul class="logo-marquee-group">
+      {logos.map((logo) => (
+        <li class="logo-marquee-item">
+          <img src={logo.src} alt={logo.alt} loading="lazy" decoding="async" />
+        </li>
+      ))}
+    </ul>
+    <ul class="logo-marquee-group" aria-hidden="true">
+      {logos.map((logo) => (
+        <li class="logo-marquee-item">
+          <img src={logo.src} alt="" loading="lazy" decoding="async" />
+        </li>
+      ))}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .logo-marquee {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .logo-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: logo-marquee-scroll 20s linear infinite;
+    will-change: transform;
+  }
+
+  .logo-marquee-group {
+    display: flex;
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .logo-marquee-item {
+    flex: 0 0 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0.8rem;
+  }
+
+  .logo-marquee-item img {
+    max-height: 42px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  @keyframes logo-marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logo-marquee-track {
+      animation: none;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .logo-marquee-group[aria-hidden="true"] {
+      display: none;
+    }
+
+    .logo-marquee-group {
+      width: 100%;
+      min-width: 100%;
+    }
+  }
+</style>

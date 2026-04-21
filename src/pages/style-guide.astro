@@ -1,0 +1,304 @@
+---
+import ReynoldsLayout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const coreColors = [
+  { token: '--rd-red', value: '#e23125', usage: 'Primary brand actions, highlights, CTA backgrounds' },
+  { token: '--rd-red-dark', value: '#b8191e', usage: 'Darker red state / contrast support' },
+  { token: '--rd-black', value: '#111111', usage: 'Strong text and deep accents' },
+  { token: '--rd-dark', value: '#1a1a1a', usage: 'Dark UI surfaces and overlays' },
+  { token: '--rd-gray', value: '#f5f5f5', usage: 'Light neutral backgrounds' },
+  { token: '--rd-surface', value: '#ffffff', usage: 'Default page/card surface' },
+  { token: '--rd-surface-soft', value: '#f6f7f8', usage: 'Soft section backgrounds' },
+];
+
+const supportColors = [
+  { token: '--color-red-50', value: '#fef2f2', usage: 'Tailwind red scale (light backgrounds)' },
+  { token: '--color-red-400', value: '#f06a6d', usage: 'Hover/accent red' },
+  { token: '--color-red-500', value: '#e23125', usage: 'Primary red utility' },
+  { token: '--color-red-600', value: '#e23125', usage: 'Primary red utility (normalized)' },
+  { token: '--color-red-700', value: '#b8191e', usage: 'Deeper red utility' },
+  { token: '--rd-border-soft', value: 'rgba(17, 24, 39, 0.1)', usage: 'Card and panel borders' },
+  { token: '--rd-shadow-soft', value: '0 10px 30px rgba(17, 17, 17, 0.07)', usage: 'Default panel/card shadow' },
+  { token: '--rd-shadow-panel', value: '0 16px 40px rgba(17, 17, 17, 0.12)', usage: 'Hover-elevated panel shadow' },
+  { token: '--rd-focus-ring', value: 'rgba(226, 49, 37, 0.55)', usage: 'Accessible keyboard focus outline color' },
+  { token: '--rd-focus-offset', value: '2px', usage: 'Focus ring offset from component edge' },
+];
+
+const typographyScale = [
+  { name: 'Hero display', value: '6.75rem', details: 'Homepage primary hero headline' },
+  { name: 'Display XL', value: '6rem', details: 'Major section titles on large screens' },
+  { name: 'Display L', value: '5rem', details: 'Primary section headings' },
+  { name: 'Heading L', value: '4.25rem', details: 'Core competency / featured headings' },
+  { name: 'Heading M', value: '4.1rem', details: 'Featured section headings' },
+  { name: 'Heading S', value: '2rem-3rem', details: 'General page section headings' },
+  { name: 'Body L', value: '1.25rem-1.5rem', details: 'Lead and supporting paragraphs' },
+  { name: 'Body', value: '1rem', details: 'Default body copy' },
+  { name: 'Body S', value: '0.875rem', details: 'Secondary UI text and form fields' },
+  { name: 'Label XS', value: '0.62rem-0.7rem', details: 'Tags, metadata, and micro labels' },
+];
+
+const radii = [
+  { token: '--rd-radius-sm', value: '5px', usage: 'Buttons, chips, compact controls' },
+  { token: '--rd-radius-md', value: '10px', usage: 'Inputs and compact card elements' },
+  { token: '--rd-radius-lg', value: '15px', usage: 'Panels, cards, media frames' },
+];
+
+const motion = [
+  { token: '--rd-motion-fast', value: '180ms', usage: 'Hover/focus color and state shifts' },
+  { token: '--rd-motion-base', value: '280ms', usage: 'Underline/button reveal transitions' },
+  { token: '--rd-motion-slow', value: '600ms', usage: 'Scroll animations and larger transforms' },
+  { token: '--rd-motion-ease', value: 'cubic-bezier(0.16, 1, 0.3, 1)', usage: 'Default easing curve' },
+];
+
+const improvements = [
+  'Implemented: a shared keyboard focus ring is now in place for links, buttons, and form controls via :focus-visible and reusable tokens.',
+  'Introduce a small semantic text token layer (e.g. --rd-text-primary, --rd-text-muted) to reduce repeated Tailwind gray utility combinations.',
+  'Consolidate micro-label tracking values into named tokens to keep spacing and uppercase labels fully consistent across pages.',
+  'Add a style guide QA checklist (contrast, keyboard states, reduced motion behavior) before new sections are merged.',
+];
+
+const aiDesignBrief = `Use this design language for Reynolds Dryline outputs.
+
+Brand and tone:
+- Premium UK construction specialist tone: confident, clear, practical, no fluff.
+- Style should feel robust, modern, and trustworthy.
+
+Color system:
+- Primary red: #e23125 (brand action color).
+- Dark red: #b8191e.
+- Core dark text: #111111.
+- Dark surface: #1a1a1a.
+- Main surface: #ffffff.
+- Soft surface: #f6f7f8.
+- Border soft: rgba(17, 24, 39, 0.1).
+
+Typography:
+- Font family: Montserrat, system-ui, sans-serif.
+- Headings are heavy (800-900), with tight tracking and strong hierarchy.
+- Body text should stay highly legible and neutral.
+
+Shape and spacing:
+- Radius scale: 5px (small), 10px (medium), 15px (large).
+- Section vertical rhythm: clamp(4.5rem, 7vw, 6rem).
+- Use generous whitespace and clean block structure.
+
+Interaction and motion:
+- Focus states are mandatory and visible (3px ring, red-tinted).
+- Motion is smooth and restrained:
+  - fast: 180ms
+  - base: 280ms
+  - slow: 600ms
+  - easing: cubic-bezier(0.16, 1, 0.3, 1)
+- Hover effects should be subtle: light lift, underline reveal, or soft shadow changes.
+
+Components:
+- Buttons: uppercase, bold, compact letter spacing, strong red primary CTA.
+- Cards/panels: white surface, soft border, soft shadow, rounded corners.
+- Labels/tags: uppercase micro-label style with consistent tracking.
+
+Accessibility and quality:
+- Preserve strong text contrast.
+- Keep keyboard focus visible on interactive elements.
+- Respect reduced-motion preference where animation exists.
+- Keep copy concise and scannable.`;
+---
+
+<ReynoldsLayout
+  title="Reynolds Dryline | Internal Style Guide"
+  description="Internal style guide documenting current Reynolds Dryline design tokens, typography, spacing, and component styling."
+  canonical="https://www.reynoldsdryline.co.uk/style-guide"
+  noindex={true}
+>
+  <Header currentPath="/style-guide" />
+
+  <main class="bg-white text-gray-900">
+    <section class="rd-section rd-section--surface !pt-0 px-0 pb-14 lg:pb-16">
+      <div class="relative h-56 lg:h-72 overflow-hidden">
+        <img
+          src="/assets/reynolds/parkside-coventry-hero.png"
+          alt="Reynolds Dryline visual header reference"
+          class="w-full h-full object-cover object-top"
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-black/20"></div>
+      </div>
+      <div class="px-6 lg:px-10 pt-10 lg:pt-12">
+        <div class="max-w-7xl mx-auto">
+        <p class="rd-label mb-4">Internal Reference</p>
+        <h1 class="text-4xl lg:text-6xl font-black text-gray-900 mb-5">Reynolds Dryline Style Guide</h1>
+        <p class="text-gray-700 text-lg max-w-3xl leading-relaxed">
+          This page captures the design values currently used across the site (colors, typography, sizing, radius, motion, and component behavior),
+          plus practical improvements to keep the system consistent as more pages are added.
+        </p>
+        <div class="rd-panel mt-8 p-5 lg:p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <h2 class="text-xl font-black text-gray-900">Copy/Paste AI Design Brief</h2>
+            <button
+              id="copy-design-brief"
+              type="button"
+              class="rd-btn-outline-red !text-xs !px-4 !py-2 !tracking-[0.08em] w-fit"
+            >
+              Copy Brief
+            </button>
+          </div>
+          <p class="text-sm text-gray-600 mb-3">Paste this into Cursor, Claude, or any AI tool to preserve the current design language.</p>
+          <textarea
+            id="design-brief-text"
+            class="rd-input !font-mono !text-[0.8rem] !leading-relaxed h-80 resize-y"
+            readonly
+          >{aiDesignBrief}</textarea>
+        </div>
+        <div class="mt-8 inline-flex items-center rounded-[10px] border border-red-200 bg-red-50 px-4 py-2 text-sm font-semibold text-red-700">
+          Hidden from search: noindex + nofollow enabled
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rd-section rd-section--muted px-6 lg:px-10">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl lg:text-4xl font-black mb-8">Color System</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {coreColors.map((color) => (
+            <article class="rd-panel p-5 lg:p-6">
+              <div class="flex items-start gap-4">
+                <span class="h-12 w-12 rounded-[10px] border border-gray-300 shrink-0" style={`background:${color.value};`}></span>
+                <div>
+                  <p class="text-sm font-black text-gray-900">{color.token}</p>
+                  <p class="text-sm font-semibold text-red-600 mt-0.5">{color.value}</p>
+                  <p class="text-sm text-gray-600 mt-2 leading-relaxed">{color.usage}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <h3 class="text-2xl font-black mt-12 mb-6">Extended Palette and Effects</h3>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {supportColors.map((color) => (
+            <article class="rd-panel p-5 lg:p-6">
+              <div class="flex items-start gap-4">
+                <span class="h-12 w-12 rounded-[10px] border border-gray-300 shrink-0" style={`background:${color.value.includes('rgba') ? '#f3f4f6' : color.value};`}></span>
+                <div>
+                  <p class="text-sm font-black text-gray-900">{color.token}</p>
+                  <p class="text-sm font-semibold text-red-600 mt-0.5 break-all">{color.value}</p>
+                  <p class="text-sm text-gray-600 mt-2 leading-relaxed">{color.usage}</p>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <p class="text-sm text-gray-600 mt-8">
+          Additional Tailwind neutrals currently in active use include utility shades across
+          <span class="font-semibold text-gray-800"> gray-50, 200, 300, 400, 500, 600, 700, 800, 900 </span>
+          plus white/black alpha variants for overlays and text contrast.
+        </p>
+      </div>
+    </section>
+
+    <section class="rd-section rd-section--surface px-6 lg:px-10">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl lg:text-4xl font-black mb-8">Typography</h2>
+        <div class="rd-panel p-6 lg:p-8 mb-8">
+          <p class="text-sm font-bold tracking-[0.15em] uppercase text-gray-500 mb-3">Primary Font Family</p>
+          <p class="text-2xl font-black text-gray-900">Montserrat, system-ui, sans-serif</p>
+          <p class="text-gray-600 mt-3">Loaded weights in use: 400, 500, 600, 700, 800, 900 and italic 400/700.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {typographyScale.map((item) => (
+            <article class="rd-panel p-5">
+              <p class="text-sm font-bold tracking-[0.1em] uppercase text-gray-500">{item.name}</p>
+              <p class="text-2xl font-black text-gray-900 mt-2">{item.value}</p>
+              <p class="text-sm text-gray-600 mt-2">{item.details}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="rd-section rd-section--muted px-6 lg:px-10">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl lg:text-4xl font-black mb-8">Radius, Motion, and Spacing Rhythm</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div class="rd-panel p-6 lg:p-7">
+            <h3 class="text-xl font-black mb-4">Corner Radius Scale</h3>
+            <div class="space-y-4">
+              {radii.map((item) => (
+                <div class="flex items-start gap-4">
+                  <span class="h-10 w-10 border border-gray-300 bg-white shrink-0" style={`border-radius:${item.value};`}></span>
+                  <div>
+                    <p class="text-sm font-black text-gray-900">{item.token}</p>
+                    <p class="text-sm font-semibold text-red-600">{item.value}</p>
+                    <p class="text-sm text-gray-600">{item.usage}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="rd-panel p-6 lg:p-7">
+            <h3 class="text-xl font-black mb-4">Motion Tokens</h3>
+            <div class="space-y-4">
+              {motion.map((item) => (
+                <div>
+                  <p class="text-sm font-black text-gray-900">{item.token}</p>
+                  <p class="text-sm font-semibold text-red-600">{item.value}</p>
+                  <p class="text-sm text-gray-600">{item.usage}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div class="rd-panel p-6 lg:p-7 mt-8">
+          <h3 class="text-xl font-black mb-4">Section Spacing Rhythm</h3>
+          <p class="text-gray-700 leading-relaxed">
+            Core section rhythm uses <span class="font-semibold">clamp(4.5rem, 7vw, 6rem)</span> for top and bottom padding through `.rd-section`,
+            with tighter context-specific spacing layered per section (`pt-10`, `pb-14`, `lg:pt-12`, `lg:pb-16`, etc.) on content-heavy modules.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="rd-section rd-section--surface px-6 lg:px-10">
+      <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl lg:text-4xl font-black mb-8">Suggested Improvements Added</h2>
+        <div class="rd-panel p-6 lg:p-8">
+          <ul class="space-y-4">
+            {improvements.map((item) => (
+              <li class="flex items-start gap-3 text-gray-700 leading-relaxed">
+                <span class="mt-2 h-2 w-2 rounded-full bg-red-600 shrink-0"></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <script is:inline>
+    const copyButton = document.getElementById('copy-design-brief');
+    const briefField = document.getElementById('design-brief-text');
+
+    if (copyButton instanceof HTMLButtonElement && briefField instanceof HTMLTextAreaElement) {
+      copyButton.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(briefField.value);
+          copyButton.textContent = 'Copied';
+          setTimeout(() => {
+            copyButton.textContent = 'Copy Brief';
+          }, 1400);
+        } catch {
+          briefField.focus();
+          briefField.select();
+        }
+      });
+    }
+  </script>
+</ReynoldsLayout>
