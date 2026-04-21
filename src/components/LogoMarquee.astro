@@ -16,14 +16,14 @@ const { logos } = Astro.props as Props;
     <ul class="logo-marquee-group">
       {logos.map((logo) => (
         <li class="logo-marquee-item">
-          <img src={logo.src} alt={logo.alt} loading="lazy" decoding="async" />
+          <img src={logo.src} alt={logo.alt} loading="eager" decoding="async" />
         </li>
       ))}
     </ul>
     <ul class="logo-marquee-group" aria-hidden="true">
       {logos.map((logo) => (
         <li class="logo-marquee-item">
-          <img src={logo.src} alt="" loading="lazy" decoding="async" />
+          <img src={logo.src} alt="" loading="eager" decoding="async" />
         </li>
       ))}
     </ul>
@@ -39,8 +39,10 @@ const { logos } = Astro.props as Props;
   .logo-marquee-track {
     display: flex;
     width: max-content;
-    animation: logo-marquee-scroll 20s linear infinite;
+    animation: logo-marquee-scroll 28s linear infinite;
     will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
   }
 
   .logo-marquee-group {
@@ -54,22 +56,39 @@ const { logos } = Astro.props as Props;
   }
 
   .logo-marquee-item {
-    flex: 0 0 20%;
+    flex: 0 0 25%;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem 0.8rem;
+    padding: 1.25rem 1rem;
   }
 
   .logo-marquee-item img {
-    max-height: 42px;
+    max-height: 58px;
     width: auto;
     object-fit: contain;
+    transform: translateZ(0);
+  }
+
+  @media (max-width: 1023px) {
+    .logo-marquee-item {
+      flex-basis: 33.3333%;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .logo-marquee-item {
+      flex-basis: 50%;
+    }
+
+    .logo-marquee-item img {
+      max-height: 50px;
+    }
   }
 
   @keyframes logo-marquee-scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
   }
 
   @media (prefers-reduced-motion: reduce) {
