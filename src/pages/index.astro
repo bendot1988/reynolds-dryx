@@ -10,6 +10,34 @@ const partnerLogos = [
   { src: '/assets/reynolds/partner-winvic.png', alt: 'Winvic' },
   { src: '/assets/reynolds/partner-gallifordtry.png', alt: 'Galliford Try' },
   { src: '/assets/reynolds/partner-bowmer-kirkland.png', alt: 'Bowmer Kirkland' },
+  { src: '/assets/reynolds/partner-willmott-dixon.png', alt: 'Willmott Dixon' },
+];
+
+const testimonials = [
+  {
+    quote:
+      "Reynolds consistently deliver exceptional quality across our major schemes. Their team is proactive, reliable, and always aligned with programme and commercial targets.",
+    author: "Senior Project Director",
+    company: "Winvic Construction",
+    logo: "/assets/reynolds/testimonials/winvic.png",
+    logoAlt: "Winvic logo",
+  },
+  {
+    quote:
+      "From pre-construction input through to handover, Reynolds brought technical clarity and dependable execution. They remain one of our most trusted specialist partners.",
+    author: "Commercial Lead",
+    company: "Galliford Try",
+    logo: "/assets/reynolds/testimonials/galliford-try.png",
+    logoAlt: "Galliford Try logo",
+  },
+  {
+    quote:
+      "The Reynolds team demonstrates strong site leadership, high safety standards, and excellent finish quality. They make complex delivery challenges feel straightforward.",
+    author: "Project Manager",
+    company: "Bowmer + Kirkland",
+    logo: "/assets/reynolds/testimonials/bowmer-kirkland.png",
+    logoAlt: "Bowmer + Kirkland logo",
+  },
 ];
 ---
 
@@ -59,8 +87,9 @@ const partnerLogos = [
       </h1>
 
       <!-- Subheading -->
-      <p class="text-white/88 text-xl lg:text-2xl max-w-lg mb-10 leading-relaxed font-medium" data-animate data-delay="200">
-        Leaders in specialist building finishes. Fulfilling high-value projects to programme, budget, and unmatched quality standards.
+      <p class="text-white/88 text-xl lg:text-2xl max-w-3xl mb-10 leading-relaxed font-medium" data-animate data-delay="200">
+        Leaders in specialist building finishes.<br class="hidden md:block" />
+        Fulfilling high-value projects to programme, budget, and unmatched quality standards.
       </p>
 
       <!-- CTAs (.rd-hero-cta in global.css; footer band uses .rd-hero-cta--on-red) -->
@@ -117,32 +146,32 @@ const partnerLogos = [
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7">
-        <article class="rd-panel overflow-hidden" data-animate>
-          <img src="/assets/reynolds/project-untitled.jpg" alt="Plastering works on a major site" class="w-full h-52 lg:h-56 object-cover" loading="lazy" />
+        <article class="rd-panel group overflow-hidden" data-animate>
+          <img src="/assets/reynolds/services/plastering.png" alt="Plastering works on a major site" class="w-full h-52 lg:h-56 object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
           <div class="p-6">
             <h3 class="text-xl font-black text-gray-900 mb-2">Plastering</h3>
             <p class="text-gray-600 text-sm leading-relaxed">High-quality skim and tape-and-joint finishes delivered to programme with clean handover standards.</p>
           </div>
         </article>
 
-        <article class="rd-panel overflow-hidden" data-animate data-delay="100">
-          <img src="/assets/reynolds/drylining-01.jpg" alt="Metal stud partition installation" class="w-full h-52 lg:h-56 object-cover" loading="lazy" />
+        <article class="rd-panel group overflow-hidden" data-animate data-delay="100">
+          <img src="/assets/reynolds/services/partitions.png" alt="Metal stud partition installation" class="w-full h-52 lg:h-56 object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
           <div class="p-6">
             <h3 class="text-xl font-black text-gray-900 mb-2">Partitions</h3>
             <p class="text-gray-600 text-sm leading-relaxed">Metal stud partition systems designed for acoustic performance, durability, and efficient installation.</p>
           </div>
         </article>
 
-        <article class="rd-panel overflow-hidden" data-animate data-delay="180">
-          <img src="/assets/reynolds/parkside-coventry-hero.png" alt="Structural framing system façade package" class="w-full h-52 lg:h-56 object-cover" loading="lazy" />
+        <article class="rd-panel group overflow-hidden" data-animate data-delay="180">
+          <img src="/assets/reynolds/services/sfs.png" alt="Structural framing system façade package" class="w-full h-52 lg:h-56 object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
           <div class="p-6">
             <h3 class="text-xl font-black text-gray-900 mb-2">SFS</h3>
             <p class="text-gray-600 text-sm leading-relaxed">Structural framing system packages coordinated for façade interfaces, speed, and buildability.</p>
           </div>
         </article>
 
-        <article class="rd-panel overflow-hidden" data-animate data-delay="260">
-          <img src="/assets/reynolds/project-lisbon-st-leeds.jpg" alt="Suspended ceiling installation" class="w-full h-52 lg:h-56 object-cover" loading="lazy" />
+        <article class="rd-panel group overflow-hidden" data-animate data-delay="260">
+          <img src="/assets/reynolds/services/ceilings.png" alt="Suspended ceiling installation" class="w-full h-52 lg:h-56 object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
           <div class="p-6">
             <h3 class="text-xl font-black text-gray-900 mb-2">Ceilings</h3>
             <p class="text-gray-600 text-sm leading-relaxed">Suspended ceiling solutions across commercial and residential schemes with precise finishing.</p>
@@ -348,6 +377,90 @@ const partnerLogos = [
           <p class="text-white/90 text-sm font-semibold tracking-wide uppercase">construction value delivered</p>
           <p class="text-white/70 text-[0.68rem] tracking-[0.12em] uppercase mt-3">Since 1963 • Delivered to date</p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TESTIMONIALS — FEATURED CLIENT FEEDBACK CAROUSEL
+  ============================================================ -->
+  <section class="px-6 lg:px-10 py-20 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-10 lg:mb-12" data-animate>
+        <p class="rd-label mb-3">Client Testimonial</p>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900">What Leading Contractors Say</h2>
+      </div>
+
+      <div
+        id="rd-testimonial-carousel"
+        class="relative overflow-hidden rounded-[18px] border border-red-100 bg-gradient-to-br from-red-50 via-white to-gray-50 p-8 lg:p-12 shadow-[0_24px_60px_-28px_rgba(17,17,17,0.28)]"
+        data-animate
+      >
+        <div class="pointer-events-none absolute -top-20 -left-20 w-64 h-64 rounded-full bg-red-200/35 blur-3xl"></div>
+        <div class="pointer-events-none absolute -bottom-16 -right-12 w-56 h-56 rounded-full bg-red-300/25 blur-3xl"></div>
+
+        <div class="relative">
+          <div class="min-h-[270px] lg:min-h-[230px]">
+            {testimonials.map((testimonial, index) => (
+              <article
+                class={`rd-testimonial-slide ${index === 0 ? '' : 'hidden'}`}
+                data-testimonial-slide
+                aria-hidden={index === 0 ? 'false' : 'true'}
+              >
+                <div class="inline-flex items-center justify-center bg-white border border-red-100 rounded-[10px] px-6 py-3.5 mb-6 shadow-sm">
+                  <img
+                    src={testimonial.logo}
+                    alt={testimonial.logoAlt}
+                    class="h-12 lg:h-14 w-auto object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <p class="text-gray-800 text-2xl lg:text-[2rem] leading-[1.45] font-medium max-w-5xl">
+                  {testimonial.quote}
+                </p>
+                <div class="mt-8">
+                  <p class="text-gray-900 text-base lg:text-lg font-black tracking-wide uppercase">{testimonial.author}</p>
+                  <p class="text-red-600 text-sm lg:text-base font-bold tracking-[0.14em] uppercase">{testimonial.company}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div class="mt-8 lg:mt-10 flex items-center justify-between gap-4">
+            <button
+              type="button"
+              data-testimonial-prev
+              class="inline-flex items-center gap-2 rounded-[8px] border border-gray-300 bg-white/90 px-4 py-2 text-[0.7rem] font-bold tracking-[0.13em] uppercase text-gray-700 transition-colors duration-200 hover:border-red-500 hover:text-red-600"
+              aria-label="Show previous testimonial"
+            >
+              <span aria-hidden="true">←</span>
+              Previous
+            </button>
+
+            <div class="flex items-center gap-2" role="tablist" aria-label="Testimonials">
+              {testimonials.map((testimonial, index) => (
+                <button
+                  type="button"
+                  data-testimonial-dot
+                  data-index={index}
+                  class={`h-2.5 rounded-full transition-all duration-300 ${index === 0 ? 'w-8 bg-red-600' : 'w-2.5 bg-red-200 hover:bg-red-300'}`}
+                  aria-label={`Show testimonial ${index + 1}: ${testimonial.company}`}
+                ></button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              data-testimonial-next
+              class="inline-flex items-center gap-2 rounded-[8px] border border-gray-300 bg-white/90 px-4 py-2 text-[0.7rem] font-bold tracking-[0.13em] uppercase text-gray-700 transition-colors duration-200 hover:border-red-500 hover:text-red-600"
+              aria-label="Show next testimonial"
+            >
+              Next
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -688,6 +801,81 @@ const partnerLogos = [
 
 <script is:inline>
   (function () {
+    const root = document.getElementById('rd-testimonial-carousel');
+    if (!root) return;
+
+    const slides = Array.from(root.querySelectorAll('[data-testimonial-slide]'));
+    const dots = Array.from(root.querySelectorAll('[data-testimonial-dot]'));
+    const previousButton = root.querySelector('[data-testimonial-prev]');
+    const nextButton = root.querySelector('[data-testimonial-next]');
+    if (!slides.length) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const autoplayIntervalMs = 6500;
+    let currentIndex = 0;
+    let autoplayId = null;
+
+    function render(index) {
+      currentIndex = (index + slides.length) % slides.length;
+
+      slides.forEach((slide, slideIndex) => {
+        const isActive = slideIndex === currentIndex;
+        slide.classList.toggle('hidden', !isActive);
+        slide.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      });
+
+      dots.forEach((dot, dotIndex) => {
+        const isActive = dotIndex === currentIndex;
+        dot.classList.toggle('w-8', isActive);
+        dot.classList.toggle('bg-red-600', isActive);
+        dot.classList.toggle('w-2.5', !isActive);
+        dot.classList.toggle('bg-red-200', !isActive);
+        dot.classList.toggle('hover:bg-red-300', !isActive);
+      });
+    }
+
+    function stopAutoplay() {
+      if (autoplayId) {
+        window.clearInterval(autoplayId);
+        autoplayId = null;
+      }
+    }
+
+    function startAutoplay() {
+      if (prefersReducedMotion) return;
+      stopAutoplay();
+      autoplayId = window.setInterval(() => render(currentIndex + 1), autoplayIntervalMs);
+    }
+
+    previousButton?.addEventListener('click', () => {
+      render(currentIndex - 1);
+      startAutoplay();
+    });
+
+    nextButton?.addEventListener('click', () => {
+      render(currentIndex + 1);
+      startAutoplay();
+    });
+
+    dots.forEach((dot, dotIndex) => {
+      dot.addEventListener('click', () => {
+        render(dotIndex);
+        startAutoplay();
+      });
+    });
+
+    root.addEventListener('mouseenter', stopAutoplay);
+    root.addEventListener('mouseleave', startAutoplay);
+    root.addEventListener('focusin', stopAutoplay);
+    root.addEventListener('focusout', startAutoplay);
+
+    render(0);
+    startAutoplay();
+  })();
+</script>
+
+<script is:inline>
+  (function () {
     const heroVideo = document.getElementById('rd-hero-video');
     if (!(heroVideo instanceof HTMLVideoElement)) return;
 
@@ -761,12 +949,10 @@ const partnerLogos = [
       { lat: 51.5074, lng: -0.1278, name: 'London' },
       { lat: 52.6369, lng: -1.1398, name: 'Leicester' },
       { lat: 53.3811, lng: -1.4701, name: 'Sheffield' },
-      { lat: 54.5973, lng: -5.9301, name: 'Belfast' },
       { lat: 55.9533, lng: -3.1883, name: 'Edinburgh' },
       { lat: 55.8642, lng: -4.2518, name: 'Glasgow' },
       { lat: 57.1497, lng: -2.0943, name: 'Aberdeen' },
       { lat: 56.4620, lng: -2.9707, name: 'Dundee' },
-      { lat: 54.9783, lng: -1.6178, name: 'Newcastle upon Tyne' },
       { lat: 54.9069, lng: -1.3838, name: 'Sunderland' },
       { lat: 54.5742, lng: -1.2350, name: 'Middlesbrough' },
       { lat: 53.9590, lng: -1.0815, name: 'York' },
@@ -783,8 +969,6 @@ const partnerLogos = [
       { lat: 52.2053, lng: 0.1218, name: 'Cambridge' },
       { lat: 51.7520, lng: -1.2577, name: 'Oxford' },
       { lat: 50.9097, lng: -1.4044, name: 'Southampton' },
-      { lat: 50.3755, lng: -4.1427, name: 'Plymouth' },
-      { lat: 50.7184, lng: -3.5339, name: 'Exeter' },
     ];
 
     const redIcon = L.divIcon({

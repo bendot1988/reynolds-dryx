@@ -20,9 +20,10 @@ const navLinks = [
     <!-- Logo -->
     <a href="/" class="flex-shrink-0" aria-label="Reynolds Dryline Home">
       <img
+        id="rd-header-logo"
         src="/assets/reynolds/logo-reynolds.svg"
         alt="Reynolds Dryline"
-        class="h-10 lg:h-12 w-auto brightness-0 invert"
+        class="rd-header-logo rd-logo-red h-10 lg:h-12 w-auto transition-[filter] duration-300"
         width="220"
         height="48"
         loading="eager"
@@ -138,6 +139,7 @@ const navLinks = [
 
 <script>
   const headerInner = document.getElementById('rd-header-inner') as HTMLElement | null;
+  const headerLogo = document.getElementById('rd-header-logo') as HTMLImageElement | null;
   const mobileToggle = document.getElementById('rd-mobile-toggle') as HTMLButtonElement | null;
   const mobileMenuRoot = document.getElementById('rd-mobile-menu-root');
   const mobileDismiss = document.getElementById('rd-mobile-dismiss');
@@ -174,8 +176,12 @@ const navLinks = [
     const currentScrollY = window.scrollY;
     if (currentScrollY <= 30) {
       headerInner.classList.remove('bg-black/95', 'shadow-lg', 'shadow-black/50');
+      headerLogo?.classList.remove('rd-logo-white');
+      headerLogo?.classList.add('rd-logo-red');
     } else {
       headerInner.classList.add('bg-black/95', 'shadow-lg', 'shadow-black/50');
+      headerLogo?.classList.remove('rd-logo-red');
+      headerLogo?.classList.add('rd-logo-white');
     }
     lastScrollY = currentScrollY;
   }
@@ -192,3 +198,13 @@ const navLinks = [
     if (e.key === 'Escape' && menuOpen) setMenuOpen(false);
   });
 </script>
+
+<style>
+  .rd-logo-red {
+    filter: brightness(0) saturate(100%) invert(28%) sepia(84%) saturate(5961%) hue-rotate(350deg) brightness(94%) contrast(91%);
+  }
+
+  .rd-logo-white {
+    filter: brightness(0) invert(1);
+  }
+</style>

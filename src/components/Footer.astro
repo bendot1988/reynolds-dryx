@@ -13,19 +13,21 @@ const credentials = [
 
 <footer class="bg-[#111111] text-white">
   <!-- CTA Band -->
-  <div class="bg-red-600 py-16 px-6 lg:px-10 text-center">
-    <h2 class="text-4xl lg:text-5xl font-black text-white mb-3">Starting a New Project?</h2>
-    <p class="text-white/90 text-lg mb-8 max-w-2xl mx-auto">Speak to our team early for practical delivery input, commercial clarity, and confident project planning.</p>
-    <div class="flex flex-wrap items-center justify-center gap-4">
-      <a href="/contact" class="rd-hero-cta rd-hero-cta--on-red rd-btn-primary">
-        Discuss Your Project
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </a>
-      <a href="/projects" class="rd-hero-cta rd-btn-outline">
-        View Projects
-      </a>
+  <div class="rd-footer-cta relative overflow-hidden py-16 px-6 lg:px-10 text-center">
+    <div class="relative z-10">
+      <h2 class="text-4xl lg:text-5xl font-black text-white mb-3">Starting a New Project?</h2>
+      <p class="text-white/90 text-lg mb-8 max-w-2xl mx-auto">Speak to our team early for practical delivery input, commercial clarity, and confident project planning.</p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="/contact" class="rd-hero-cta rd-hero-cta--on-red rd-btn-primary">
+          Discuss Your Project
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+        <a href="/projects" class="rd-hero-cta rd-btn-outline">
+          View Projects
+        </a>
+      </div>
     </div>
   </div>
 
@@ -188,3 +190,15 @@ const credentials = [
     </div>
   </div>
 </footer>
+
+<style>
+  .rd-footer-cta {
+    background-image:
+      linear-gradient(135deg, rgba(226, 49, 37, 0.91), rgba(210, 29, 29, 0.9)),
+      url('/assets/reynolds/footer-cta-bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    isolation: isolate;
+  }
+</style>
