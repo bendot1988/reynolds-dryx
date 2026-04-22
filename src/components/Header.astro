@@ -38,7 +38,7 @@ const navLinks = [
           class={`rd-link-underline text-xs font-bold tracking-widest uppercase transition-colors duration-200 ${
             currentPath === link.href || currentPath.startsWith(link.href + '/')
               ? 'text-white'
-              : 'text-white/70 hover:text-white'
+              : 'text-white hover:text-white'
           }`}
         >
           {link.label}
@@ -50,7 +50,7 @@ const navLinks = [
     <div class="flex items-center gap-4">
       <a
         href="tel:01509816600"
-        class="rd-link-underline hidden sm:flex items-center gap-2 text-white/80 hover:text-white text-sm font-semibold transition-colors duration-200"
+        class="rd-link-underline hidden sm:flex items-center gap-2 text-white hover:text-white text-sm font-semibold transition-colors duration-200"
         aria-label="Call us on 01509 816 600"
       >
         <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
