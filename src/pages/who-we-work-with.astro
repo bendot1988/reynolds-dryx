@@ -1,0 +1,104 @@
+---
+import ReynoldsLayout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+
+const partnerTypes = [
+  {
+    title: 'Main Contractors',
+    description:
+      'We support Tier 1 and regional main contractors on commercial, residential and mixed-use developments, integrating with project teams from early-stage planning through delivery.',
+  },
+  {
+    title: 'Developers & Investor Teams',
+    description:
+      'For build-to-rent, PBSA and large-scale residential programmes, we provide dependable delivery capability with transparent commercial reporting and programme certainty.',
+  },
+  {
+    title: 'Design & Technical Teams',
+    description:
+      'We coordinate closely with consultants and design managers to resolve interfaces early, protect buildability and maintain quality through to final handover.',
+  },
+];
+
+const projectFit = [
+  'Commercial and multi-unit developments',
+  'Main-contractor led delivery environments',
+  'Packages requiring programme certainty and compliance',
+  'Projects with clear technical and quality requirements',
+];
+---
+
+<ReynoldsLayout
+  title="Who We Work With | Reynolds Dryline"
+  description="Learn who Reynolds Dryline partners with across the UK. We deliver specialist building finishes for major contractors, developers and large-scale commercial projects."
+  canonical="https://www.reynoldsdryline.co.uk/who-we-work-with"
+>
+  <Header currentPath="/who-we-work-with" />
+
+  <PageHero
+    title="Who We Work With"
+    subtitle="We partner with major contractors and delivery teams on high-value commercial and multi-unit projects across the UK."
+    breadcrumb="Client Profile"
+  />
+
+  <section class="rd-section rd-section--surface px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12" data-animate>
+        <p class="rd-label mb-3">Our Typical Clients</p>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-4">Built for Commercial Project Delivery</h2>
+        <p class="text-gray-600 max-w-3xl mx-auto">
+          Reynolds Dryline is a specialist commercial drylining partner. We are set up for large-scale delivery teams, complex programmes, and projects where safety, coordination and quality are critical.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {partnerTypes.map((item, index) => (
+          <article class="rd-panel p-6 lg:p-7" data-animate data-delay={index * 80}>
+            <h3 class="text-xl font-black text-gray-900 mb-3">{item.title}</h3>
+            <p class="text-gray-600 leading-relaxed text-sm">{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="rd-section rd-section--muted px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+      <div class="rd-panel p-7 lg:p-8" data-animate>
+        <p class="rd-label mb-3">Project Fit</p>
+        <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-5">Best Suited For</h2>
+        <ul class="space-y-3">
+          {projectFit.map((item) => (
+            <li class="flex items-center gap-3 text-sm text-gray-700">
+              <svg class="w-5 h-5 text-red-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="rd-panel p-7 lg:p-8" data-animate data-delay="80">
+        <p class="rd-label mb-3">Important Note</p>
+        <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-5">Domestic Works</h2>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          We do not typically undertake one-off domestic jobs (for example, individual living room plastering). Our teams are structured for commercial-scale delivery and contractor-led environments.
+        </p>
+        <p class="text-gray-600 leading-relaxed mb-7">
+          If you are a contractor, developer, or project team with a relevant package, we would be pleased to discuss your requirements.
+        </p>
+        <a href="/contact" class="rd-btn-primary">
+          Discuss a Commercial Project
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</ReynoldsLayout>

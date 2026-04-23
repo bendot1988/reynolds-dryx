@@ -16,45 +16,39 @@ const {
   subtitle,
   bgImage,
   bgPosition = 'center',
-  overlayOpacity = 0.7,
+  overlayOpacity = 0.82,
   breadcrumb,
 } = Astro.props;
 
+const defaultBgImage = '/assets/reynolds/services/plastering.png';
+const resolvedBgImage = bgImage || defaultBgImage;
 const overlayStyle = `background-color: rgba(0,0,0,${overlayOpacity});`;
 ---
 
 <section
   class:list={[
     'relative pt-32 pb-20 px-6 lg:px-10 overflow-hidden',
-    bgImage ? 'min-h-[22rem] sm:min-h-[26rem]' : 'bg-[#111111]',
+    'min-h-[22rem] sm:min-h-[26rem]',
   ]}
 >
-  {
-    bgImage ? (
-      <>
-        <div class="absolute inset-0 z-0">
-          <img
-            src={bgImage}
-            alt=""
-            class="h-full w-full object-cover"
-            style={`object-position: ${bgPosition};`}
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-            aria-hidden="true"
-          />
-          <div class="absolute inset-0 z-[1]" style={overlayStyle} aria-hidden="true" />
-        </div>
-      </>
-    ) : (
-      <div class="absolute inset-0 opacity-5 z-0">
-        <div
-          class="absolute inset-0"
-          style="background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%); background-size: 20px 20px;"
-        />
-      </div>
-    )
-  }
+  <div class="absolute inset-0 z-0">
+    <img
+      src={resolvedBgImage}
+      alt=""
+      class="h-full w-full object-cover"
+      style={`object-position: ${bgPosition};`}
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      aria-hidden="true"
+    />
+    <div class="absolute inset-0 z-[1]" style={overlayStyle} aria-hidden="true" />
+    <div
+      class="absolute inset-0 z-[2] opacity-[0.025]"
+      style="background-image: repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%); background-size: 20px 20px;"
+      aria-hidden="true"
+    />
+  </div>
 
   <div class="relative z-10 max-w-7xl mx-auto w-full">
     {breadcrumb && (
