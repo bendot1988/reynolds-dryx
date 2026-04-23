@@ -255,7 +255,7 @@ a.rd-link-underline-fill:focus-visible::after {
   right: 0;
   bottom: 0;
   height: 3px;
-  background-color: currentColor;
+  background-color: var(--rd-btn-accent-bar, currentColor);
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform var(--rd-motion-base) var(--rd-motion-ease);
@@ -274,6 +274,7 @@ a.rd-link-underline-fill:focus-visible::after {
 }
 
 .rd-btn-primary {
+  --rd-btn-accent-bar: var(--rd-black);
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -372,6 +373,11 @@ a.rd-hero-cta--on-red.rd-btn-primary:focus-visible {
 
 a.rd-hero-cta--on-red.rd-btn-primary::after {
   background-color: var(--rd-black);
+}
+
+/* Utility: use white accent bar on dark surfaces for .rd-btn-primary. */
+.rd-btn-primary--on-dark {
+  --rd-btn-accent-bar: #fff;
 }
 
 .rd-btn-outline-red {

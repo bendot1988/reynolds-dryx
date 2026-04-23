@@ -39,11 +39,11 @@ const team = [
   />
 
   <!-- Our Story -->
-  <section class="bg-white py-20 px-6 lg:px-10">
+  <section class="rd-section rd-section--surface px-6 lg:px-10">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
       <div data-animate>
         <p class="rd-label mb-3">Our Heritage</p>
-        <h2 class="text-5xl lg:text-6xl font-black text-gray-900 mb-6 leading-tight">
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
           Building Excellence Since 1963
         </h2>
         <div class="space-y-4 text-gray-600 leading-relaxed">
@@ -78,11 +78,11 @@ const team = [
   </section>
 
   <!-- Values -->
-  <section class="bg-gray-50 py-20 px-6 lg:px-10 mt-8 rounded-t-[2rem] sm:rounded-t-[2.5rem]">
+  <section class="rd-section rd-section--muted px-6 lg:px-10 mt-8 rounded-t-[2rem] sm:rounded-t-[2.5rem]">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-14" data-animate>
         <p class="rd-label mb-3">What Drives Us</p>
-        <h2 class="text-5xl lg:text-6xl font-black text-gray-900 mb-4">Our Core Values</h2>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-4">Our Core Values</h2>
         <div class="w-12 h-1 bg-red-600 mx-auto rounded-full"></div>
       </div>
 
@@ -110,7 +110,7 @@ const team = [
           },
         ].map((val, i) => (
           <div
-            class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm border-t-4 border-t-red-600 hover:shadow-md transition-shadow duration-300"
+            class="rd-panel p-8 border-t-4 border-t-red-600"
             data-animate
             data-delay={`${i * 100}`}
           >
@@ -126,24 +126,21 @@ const team = [
   </section>
 
   <!-- Meet the Team -->
-  <section class="bg-white py-20 px-6 lg:px-10">
+  <section class="rd-section rd-section--surface px-6 lg:px-10">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-14 lg:mb-16" data-animate>
         <p class="rd-label mb-3">Our People</p>
-        <h2 class="text-5xl lg:text-6xl font-black text-gray-900 mb-4">Meet the Team</h2>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-4">Meet the Team</h2>
         <div class="w-12 h-1 bg-red-600 mx-auto mb-6 rounded-full"></div>
         <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
           Our leadership brings decades of combined experience in specialist building finishes — the faces behind our commitment to quality on every project.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 items-stretch">
         {team.map((member, i) => (
           <article
-            class:list={[
-              'rd-team-card group relative flex flex-col bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-md hover:shadow-xl transition-all duration-500',
-              { 'lg:translate-y-6': i === 1 },
-            ]}
+            class="rd-team-card group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-md hover:shadow-xl transition-all duration-500"
             data-animate
             data-delay={`${i * 100}`}
           >
@@ -175,7 +172,7 @@ const team = [
   </section>
 
   <!-- Stats bar -->
-  <section class="bg-[#111111] py-16 px-6 lg:px-10">
+  <section class="rd-section rd-section--dark px-6 lg:px-10 !py-16">
     <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 text-center">
       {[
         { number: '1963', label: 'Year Founded' },
@@ -196,7 +193,7 @@ const team = [
   </section>
 
   <!-- Accreditations -->
-  <section class="bg-white py-20 px-6 lg:px-10 rounded-b-[2rem] sm:rounded-b-[2.5rem]">
+  <section class="rd-section rd-section--surface px-6 lg:px-10 rounded-b-[2rem] sm:rounded-b-[2.5rem]">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-12" data-animate>
         <p class="rd-label mb-3">Compliance & Quality</p>
@@ -219,7 +216,7 @@ const team = [
             desc: 'We are committed to reducing our environmental impact through responsible sourcing and waste management.',
           },
         ].map(cert => (
-          <div class="border border-gray-200 p-8 text-center rounded-2xl bg-gray-50/50 hover:bg-white hover:shadow-lg hover:border-gray-200 transition-all duration-300">
+          <div class="rd-panel p-8 text-center bg-gray-50/50 hover:bg-white">
             <div class="w-16 h-16 bg-red-50 border-2 border-red-600 rounded-xl flex items-center justify-center mx-auto mb-5">
               <svg class="w-8 h-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
