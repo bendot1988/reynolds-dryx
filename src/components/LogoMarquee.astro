@@ -11,7 +11,25 @@ interface Props {
 const { logos } = Astro.props as Props;
 ---
 
-<div class="logo-marquee" aria-label="Partner logos marquee">
+<!-- Static grid on small viewports; scrolling marquee from md breakpoint up -->
+<ul
+  class="logo-marquee-gallery m-0 list-none grid grid-cols-2 gap-4 p-6 sm:grid-cols-3 sm:gap-6 md:hidden"
+  aria-label="Partner logos"
+>
+  {logos.map((logo) => (
+    <li class="flex aspect-square items-center justify-center rounded-lg border border-gray-100 bg-white/80 p-3 sm:p-4">
+      <img
+        src={logo.src}
+        alt={logo.alt}
+        class="h-full w-full max-h-full max-w-full object-contain object-center"
+        loading="lazy"
+        decoding="async"
+      />
+    </li>
+  ))}
+</ul>
+
+<div class="logo-marquee hidden md:block" aria-label="Partner logos marquee">
   <div class="logo-marquee-track">
     <ul class="logo-marquee-group">
       {logos.map((logo) => (
