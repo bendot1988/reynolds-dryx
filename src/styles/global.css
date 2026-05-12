@@ -73,11 +73,6 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.15 !important;
   }
 
-  h2.text-5xl.font-black {
-    font-size: 1.875rem !important;
-    line-height: 1.12 !important;
-  }
-
   h2.text-4xl.font-black {
     font-size: 1.625rem !important;
     line-height: 1.2 !important;

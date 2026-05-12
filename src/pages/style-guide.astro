@@ -27,16 +27,14 @@ const supportColors = [
 ];
 
 const typographyScale = [
-  { name: 'Hero display', value: '6.75rem', details: 'Homepage primary hero headline' },
-  { name: 'Display XL', value: '6rem', details: 'Major section titles on large screens' },
-  { name: 'Display L', value: '5rem', details: 'Primary section headings' },
-  { name: 'Heading L', value: '4.25rem', details: 'Core competency / featured headings' },
-  { name: 'Heading M', value: '4.1rem', details: 'Featured section headings' },
-  { name: 'Heading S', value: '2rem-3rem', details: 'General page section headings' },
-  { name: 'Body L', value: '1.25rem-1.5rem', details: 'Lead and supporting paragraphs' },
+  { name: 'Hero display', value: 'responsive', details: 'Homepage primary hero h1: text-6xl / sm:text-7xl / lg:text-[5rem], font-black' },
+  { name: 'Section heading', value: '2.25rem → 3rem', details: 'In-page section h2: Tailwind text-4xl / lg:text-5xl, font-black — canonical marketing title (e.g. Core Services, Built to Deliver)' },
+  { name: 'Page hero title', value: '2.25rem → 3.75rem', details: 'Interior page hero h1 (PageHero): text-4xl / lg:text-6xl font-black' },
+  { name: 'Card / list title', value: '1.25rem–1.5rem', details: 'Project cards, news cards: text-xl / text-2xl font-black' },
+  { name: 'Body L', value: '1.125rem–1.25rem', details: 'Lead and supporting paragraphs (text-lg / xl)' },
   { name: 'Body', value: '1rem', details: 'Default body copy' },
   { name: 'Body S', value: '0.875rem', details: 'Secondary UI text and form fields' },
-  { name: 'Label XS', value: '0.62rem-0.7rem', details: 'Tags, metadata, and micro labels' },
+  { name: 'Label XS', value: '0.62rem-0.7rem', details: 'Tags, metadata, and micro labels (.rd-label)' },
 ];
 
 const radii = [
@@ -55,7 +53,7 @@ const motion = [
 const improvements = [
   'Implemented: a shared keyboard focus ring is now in place for links, buttons, and form controls via :focus-visible and reusable tokens.',
   'Introduce a small semantic text token layer (e.g. --rd-text-primary, --rd-text-muted) to reduce repeated Tailwind gray utility combinations.',
-  'Consolidate micro-label tracking values into named tokens to keep spacing and uppercase labels fully consistent across pages.',
+  'Standardise new marketing sections: section h2 uses text-4xl / lg:text-5xl font-black (same as homepage "Core Services, Built to Deliver"); pair with .rd-label for eyebrow text.',
   'Add a style guide QA checklist (contrast, keyboard states, reduced motion behavior) before new sections are merged.',
 ];
 
@@ -76,7 +74,8 @@ Color system:
 
 Typography:
 - Font family: Montserrat, system-ui, sans-serif.
-- Headings are heavy (800-900), with tight tracking and strong hierarchy.
+- Section headings (h2): Tailwind text-4xl / lg:text-5xl, font-black (900), tight letter-spacing — same scale as homepage "Core Services, Built to Deliver". Use text-gray-900 on light surfaces and text-white on dark bands.
+- Page hero titles: PageHero uses text-4xl / lg:text-6xl font-black on the image hero.
 - Body text should stay highly legible and neutral.
 
 Shape and spacing:
@@ -134,7 +133,7 @@ Accessibility and quality:
         </p>
         <div class="rd-panel mt-8 p-5 lg:p-6">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <h2 class="text-xl font-black text-gray-900">Copy/Paste AI Design Brief</h2>
+            <h3 class="text-xl font-black text-gray-900">Copy/Paste AI Design Brief</h3>
             <button
               id="copy-design-brief"
               type="button"
@@ -159,7 +158,7 @@ Accessibility and quality:
 
     <section class="rd-section rd-section--muted px-6 lg:px-10">
       <div class="max-w-7xl mx-auto">
-        <h2 class="text-3xl lg:text-4xl font-black mb-8">Color System</h2>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-8">Color System</h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {coreColors.map((color) => (
             <article class="rd-panel p-5 lg:p-6">
@@ -201,11 +200,18 @@ Accessibility and quality:
 
     <section class="rd-section rd-section--surface px-6 lg:px-10">
       <div class="max-w-7xl mx-auto">
-        <h2 class="text-3xl lg:text-4xl font-black mb-8">Typography</h2>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-8">Typography</h2>
         <div class="rd-panel p-6 lg:p-8 mb-8">
           <p class="text-sm font-bold tracking-[0.15em] uppercase text-gray-500 mb-3">Primary Font Family</p>
           <p class="text-2xl font-black text-gray-900">Montserrat, system-ui, sans-serif</p>
           <p class="text-gray-600 mt-3">Loaded weights in use: 400, 500, 600, 700, 800, 900 and italic 400/700.</p>
+          <p class="text-gray-600 mt-4 text-sm leading-relaxed max-w-3xl">
+            <span class="font-semibold text-gray-800">Section titles:</span>
+            use <code class="text-xs font-mono bg-gray-100 px-1.5 py-0.5 rounded">text-4xl lg:text-5xl font-black</code>
+            plus <code class="text-xs font-mono bg-gray-100 px-1.5 py-0.5 rounded">text-gray-900</code> or
+            <code class="text-xs font-mono bg-gray-100 px-1.5 py-0.5 rounded">text-white</code> on dark sections.
+            Below 640px width, <code class="text-xs font-mono bg-gray-100 px-1.5 py-0.5 rounded">global.css</code> tightens matching h1/h2 slightly for readability.
+          </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
           {typographyScale.map((item) => (
@@ -221,7 +227,7 @@ Accessibility and quality:
 
     <section class="rd-section rd-section--muted px-6 lg:px-10">
       <div class="max-w-7xl mx-auto">
-        <h2 class="text-3xl lg:text-4xl font-black mb-8">Radius, Motion, and Spacing Rhythm</h2>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-8">Radius, Motion, and Spacing Rhythm</h2>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div class="rd-panel p-6 lg:p-7">
             <h3 class="text-xl font-black mb-4">Corner Radius Scale</h3>
@@ -265,7 +271,7 @@ Accessibility and quality:
 
     <section class="rd-section rd-section--surface px-6 lg:px-10">
       <div class="max-w-7xl mx-auto">
-        <h2 class="text-3xl lg:text-4xl font-black mb-8">Suggested Improvements Added</h2>
+        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-8">Suggested Improvements Added</h2>
         <div class="rd-panel p-6 lg:p-8">
           <ul class="space-y-4">
             {improvements.map((item) => (
