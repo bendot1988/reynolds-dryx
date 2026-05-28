@@ -48,7 +48,7 @@ import PageHero from '../components/PageHero.astro';
                 id="first-name"
                 name="first-name"
                 required
-                class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
+                class="w-full border border-gray-300 rounded-[10px] px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
                 placeholder="John"
               />
             </div>
@@ -59,7 +59,7 @@ import PageHero from '../components/PageHero.astro';
                 id="last-name"
                 name="last-name"
                 required
-                class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
+                class="w-full border border-gray-300 rounded-[10px] px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
                 placeholder="Smith"
               />
             </div>
@@ -71,7 +71,7 @@ import PageHero from '../components/PageHero.astro';
               type="text"
               id="company"
               name="company"
-              class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
+              class="w-full border border-gray-300 rounded-[10px] px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
               placeholder="Your Company Ltd"
             />
           </div>
@@ -83,7 +83,7 @@ import PageHero from '../components/PageHero.astro';
               id="email"
               name="email"
               required
-              class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
+              class="w-full border border-gray-300 rounded-[10px] px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
               placeholder="john@company.co.uk"
             />
           </div>
@@ -94,7 +94,7 @@ import PageHero from '../components/PageHero.astro';
               type="tel"
               id="phone"
               name="phone"
-              class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
+              class="w-full border border-gray-300 rounded-[10px] px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200"
               placeholder="01509 000 000"
             />
           </div>
@@ -104,7 +104,7 @@ import PageHero from '../components/PageHero.astro';
             <select
               id="project-type"
               name="project-type"
-              class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200 bg-white"
+              class="w-full border border-gray-300 rounded-[10px] px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200 bg-white"
             >
               <option value="">Select a service...</option>
               <option value="metal-stud-partitioning">Metal Stud Partitioning</option>
@@ -123,14 +123,14 @@ import PageHero from '../components/PageHero.astro';
               name="message"
               required
               rows="5"
-              class="w-full border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200 resize-none"
+              class="w-full border border-gray-300 rounded-[10px] px-4 py-3 text-sm focus:outline-none focus:border-red-600 transition-colors duration-200 resize-none"
               placeholder="Tell us about your project..."
             ></textarea>
           </div>
 
           <button
             type="submit"
-            class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 text-sm tracking-widest uppercase transition-colors duration-200 flex items-center justify-center gap-2"
+            class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 text-sm tracking-widest uppercase rounded-[5px] transition-colors duration-200 flex items-center justify-center gap-2"
           >
             Send Message
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -140,7 +140,7 @@ import PageHero from '../components/PageHero.astro';
         </form>
 
         <!-- Success message (hidden by default) -->
-        <div id="rd-form-success" class="hidden mt-6 bg-green-50 border border-green-200 p-6 text-center">
+        <div id="rd-form-success" class="hidden mt-6 bg-green-50 border border-green-200 rounded-[10px] p-6 text-center">
           <svg class="w-10 h-10 text-green-500 mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -157,7 +157,7 @@ import PageHero from '../components/PageHero.astro';
         <div class="space-y-6 mb-10">
           <!-- Address -->
           <div class="flex items-start gap-4">
-            <div class="w-10 h-10 bg-red-600 flex items-center justify-center flex-shrink-0">
+            <div class="w-10 h-10 bg-red-600 rounded-[10px] flex items-center justify-center flex-shrink-0">
               <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
               </svg>
@@ -175,7 +175,7 @@ import PageHero from '../components/PageHero.astro';
 
           <!-- Phone -->
           <div class="flex items-start gap-4">
-            <div class="w-10 h-10 bg-red-600 flex items-center justify-center flex-shrink-0">
+            <div class="w-10 h-10 bg-red-600 rounded-[10px] flex items-center justify-center flex-shrink-0">
               <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
               </svg>
@@ -188,7 +188,7 @@ import PageHero from '../components/PageHero.astro';
 
           <!-- Email -->
           <div class="flex items-start gap-4">
-            <div class="w-10 h-10 bg-red-600 flex items-center justify-center flex-shrink-0">
+            <div class="w-10 h-10 bg-red-600 rounded-[10px] flex items-center justify-center flex-shrink-0">
               <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
               </svg>
@@ -201,7 +201,7 @@ import PageHero from '../components/PageHero.astro';
 
           <!-- Hours -->
           <div class="flex items-start gap-4">
-            <div class="w-10 h-10 bg-red-600 flex items-center justify-center flex-shrink-0">
+            <div class="w-10 h-10 bg-red-600 rounded-[10px] flex items-center justify-center flex-shrink-0">
               <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>
               </svg>
@@ -215,7 +215,7 @@ import PageHero from '../components/PageHero.astro';
         </div>
 
         <!-- Map -->
-        <div class="h-72 bg-gray-100 overflow-hidden" id="rd-contact-map"></div>
+        <div class="h-72 bg-gray-100 rounded-[15px] overflow-hidden" id="rd-contact-map"></div>
       </div>
     </div>
   </section>

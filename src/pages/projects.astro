@@ -147,7 +147,7 @@ const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Lei
                 {project.sector}
               </span>
 
-              <h2 class="text-2xl font-black text-gray-900 mb-1">{project.title}</h2>
+              <h3 class="text-2xl font-black text-gray-900 mb-1">{project.title}</h3>
               <p class="text-gray-500 text-sm mb-4">{project.location}</p>
               <p class="text-gray-600 text-sm leading-relaxed mb-5">{project.description}</p>
 
@@ -209,13 +209,14 @@ const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Lei
     btn.addEventListener('click', () => {
       const sector = btn.getAttribute('data-sector');
 
-      // Update active button
+      // Update active button — also manage hover utilities so active button
+      // doesn't show red text on a red background when hovered.
       filterBtns.forEach(b => {
         b.classList.remove('bg-red-600', 'text-white', 'border-red-600');
-        b.classList.add('bg-white', 'text-gray-600', 'border-gray-300');
+        b.classList.add('bg-white', 'text-gray-600', 'border-gray-300', 'hover:border-red-600', 'hover:text-red-600');
       });
       btn.classList.add('bg-red-600', 'text-white', 'border-red-600');
-      btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-300');
+      btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-300', 'hover:border-red-600', 'hover:text-red-600');
 
       // Filter projects
       projectItems.forEach(item => {

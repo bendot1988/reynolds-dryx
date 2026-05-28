@@ -481,6 +481,39 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
   border-color: rgba(17, 24, 39, 0.14);
 }
 
+/* Reusable hover accent: red bar that grows in from the left along the
+   bottom edge. Pair with .rd-panel (or any positioned card) for the
+   consistent Reynolds hover signature. */
+.rd-hover-bar {
+  position: relative;
+  overflow: hidden;
+}
+
+.rd-hover-bar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--rd-red);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--rd-motion-base) var(--rd-motion-ease);
+  pointer-events: none;
+}
+
+.rd-hover-bar:hover::after,
+.rd-hover-bar:focus-within::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rd-hover-bar::after {
+    transition-duration: 0.05s;
+  }
+}
+
 /* Homepage stat cards use utility classes, so give them a shared subtle lift */
 .rd-stat-card {
   transition:

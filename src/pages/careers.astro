@@ -69,7 +69,7 @@ const roles = [
             { title: 'Career Progression', desc: 'Clear pathways from operative to management.' },
             { title: 'Nationwide Projects', desc: 'Work on high-profile projects across the UK.' },
           ].map(benefit => (
-            <div class="rd-panel rd-panel--subtle rd-careers-benefit p-5">
+            <div class="rd-panel rd-panel--subtle rd-hover-bar p-5">
               <h3 class="font-bold text-gray-900 text-sm mb-2">{benefit.title}</h3>
               <p class="text-gray-500 text-xs leading-relaxed">{benefit.desc}</p>
             </div>
@@ -290,30 +290,6 @@ const roles = [
   <Footer />
 </ReynoldsLayout>
 
-<style>
-  .rd-careers-benefit {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .rd-careers-benefit::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 4px;
-    background: var(--rd-red);
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform var(--rd-motion-base) var(--rd-motion-ease);
-  }
-
-  .rd-careers-benefit:hover::after,
-  .rd-careers-benefit:focus-within::after {
-    transform: scaleX(1);
-  }
-</style>
 
 <script>
   const form = document.getElementById('rd-careers-form') as HTMLFormElement | null;
