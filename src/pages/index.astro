@@ -48,7 +48,6 @@ const testimonials = [
 >
   <Fragment slot="head">
     <link rel="preload" href="/assets/reynolds/hero-bg.jpg" as="image" fetchpriority="high" />
-    <link rel="preconnect" href="https://tanro.co.uk" crossorigin />
   </Fragment>
 
   <Header currentPath="/" />
@@ -61,7 +60,7 @@ const testimonials = [
     <video
       id="rd-hero-video"
       class="absolute inset-0 w-full h-full object-cover"
-      src="https://tanro.co.uk/wp-content/uploads/2024/07/TanRo-New-Offices-V1.mp4"
+      src="/assets/reynolds/hero-video.mp4"
       poster="/assets/reynolds/hero-bg.jpg"
       preload="auto"
       autoplay
@@ -934,38 +933,15 @@ const testimonials = [
     if (!(heroVideo instanceof HTMLVideoElement)) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const introOffsetSeconds = 10;
     if (prefersReducedMotion) {
       heroVideo.pause();
       return;
     }
 
-    function playVideo() {
-      const playPromise = heroVideo.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(() => {});
-      }
+    const playPromise = heroVideo.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {});
     }
-
-    function seekToIntroOffset() {
-      try {
-        if (!Number.isFinite(heroVideo.duration) || heroVideo.duration <= introOffsetSeconds) return;
-        const maxStart = Math.max(0, heroVideo.duration - 0.25);
-        const targetStart = Math.min(introOffsetSeconds, maxStart);
-        if (heroVideo.currentTime < targetStart) {
-          heroVideo.currentTime = targetStart;
-        }
-      } catch {
-        // If remote media is not yet seekable, continue playback from start.
-      }
-    }
-
-    heroVideo.addEventListener('loadedmetadata', seekToIntroOffset, { once: true });
-    heroVideo.addEventListener('playing', seekToIntroOffset, { once: true });
-    if (heroVideo.readyState >= 1) {
-      seekToIntroOffset();
-    }
-    playVideo();
   })();
 </script>
 
