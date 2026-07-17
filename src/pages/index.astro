@@ -47,7 +47,7 @@ const testimonials = [
   canonical="https://www.reynoldsdryline.co.uk/"
 >
   <Fragment slot="head">
-    <link rel="preload" href="/assets/reynolds/hero-bg.jpg" as="image" fetchpriority="high" />
+    <link rel="preload" href="/assets/reynolds/hero-poster.jpg" as="image" fetchpriority="high" />
   </Fragment>
 
   <Header currentPath="/" />
@@ -55,13 +55,13 @@ const testimonials = [
   <!-- ============================================================
        HERO SECTION — Full-screen video background
   ============================================================ -->
-  <section class="relative h-screen flex flex-col justify-center overflow-hidden pb-10 lg:pb-14">
+  <section class="relative h-screen flex flex-col justify-center overflow-hidden bg-black pb-10 lg:pb-14">
     <!-- Video background -->
     <video
       id="rd-hero-video"
-      class="absolute inset-0 w-full h-full object-cover"
+      class="absolute inset-0 w-full h-full object-cover bg-black"
       src="/assets/reynolds/hero-video.mp4"
-      poster="/assets/reynolds/hero-bg.jpg"
+      poster="/assets/reynolds/hero-poster.jpg"
       preload="auto"
       autoplay
       muted
@@ -143,7 +143,7 @@ const testimonials = [
         controls
         playsinline
         preload="none"
-        poster="/assets/reynolds/hero-bg.jpg"
+        poster="/assets/reynolds/hero-poster.jpg"
       >
         <source src="/assets/reynolds/hero-video-full.mp4" type="video/mp4" />
       </video>
