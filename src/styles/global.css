@@ -60,6 +60,37 @@ body {
   outline-offset: var(--rd-focus-offset);
 }
 
+/* =============================================
+   Reynolds Dryline — Scrollbar
+   ============================================= */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rd-red) var(--rd-black);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--rd-black);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--rd-red);
+  border-radius: var(--rd-radius-sm);
+  border: 2px solid var(--rd-black);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--rd-red-dark);
+}
+
+*::-webkit-scrollbar-corner {
+  background: var(--rd-black);
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', system-ui, sans-serif;
   font-weight: 800;
@@ -136,6 +167,16 @@ body.js-ready [data-animate].animate-in {
 .rd-hero > * {
   position: relative;
   z-index: 1;
+}
+
+.rd-hero-lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.rd-hero-lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* =============================================

@@ -92,7 +92,7 @@ const testimonials = [
       </p>
 
       <!-- CTAs (.rd-hero-cta in global.css; footer band uses .rd-hero-cta--on-red) -->
-      <div class="flex flex-col sm:flex-row sm:flex-wrap gap-4 mb-8 lg:mb-12" data-animate data-delay="300">
+      <div class="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-4 mb-8 lg:mb-12" data-animate data-delay="300">
         <a href="/contact" class="rd-hero-cta rd-btn-primary w-full sm:w-auto justify-center">
           Discuss Your Project
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -102,9 +102,53 @@ const testimonials = [
         <a href="/projects" class="rd-hero-cta rd-btn-outline w-full sm:w-auto justify-center">
           View Projects
         </a>
+        <button
+          type="button"
+          id="rd-hero-play"
+          class="rd-hero-play group inline-flex items-center justify-center gap-3 w-full sm:w-auto text-white font-bold text-[0.8rem] tracking-[0.1em] uppercase cursor-pointer"
+          aria-haspopup="dialog"
+          aria-controls="rd-hero-lightbox"
+        >
+          <span class="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-white transition-colors duration-200 group-hover:border-red-500 group-hover:bg-red-600" aria-hidden="true">
+            <svg class="ml-0.5 h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5.14v13.72L19 12 8 5.14z" />
+            </svg>
+          </span>
+          Watch Film
+        </button>
       </div>
     </div>
   </section>
+
+  <!-- Full film lightbox -->
+  <dialog
+    id="rd-hero-lightbox"
+    class="rd-hero-lightbox fixed inset-0 z-[100] m-0 h-full max-h-none w-full max-w-none border-0 bg-transparent p-0"
+    aria-label="Reynolds Dryline film"
+  >
+    <button
+      type="button"
+      id="rd-hero-lightbox-close"
+      class="absolute top-4 right-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-black/50 text-white transition-colors hover:border-white hover:bg-white/10 sm:top-6 sm:right-6"
+      aria-label="Close video"
+    >
+      <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <div class="relative w-full max-w-6xl px-4 sm:px-6">
+      <video
+        id="rd-hero-lightbox-video"
+        class="aspect-video w-full bg-black"
+        controls
+        playsinline
+        preload="none"
+        poster="/assets/reynolds/hero-bg.jpg"
+      >
+        <source src="/assets/reynolds/hero-video-full.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </dialog>
 
   <!-- ============================================================
        TRUST STRIP — SIMPLE FULL-WIDTH CREDENTIALS BAND
@@ -930,18 +974,64 @@ const testimonials = [
 <script is:inline>
   (function () {
     const heroVideo = document.getElementById('rd-hero-video');
+    const playButton = document.getElementById('rd-hero-play');
+    const lightbox = document.getElementById('rd-hero-lightbox');
+    const lightboxVideo = document.getElementById('rd-hero-lightbox-video');
+    const closeButton = document.getElementById('rd-hero-lightbox-close');
+
     if (!(heroVideo instanceof HTMLVideoElement)) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
       heroVideo.pause();
+    } else {
+      const playPromise = heroVideo.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {});
+      }
+    }
+
+    if (
+      !(playButton instanceof HTMLButtonElement) ||
+      !(lightbox instanceof HTMLDialogElement) ||
+      !(lightboxVideo instanceof HTMLVideoElement) ||
+      !(closeButton instanceof HTMLButtonElement)
+    ) {
       return;
     }
 
-    const playPromise = heroVideo.play();
-    if (playPromise && typeof playPromise.catch === 'function') {
-      playPromise.catch(() => {});
+    function openLightbox() {
+      heroVideo.pause();
+      lightbox.showModal();
+      const playPromise = lightboxVideo.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {});
+      }
     }
+
+    function closeLightbox() {
+      lightboxVideo.pause();
+      lightboxVideo.currentTime = 0;
+      if (lightbox.open) lightbox.close();
+      if (!prefersReducedMotion) {
+        const playPromise = heroVideo.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {});
+        }
+      }
+    }
+
+    playButton.addEventListener('click', openLightbox);
+    closeButton.addEventListener('click', closeLightbox);
+
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    lightbox.addEventListener('cancel', (event) => {
+      event.preventDefault();
+      closeLightbox();
+    });
   })();
 </script>
 
