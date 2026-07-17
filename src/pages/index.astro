@@ -55,7 +55,7 @@ const testimonials = [
   <!-- ============================================================
        HERO SECTION — Full-screen video background
   ============================================================ -->
-  <section class="relative h-screen flex flex-col justify-center overflow-hidden bg-black pb-10 lg:pb-14">
+  <section class="relative h-screen flex flex-col justify-end overflow-hidden bg-black pb-10 lg:pb-14">
     <!-- Video background -->
     <video
       id="rd-hero-video"
@@ -73,48 +73,49 @@ const testimonials = [
     <div class="absolute inset-0 bg-black/65"></div>
 
     <!-- Content -->
-    <div class="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-10 py-32 lg:py-40 lg:pt-[55vh] lg:pb-24 md:-translate-y-6 lg:-translate-y-8">
+    <div class="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-10 pt-24 pb-6 sm:pb-10 lg:pb-14">
       <!-- Badge -->
-      <div class="inline-flex items-center gap-2 bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-4 py-2 mb-8 rounded-[5px]" data-animate data-delay="0">
+      <div class="inline-flex items-center gap-2 bg-red-600 text-white text-[0.65rem] sm:text-xs font-bold tracking-widest uppercase px-3 py-1.5 sm:px-4 sm:py-2 mb-5 sm:mb-8 rounded-[5px]" data-animate data-delay="0">
         Since 1963
       </div>
 
       <!-- Headline -->
-      <h1 class="text-6xl sm:text-7xl lg:text-[5rem] font-black text-white leading-[1.1] sm:leading-[0.94] mb-6 max-w-3xl" data-animate data-delay="100">
+      <h1 class="text-[2.15rem] sm:text-6xl lg:text-[5rem] font-black text-white leading-[1.12] sm:leading-[0.94] mb-4 sm:mb-6 max-w-3xl" data-animate data-delay="100">
         Providing Complete<br />
         <span class="text-red-500">Dryline</span> Solutions
       </h1>
 
       <!-- Subheading -->
-      <p class="text-white/88 text-lg sm:text-xl lg:text-2xl max-w-3xl mb-10 leading-relaxed font-medium" data-animate data-delay="200">
+      <p class="text-white/88 text-base sm:text-xl lg:text-2xl max-w-3xl mb-7 sm:mb-10 leading-relaxed font-medium" data-animate data-delay="200">
         Leaders in specialist building finishes.<br class="hidden md:block" />
         Fulfilling high-value projects to programme, budget, and unmatched quality standards.
       </p>
 
       <!-- CTAs (.rd-hero-cta in global.css; footer band uses .rd-hero-cta--on-red) -->
-      <div class="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-4 mb-8 lg:mb-12" data-animate data-delay="300">
-        <a href="/contact" class="rd-hero-cta rd-btn-primary w-full sm:w-auto justify-center">
+      <div class="flex flex-row flex-wrap items-center gap-3 sm:gap-4" data-animate data-delay="300">
+        <a href="/contact" class="rd-hero-cta rd-btn-primary justify-center">
           Discuss Your Project
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </a>
-        <a href="/projects" class="rd-hero-cta rd-btn-outline w-full sm:w-auto justify-center">
+        <a href="/projects" class="rd-hero-cta rd-btn-outline justify-center">
           View Projects
         </a>
         <button
           type="button"
           id="rd-hero-play"
-          class="rd-hero-play group inline-flex items-center justify-center gap-3 w-full sm:w-auto text-white font-bold text-[0.8rem] tracking-[0.1em] uppercase cursor-pointer"
+          class="rd-hero-play group inline-flex items-center justify-center gap-2.5 text-white font-bold text-[0.8rem] tracking-[0.1em] uppercase cursor-pointer"
+          aria-label="Watch film"
           aria-haspopup="dialog"
           aria-controls="rd-hero-lightbox"
         >
-          <span class="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-white transition-colors duration-200 group-hover:border-red-500 group-hover:bg-red-600" aria-hidden="true">
-            <svg class="ml-0.5 h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+          <span class="relative flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full border border-white transition-colors duration-200 group-hover:border-red-500 group-hover:bg-red-600" aria-hidden="true">
+            <svg class="ml-px h-3 w-3 sm:h-3.5 sm:w-3.5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M8 5.14v13.72L19 12 8 5.14z" />
             </svg>
           </span>
-          Watch Film
+          <span class="hidden sm:inline">Watch Film</span>
         </button>
       </div>
     </div>
