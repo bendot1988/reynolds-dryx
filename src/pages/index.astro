@@ -55,8 +55,7 @@ const testimonials = [
   <!-- ============================================================
        HERO SECTION — Full-screen video background
   ============================================================ -->
-  <section class="relative h-screen flex flex-col justify-end overflow-hidden bg-black pb-10 lg:pb-14">
-    <!-- Video background -->
+  <section class="rd-page-hero relative flex h-svh max-h-svh flex-col justify-end overflow-hidden bg-black">
     <video
       id="rd-hero-video"
       class="absolute inset-0 w-full h-full object-cover bg-black"
@@ -73,33 +72,33 @@ const testimonials = [
     <div class="absolute inset-0 bg-black/65"></div>
 
     <!-- Content -->
-    <div class="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-10 pt-24 pb-6 sm:pb-10 lg:pb-14">
+    <div class="relative z-10 max-w-7xl mx-auto w-full px-6 lg:px-10 pt-20 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:pb-8 lg:pb-12">
       <!-- Badge -->
-      <div class="inline-flex items-center gap-2 bg-red-600 text-white text-[0.65rem] sm:text-xs font-bold tracking-widest uppercase px-3 py-1.5 sm:px-4 sm:py-2 mb-5 sm:mb-8 rounded-[5px]" data-animate data-delay="0">
+      <div class="inline-flex items-center gap-2 bg-red-600 text-white text-[0.65rem] sm:text-xs font-bold tracking-widest uppercase px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-6 rounded-[5px]" data-animate data-delay="0">
         Since 1963
       </div>
 
       <!-- Headline -->
-      <h1 class="text-[2.15rem] sm:text-6xl lg:text-[5rem] font-black text-white leading-[1.12] sm:leading-[0.94] mb-4 sm:mb-6 max-w-3xl" data-animate data-delay="100">
+      <h1 class="text-[1.85rem] sm:text-6xl lg:text-[5rem] font-black text-white leading-[1.12] sm:leading-[0.94] mb-3 sm:mb-6 max-w-3xl" data-animate data-delay="100">
         Providing Complete<br />
         <span class="text-red-500">Dryline</span> Solutions
       </h1>
 
       <!-- Subheading -->
-      <p class="text-white/88 text-base sm:text-xl lg:text-2xl max-w-3xl mb-7 sm:mb-10 leading-relaxed font-medium" data-animate data-delay="200">
+      <p class="text-white/88 text-sm sm:text-xl lg:text-2xl max-w-3xl mb-5 sm:mb-10 leading-snug sm:leading-relaxed font-medium" data-animate data-delay="200">
         Leaders in specialist building finishes.<br class="hidden md:block" />
-        Fulfilling high-value projects to programme, budget, and unmatched quality standards.
+        <span class="hidden sm:inline">Fulfilling high-value projects to programme, budget, and unmatched quality standards.</span>
       </p>
 
       <!-- CTAs (.rd-hero-cta in global.css; footer band uses .rd-hero-cta--on-red) -->
-      <div class="flex flex-row flex-wrap items-center gap-3 sm:gap-4" data-animate data-delay="300">
-        <a href="/contact" class="rd-hero-cta rd-btn-primary justify-center">
+      <div class="flex flex-row flex-wrap items-center gap-2.5 sm:gap-4" data-animate data-delay="300">
+        <a href="/contact" class="rd-hero-cta rd-btn-primary justify-center !px-3.5 !py-2.5 !text-[0.7rem] sm:!px-6 sm:!py-3 sm:!text-[0.8rem]">
           Discuss Your Project
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </a>
-        <a href="/projects" class="rd-hero-cta rd-btn-outline justify-center">
+        <a href="/projects" class="rd-hero-cta rd-btn-outline justify-center !px-3.5 !py-2.5 !text-[0.7rem] sm:!px-6 sm:!py-3 sm:!text-[0.8rem]">
           View Projects
         </a>
         <button
@@ -110,8 +109,8 @@ const testimonials = [
           aria-haspopup="dialog"
           aria-controls="rd-hero-lightbox"
         >
-          <span class="relative flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full border border-white transition-colors duration-200 group-hover:border-red-500 group-hover:bg-red-600" aria-hidden="true">
-            <svg class="ml-px h-3 w-3 sm:h-3.5 sm:w-3.5" viewBox="0 0 24 24" fill="currentColor">
+          <span class="relative flex h-7 w-7 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-full border border-white transition-colors duration-200 group-hover:border-red-500 group-hover:bg-red-600" aria-hidden="true">
+            <svg class="ml-px h-2.5 w-2.5 sm:h-3.5 sm:w-3.5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M8 5.14v13.72L19 12 8 5.14z" />
             </svg>
           </span>
@@ -983,14 +982,19 @@ const testimonials = [
     if (!(heroVideo instanceof HTMLVideoElement)) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      heroVideo.pause();
-    } else {
+
+    function playHero() {
+      if (prefersReducedMotion) {
+        heroVideo.pause();
+        return;
+      }
       const playPromise = heroVideo.play();
       if (playPromise && typeof playPromise.catch === 'function') {
         playPromise.catch(() => {});
       }
     }
+
+    playHero();
 
     if (
       !(playButton instanceof HTMLButtonElement) ||
@@ -1014,12 +1018,7 @@ const testimonials = [
       lightboxVideo.pause();
       lightboxVideo.currentTime = 0;
       if (lightbox.open) lightbox.close();
-      if (!prefersReducedMotion) {
-        const playPromise = heroVideo.play();
-        if (playPromise && typeof playPromise.catch === 'function') {
-          playPromise.catch(() => {});
-        }
-      }
+      playHero();
     }
 
     playButton.addEventListener('click', openLightbox);

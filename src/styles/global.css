@@ -147,8 +147,22 @@ body.js-ready [data-animate].animate-in {
 }
 
 /* =============================================
-   Reynolds Dryline — Hero section
+   Reynolds Dryline — Page hero (viewport fit)
    ============================================= */
+.rd-page-hero {
+  /* svh = visible viewport with mobile browser chrome shown */
+  height: 100svh;
+  max-height: 100svh;
+}
+
+@supports not (height: 100svh) {
+  .rd-page-hero {
+    height: 100vh;
+    max-height: 100vh;
+  }
+}
+
+/* Legacy .rd-hero utility (non-video pages) */
 .rd-hero {
   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
   position: relative;
