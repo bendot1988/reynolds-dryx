@@ -169,6 +169,13 @@ const staticProjects = [
 
 const projects = cmsProjects.length > 0 ? cmsProjects : staticProjects;
 const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Leisure'];
+
+const isLiveStatus = (status: string) => status === 'Live' || status === 'On Going';
+const sortedProjects = [...staticProjects].sort((a, b) => {
+  const aLive = isLiveStatus(a.status) ? 0 : 1;
+  const bLive = isLiveStatus(b.status) ? 0 : 1;
+  return aLive - bLive;
+});
 ---
 
 <ReynoldsLayout
@@ -253,8 +260,8 @@ const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Lei
   <section class="bg-white py-16 px-6 lg:px-10">
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="rd-projects-grid">
-        {staticProjects.map((project, i) => {
-          const isOngoing = project.status === 'On Going' || project.status === 'Live';
+        {sortedProjects.map((project, i) => {
+          const isOngoing = isLiveStatus(project.status);
           const statusLabel = isOngoing ? (project.status === 'Live' ? 'Live' : 'On Going') : 'Complete';
           return (
           <article
@@ -274,7 +281,7 @@ const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Lei
               <span
                 class:list={[
                   'absolute top-3 right-3 z-10 inline-flex items-center gap-1.5 px-3 py-1.5 text-[0.65rem] font-bold tracking-widest uppercase text-white shadow-sm',
-                  isOngoing ? 'bg-orange-500' : 'bg-emerald-600',
+                  isOngoing ? 'bg-slate-800' : 'bg-emerald-600',
                 ]}
               >
                 <span class="h-1.5 w-1.5 rounded-full bg-white/90" aria-hidden="true"></span>
