@@ -41,7 +41,7 @@ const staticProjects = [
     image: '/assets/reynolds/project-image-coming-soon.svg',
     services: ['SFS', 'Partitioning', 'Ceilings', 'Plastering'],
     description:
-      "Reynolds Building Systems is delivering the drylining package for GRAHAM on Loughborough University's landmark new purpose-built student accommodation development. The £59 million scheme will provide 552 high-quality en-suite student bedrooms across five contemporary accommodation blocks, creating modern living spaces that enhance the student experience and support the University's continued growth.",
+      "Reynolds Dryline is delivering the drylining package for GRAHAM on Loughborough University's landmark new purpose-built student accommodation development. The £59 million scheme will provide 552 high-quality en-suite student bedrooms across five contemporary accommodation blocks, creating modern living spaces that enhance the student experience and support the University's continued growth.",
   },
   {
     title: 'Camphill',
@@ -55,7 +55,7 @@ const staticProjects = [
     image: '/assets/reynolds/project-image-coming-soon.svg',
     services: ['Partitioning', 'Ceilings', 'Plastering'],
     description:
-      'L. Reynolds (Building Systems) Ltd is delivering specialist drylining works on the Camphill development in Birmingham, supporting Winvic Construction on this large-scale residential regeneration project. Our scope included internal partitions, plastering and associated drylining systems, helping create high-quality modern living spaces within the development.',
+      'Reynolds Dryline is delivering specialist drylining works on the Camphill development in Birmingham, supporting Winvic Construction on this large-scale residential regeneration project. Our scope included internal partitions, plastering and associated drylining systems, helping create high-quality modern living spaces within the development.',
   },
   {
     title: 'Browells Lane',
@@ -67,7 +67,7 @@ const staticProjects = [
     image: '/assets/reynolds/project-image-coming-soon.svg',
     services: ['Partitioning', 'Ceilings', 'Plastering'],
     description:
-      'Reynolds Building Systems was appointed by TanRo to deliver the complete internal drylining package for the Browells Lane industrial development in Feltham. The project comprised the construction of six high-quality industrial and warehouse units, providing approximately 75,000 sq ft of modern commercial space designed to achieve BREEAM Outstanding and EPC A+ standards.',
+      'Reynolds Dryline was appointed by TanRo to deliver the complete internal drylining package for the Browells Lane industrial development in Feltham. The project comprised the construction of six high-quality industrial and warehouse units, providing approximately 75,000 sq ft of modern commercial space designed to achieve BREEAM Outstanding and EPC A+ standards.',
   },
   {
     title: 'Castle Rock School',
@@ -81,7 +81,7 @@ const staticProjects = [
     image: '/assets/reynolds/project-image-coming-soon.svg',
     services: ['SFS', 'Partitioning', 'Ceilings', 'Plastering'],
     description:
-      "Reynolds Building Systems is delivering the drylining package for GRAHAM's landmark redevelopment of The Castle Rock School in Coalville, Leicestershire. The £37 million Department for Education project is transforming the existing secondary school campus through the construction of a modern two-storey teaching facility, refurbishment of retained buildings, and the creation of high-quality learning environments for up to 1,550 students.",
+      "Reynolds Dryline is delivering the drylining package for GRAHAM's landmark redevelopment of The Castle Rock School in Coalville, Leicestershire. The £37 million Department for Education project is transforming the existing secondary school campus through the construction of a modern two-storey teaching facility, refurbishment of retained buildings, and the creation of high-quality learning environments for up to 1,550 students.",
   },
   {
     title: 'University of Staffordshire Student Village',
@@ -199,6 +199,16 @@ const sortedProjects = [...staticProjects].sort((a, b) => {
   const bLive = isLiveStatus(b.status) ? 0 : 1;
   return aLive - bLive;
 });
+
+const contractorLogos: Record<string, string> = {
+  Winvic: '/assets/reynolds/partner-winvic.png',
+  Graham: '/assets/reynolds/partner-graham.png',
+  TanRo: '/assets/reynolds/partner-tanro.png',
+  'Willmott Dixon': '/assets/reynolds/partner-willmott-dixon.png',
+  'Bowmer Kirkland': '/assets/reynolds/partner-bowmer-kirkland.png',
+  'Galliford Try': '/assets/reynolds/partner-gallifordtry.png',
+  Engie: '/assets/reynolds/partner-engie.png',
+};
 
 const liveSites = staticProjects
   .filter((project) => isLiveStatus(project.status) && typeof project.lat === 'number' && typeof project.lng === 'number')
@@ -393,6 +403,7 @@ const liveSites = staticProjects
         {sortedProjects.map((project, i) => {
           const isOngoing = isLiveStatus(project.status);
           const statusLabel = isOngoing ? (project.status === 'Live' ? 'Live' : 'On Going') : 'Complete';
+          const contractorLogo = contractorLogos[project.contractor];
           return (
           <article
             class="rd-project-item group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300"
@@ -431,11 +442,19 @@ const liveSites = staticProjects
 
               <!-- Project details -->
               <div class="grid grid-cols-2 gap-3 mb-5 text-xs">
-                <div class="bg-gray-50 p-3">
-                  <span class="block text-gray-400 font-bold tracking-widest uppercase mb-1">Contractor</span>
-                  <span class="text-gray-900 font-semibold">{project.contractor}</span>
+                <div class="bg-gray-50 p-3 flex items-center justify-center min-h-[4.5rem]">
+                  {contractorLogo ? (
+                    <img
+                      src={contractorLogo}
+                      alt={project.contractor}
+                      class="max-h-10 w-auto max-w-full object-contain"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <span class="text-gray-900 font-semibold">{project.contractor}</span>
+                  )}
                 </div>
-                <div class="bg-gray-50 p-3">
+                <div class="bg-gray-50 p-3 flex flex-col justify-center">
                   <span class="block text-gray-400 font-bold tracking-widest uppercase mb-1">Value</span>
                   <span class="text-gray-900 font-semibold">{project.value}</span>
                 </div>

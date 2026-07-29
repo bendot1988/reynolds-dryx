@@ -12,7 +12,7 @@ In 2023, Reynolds Dryline celebrated a remarkable milestone — 60 years of deli
 
 ## Our Founding Story
 
-L Reynolds (Building Systems) Ltd was founded in 1963 by a craftsman with a passion for quality and a determination to build something lasting. From the very beginning, the company was built on the principles of reliability, quality, and integrity — values that remain at the heart of everything we do today.
+Reynolds Dryline was founded in 1963 by a craftsman with a passion for quality and a determination to build something lasting. From the very beginning, the company was built on the principles of reliability, quality, and integrity — values that remain at the heart of everything we do today.
 
 ## Six Decades of Growth
 
