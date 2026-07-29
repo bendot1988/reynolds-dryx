@@ -16,6 +16,66 @@ try {
 // Static fallback projects
 const staticProjects = [
   {
+    title: 'Loughborough University',
+    location: 'Loughborough, UK',
+    contractor: 'Graham',
+    value: '£3.61m',
+    status: 'Live',
+    sector: 'Residential',
+    image: '/assets/reynolds/project-image-coming-soon.svg',
+    services: ['SFS', 'Partitioning', 'Ceilings', 'Plastering'],
+    description:
+      "Reynolds Building Systems is delivering the drylining package for GRAHAM on Loughborough University's landmark new purpose-built student accommodation development. The £59 million scheme will provide 552 high-quality en-suite student bedrooms across five contemporary accommodation blocks, creating modern living spaces that enhance the student experience and support the University's continued growth.",
+  },
+  {
+    title: 'Camphill',
+    location: 'Birmingham, UK',
+    contractor: 'Winvic',
+    value: '£3.41m',
+    status: 'Live',
+    sector: 'Residential',
+    image: '/assets/reynolds/project-image-coming-soon.svg',
+    services: ['Partitioning', 'Ceilings', 'Plastering'],
+    description:
+      'L. Reynolds (Building Systems) Ltd is delivering specialist drylining works on the Camphill development in Birmingham, supporting Winvic Construction on this large-scale residential regeneration project. Our scope included internal partitions, plastering and associated drylining systems, helping create high-quality modern living spaces within the development.',
+  },
+  {
+    title: 'Browells Lane',
+    location: 'Feltham, UK',
+    contractor: 'TanRo',
+    value: '£380k',
+    status: 'Complete 2026',
+    sector: 'Industrial',
+    image: '/assets/reynolds/project-image-coming-soon.svg',
+    services: ['Partitioning', 'Ceilings', 'Plastering'],
+    description:
+      'Reynolds Building Systems was appointed by TanRo to deliver the complete internal drylining package for the Browells Lane industrial development in Feltham. The project comprised the construction of six high-quality industrial and warehouse units, providing approximately 75,000 sq ft of modern commercial space designed to achieve BREEAM Outstanding and EPC A+ standards.',
+  },
+  {
+    title: 'Castle Rock School',
+    location: 'Coalville, UK',
+    contractor: 'Graham',
+    value: '£1.9m',
+    status: 'Live',
+    sector: 'Commercial',
+    image: '/assets/reynolds/project-image-coming-soon.svg',
+    services: ['SFS', 'Partitioning', 'Ceilings', 'Plastering'],
+    description:
+      "Reynolds Building Systems is delivering the drylining package for GRAHAM's landmark redevelopment of The Castle Rock School in Coalville, Leicestershire. The £37 million Department for Education project is transforming the existing secondary school campus through the construction of a modern two-storey teaching facility, refurbishment of retained buildings, and the creation of high-quality learning environments for up to 1,550 students.",
+  },
+  {
+    title: 'University of Staffordshire Student Village',
+    location: 'Stoke-on-Trent, UK',
+    contractor: 'Willmott Dixon',
+    value: '£4.9m',
+    status: 'Completed 2026',
+    sector: 'Residential',
+    image: '/assets/reynolds/project-image-coming-soon.svg',
+    services: ['Drylining', 'Ceilings', 'Plastering'],
+    description:
+      'The University of Staffordshire Student Village is a landmark £100 million development delivering high-quality, sustainable student accommodation and a state-of-the-art community hub on the Stoke-on-Trent campus. Designed to enhance the student experience, the scheme includes purpose-built accommodation, modern social and study spaces, and a net-zero operational hub built to Passivhaus design principles.',
+  },
+  {
     title: 'South Holland Health & Wellbeing Hub',
     location: 'Spalding, UK',
     contractor: 'Willmott Dixon',
@@ -240,12 +300,6 @@ const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Lei
                 <div class="bg-gray-50 p-3">
                   <span class="block text-gray-400 font-bold tracking-widest uppercase mb-1">Value</span>
                   <span class="text-gray-900 font-semibold">{project.value}</span>
-                </div>
-                <div class="bg-gray-50 p-3 col-span-2">
-                  <span class="block text-gray-400 font-bold tracking-widest uppercase mb-1">Status</span>
-                  <span class:list={['font-semibold', isOngoing ? 'text-orange-600' : 'text-emerald-700']}>
-                    {project.status}
-                  </span>
                 </div>
               </div>
 
