@@ -16,12 +16,28 @@ try {
 // Static fallback projects
 const staticProjects = [
   {
+    title: 'Progress House',
+    location: 'Coventry, UK',
+    contractor: 'Winvic',
+    value: '£3.60m',
+    status: 'Live',
+    sector: 'Residential',
+    lat: 52.3833,
+    lng: -1.5615,
+    image: '/assets/reynolds/project-image-coming-soon.svg',
+    services: ['Partitioning', 'Ceilings', 'Plastering'],
+    description:
+      'Progress House Student Accommodation, Coventry is a purpose-built student accommodation development delivering 544 modern en-suite bedrooms, together with high-quality communal, study and wellbeing spaces. Located close to the University of Warwick, the scheme has been designed to provide an outstanding living environment that supports both academic success and student wellbeing.',
+  },
+  {
     title: 'Loughborough University',
     location: 'Loughborough, UK',
     contractor: 'Graham',
     value: '£3.61m',
     status: 'Live',
     sector: 'Residential',
+    lat: 52.765,
+    lng: -1.2321,
     image: '/assets/reynolds/project-image-coming-soon.svg',
     services: ['SFS', 'Partitioning', 'Ceilings', 'Plastering'],
     description:
@@ -34,6 +50,8 @@ const staticProjects = [
     value: '£3.41m',
     status: 'Live',
     sector: 'Residential',
+    lat: 52.4755,
+    lng: -1.882,
     image: '/assets/reynolds/project-image-coming-soon.svg',
     services: ['Partitioning', 'Ceilings', 'Plastering'],
     description:
@@ -58,6 +76,8 @@ const staticProjects = [
     value: '£1.9m',
     status: 'Live',
     sector: 'Commercial',
+    lat: 52.7246,
+    lng: -1.3649,
     image: '/assets/reynolds/project-image-coming-soon.svg',
     services: ['SFS', 'Partitioning', 'Ceilings', 'Plastering'],
     description:
@@ -82,6 +102,8 @@ const staticProjects = [
     value: '£500k',
     status: 'Live',
     sector: 'Hotels & Leisure',
+    lat: 52.787,
+    lng: -0.1518,
     image: '/assets/reynolds/project-image-coming-soon.svg',
     services: ['Partitioning', 'Ceilings', 'Plastering'],
     description:
@@ -169,6 +191,7 @@ const staticProjects = [
 
 const projects = cmsProjects.length > 0 ? cmsProjects : staticProjects;
 const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Leisure'];
+const statusFilters = ['All', 'Live', 'Complete'];
 
 const isLiveStatus = (status: string) => status === 'Live' || status === 'On Going';
 const sortedProjects = [...staticProjects].sort((a, b) => {
@@ -176,6 +199,15 @@ const sortedProjects = [...staticProjects].sort((a, b) => {
   const bLive = isLiveStatus(b.status) ? 0 : 1;
   return aLive - bLive;
 });
+
+const liveSites = staticProjects
+  .filter((project) => isLiveStatus(project.status) && typeof project.lat === 'number' && typeof project.lng === 'number')
+  .map((project) => ({
+    title: project.title,
+    location: project.location,
+    lat: project.lat as number,
+    lng: project.lng as number,
+  }));
 ---
 
 <ReynoldsLayout
@@ -194,63 +226,161 @@ const sortedProjects = [...staticProjects].sort((a, b) => {
   />
 
   <!-- Filter bar -->
-  <section class="bg-white border-b border-gray-200 px-6 lg:px-10 py-5 sticky top-16 z-30">
-    <div class="max-w-7xl mx-auto flex flex-wrap gap-3 items-center justify-between">
-      <div class="flex flex-wrap gap-3 items-center">
-        <span class="text-xs font-bold tracking-widest uppercase text-gray-500 mr-2">Filter:</span>
-        {sectors.map(sector => (
-          <button
-            type="button"
-            class="rd-filter-btn text-xs font-bold tracking-widest uppercase px-4 py-2 border transition-all duration-200"
-            data-sector={sector}
-            class:list={[
-              sector === 'All'
-                ? 'bg-red-600 text-white border-red-600'
-                : 'bg-white text-gray-600 border-gray-300 hover:border-red-600 hover:text-red-600'
-            ]}
-          >
-            {sector}
-          </button>
-        ))}
-      </div>
+  <section class="bg-white border-b border-gray-200 px-6 lg:px-10 py-4 md:py-5 sticky top-16 z-30">
+    <div class="max-w-7xl mx-auto space-y-3">
+      <!-- Mobile: compact dropdowns + always-open search -->
+      <div class="space-y-3 md:hidden">
+        <div class="grid grid-cols-2 gap-3">
+          <label class="block">
+            <span class="mb-1.5 block text-[0.65rem] font-bold tracking-widest uppercase text-gray-500">Filter</span>
+            <select
+              id="rd-sector-select"
+              class="rd-mobile-select w-full appearance-none border border-gray-300 bg-white px-3 py-2.5 pr-9 text-xs font-bold tracking-widest uppercase text-gray-700"
+            >
+              {sectors.map((sector) => (
+                <option value={sector}>{sector === 'All' ? 'All sectors' : sector}</option>
+              ))}
+            </select>
+          </label>
+          <label class="block">
+            <span class="mb-1.5 block text-[0.65rem] font-bold tracking-widest uppercase text-gray-500">Status</span>
+            <select
+              id="rd-status-select"
+              class="rd-mobile-select w-full appearance-none border border-gray-300 bg-white px-3 py-2.5 pr-9 text-xs font-bold tracking-widest uppercase text-gray-700"
+            >
+              {statusFilters.map((status) => (
+                <option value={status}>{status === 'All' ? 'All statuses' : status}</option>
+              ))}
+            </select>
+          </label>
+        </div>
 
-      <div id="rd-project-search" class="rd-project-search relative ml-auto">
-        <button
-          type="button"
-          id="rd-project-search-toggle"
-          class="inline-flex h-9 w-9 items-center justify-center border border-gray-300 text-gray-600 transition-colors duration-200 hover:border-red-600 hover:text-red-600"
-          aria-label="Search projects"
-          aria-expanded="false"
-          aria-controls="rd-project-search-input"
-        >
-          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
-          </svg>
-        </button>
-        <div
-          id="rd-project-search-panel"
-          class="rd-project-search-panel absolute right-0 top-0 flex h-9 items-center overflow-hidden border border-red-600 bg-white opacity-0 pointer-events-none"
-        >
+        <div class="flex h-11 items-center border border-gray-300 bg-white">
           <svg class="ml-3 h-4 w-4 shrink-0 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
           </svg>
           <input
             type="search"
-            id="rd-project-search-input"
+            id="rd-project-search-input-mobile"
             class="h-full w-full min-w-0 border-0 bg-transparent px-3 text-sm text-gray-900 outline-none placeholder:text-gray-400"
             placeholder="Search projects…"
             autocomplete="off"
           />
-          <button
-            type="button"
-            id="rd-project-search-close"
-            class="inline-flex h-9 w-9 shrink-0 items-center justify-center text-gray-500 transition-colors hover:text-red-600"
-            aria-label="Close search"
-          >
-            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+        </div>
+      </div>
+
+      <!-- Desktop: button filters + expandable search -->
+      <div class="hidden md:block space-y-3">
+        <div class="flex flex-wrap gap-3 items-center justify-between">
+          <div class="flex flex-wrap gap-3 items-center">
+            <span class="text-xs font-bold tracking-widest uppercase text-gray-500 mr-2">Filter:</span>
+            {sectors.map(sector => (
+              <button
+                type="button"
+                class="rd-filter-btn text-xs font-bold tracking-widest uppercase px-4 py-2 border transition-all duration-200"
+                data-filter-type="sector"
+                data-sector={sector}
+                class:list={[
+                  sector === 'All'
+                    ? 'bg-red-600 text-white border-red-600'
+                    : 'bg-white text-gray-600 border-gray-300 hover:border-red-600 hover:text-red-600'
+                ]}
+              >
+                {sector}
+              </button>
+            ))}
+          </div>
+
+          <div id="rd-project-search" class="rd-project-search relative ml-auto">
+            <button
+              type="button"
+              id="rd-project-search-toggle"
+              class="inline-flex h-9 w-9 items-center justify-center border border-gray-300 text-gray-600 transition-colors duration-200 hover:border-red-600 hover:text-red-600"
+              aria-label="Search projects"
+              aria-expanded="false"
+              aria-controls="rd-project-search-input"
+            >
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
+              </svg>
+            </button>
+            <div
+              id="rd-project-search-panel"
+              class="rd-project-search-panel absolute right-0 top-0 flex h-9 items-center overflow-hidden border border-red-600 bg-white opacity-0 pointer-events-none"
+            >
+              <svg class="ml-3 h-4 w-4 shrink-0 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
+              </svg>
+              <input
+                type="search"
+                id="rd-project-search-input"
+                class="h-full w-full min-w-0 border-0 bg-transparent px-3 text-sm text-gray-900 outline-none placeholder:text-gray-400"
+                placeholder="Search projects…"
+                autocomplete="off"
+              />
+              <button
+                type="button"
+                id="rd-project-search-close"
+                class="inline-flex h-9 w-9 shrink-0 items-center justify-center text-gray-500 transition-colors hover:text-red-600"
+                aria-label="Close search"
+              >
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3 items-center">
+          <span class="text-xs font-bold tracking-widest uppercase text-gray-500 mr-2">Status:</span>
+          {statusFilters.map((status) => (
+            <button
+              type="button"
+              class="rd-status-btn text-xs font-bold tracking-widest uppercase px-4 py-2 border transition-all duration-200"
+              data-status={status}
+              class:list={[
+                status === 'All'
+                  ? 'bg-slate-800 text-white border-slate-800'
+                  : 'bg-white text-gray-600 border-gray-300 hover:border-slate-800 hover:text-slate-800'
+              ]}
+            >
+              {status}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Live sites map accordion -->
+  <section class="bg-white border-b border-gray-200 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto">
+      <button
+        type="button"
+        id="rd-live-sites-toggle"
+        class="flex w-full items-center justify-between gap-4 py-4 text-left"
+        aria-expanded="false"
+        aria-controls="rd-live-sites-panel"
+      >
+        <span class="inline-flex items-center gap-3">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500/60"></span>
+            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-600"></span>
+          </span>
+          <span class="text-sm font-bold tracking-widest uppercase text-gray-900">Show live sites</span>
+          <span class="text-xs font-semibold text-gray-500 normal-case tracking-normal">{liveSites.length} active</span>
+        </span>
+        <svg id="rd-live-sites-chevron" class="h-5 w-5 text-gray-500 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <div id="rd-live-sites-panel" class="rd-live-sites-panel overflow-hidden" hidden>
+        <div class="pb-6">
+          <div class="rd-panel overflow-hidden border border-gray-200">
+            <div id="rd-live-sites-map" class="h-72 sm:h-80 lg:h-96 w-full bg-gray-100"></div>
+          </div>
+          <p class="mt-3 text-xs text-gray-500">Pulsing markers show current live Reynolds Dryline sites across the UK.</p>
         </div>
       </div>
     </div>
@@ -267,6 +397,7 @@ const sortedProjects = [...staticProjects].sort((a, b) => {
           <article
             class="rd-project-item group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300"
             data-sector={project.sector}
+            data-status={isOngoing ? 'Live' : 'Complete'}
             data-search={`${project.title} ${project.location} ${project.contractor} ${project.value} ${project.status} ${project.sector} ${project.services.join(' ')} ${project.description}`.toLowerCase()}
             data-animate
             data-delay={`${(i % 3) * 100}`}
@@ -348,16 +479,66 @@ const sortedProjects = [...staticProjects].sort((a, b) => {
 
 <script>
   const filterBtns = document.querySelectorAll('.rd-filter-btn');
+  const statusBtns = document.querySelectorAll('.rd-status-btn');
+  const sectorSelect = document.getElementById('rd-sector-select');
+  const statusSelect = document.getElementById('rd-status-select');
   const projectItems = document.querySelectorAll('.rd-project-item');
   const searchRoot = document.getElementById('rd-project-search');
   const searchToggle = document.getElementById('rd-project-search-toggle');
   const searchPanel = document.getElementById('rd-project-search-panel');
   const searchInput = document.getElementById('rd-project-search-input');
+  const searchInputMobile = document.getElementById('rd-project-search-input-mobile');
   const searchClose = document.getElementById('rd-project-search-close');
   const emptyState = document.getElementById('rd-projects-empty');
+  const liveToggle = document.getElementById('rd-live-sites-toggle');
+  const livePanel = document.getElementById('rd-live-sites-panel');
+  const liveChevron = document.getElementById('rd-live-sites-chevron');
 
   let activeSector = 'All';
+  let activeStatus = 'All';
   let searchQuery = '';
+
+  function setActiveButton(
+    buttons: NodeListOf<Element>,
+    activeBtn: Element,
+    activeClasses: string[],
+    inactiveClasses: string[],
+  ) {
+    buttons.forEach((b) => {
+      b.classList.remove(...activeClasses);
+      b.classList.add(...inactiveClasses);
+    });
+    activeBtn.classList.add(...activeClasses);
+    activeBtn.classList.remove(...inactiveClasses);
+  }
+
+  function syncSectorButtons() {
+    filterBtns.forEach((btn) => {
+      if (btn.getAttribute('data-sector') === activeSector) {
+        setActiveButton(
+          filterBtns,
+          btn,
+          ['bg-red-600', 'text-white', 'border-red-600'],
+          ['bg-white', 'text-gray-600', 'border-gray-300', 'hover:border-red-600', 'hover:text-red-600'],
+        );
+      }
+    });
+    if (sectorSelect instanceof HTMLSelectElement) sectorSelect.value = activeSector;
+  }
+
+  function syncStatusButtons() {
+    statusBtns.forEach((btn) => {
+      if (btn.getAttribute('data-status') === activeStatus) {
+        setActiveButton(
+          statusBtns,
+          btn,
+          ['bg-slate-800', 'text-white', 'border-slate-800'],
+          ['bg-white', 'text-gray-600', 'border-gray-300', 'hover:border-slate-800', 'hover:text-slate-800'],
+        );
+      }
+    });
+    if (statusSelect instanceof HTMLSelectElement) statusSelect.value = activeStatus;
+  }
 
   function applyFilters() {
     let visibleCount = 0;
@@ -365,10 +546,12 @@ const sortedProjects = [...staticProjects].sort((a, b) => {
     projectItems.forEach((item) => {
       const el = item as HTMLElement;
       const itemSector = el.getAttribute('data-sector') || '';
+      const itemStatus = el.getAttribute('data-status') || '';
       const haystack = el.getAttribute('data-search') || '';
       const matchesSector = activeSector === 'All' || itemSector === activeSector;
+      const matchesStatus = activeStatus === 'All' || itemStatus === activeStatus;
       const matchesSearch = !searchQuery || haystack.includes(searchQuery);
-      const isVisible = matchesSector && matchesSearch;
+      const isVisible = matchesSector && matchesStatus && matchesSearch;
       el.style.display = isVisible ? '' : 'none';
       if (isVisible) visibleCount += 1;
     });
@@ -383,18 +566,31 @@ const sortedProjects = [...staticProjects].sort((a, b) => {
   filterBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
       activeSector = btn.getAttribute('data-sector') || 'All';
-
-      // Update active button — also manage hover utilities so active button
-      // doesn't show red text on a red background when hovered.
-      filterBtns.forEach((b) => {
-        b.classList.remove('bg-red-600', 'text-white', 'border-red-600');
-        b.classList.add('bg-white', 'text-gray-600', 'border-gray-300', 'hover:border-red-600', 'hover:text-red-600');
-      });
-      btn.classList.add('bg-red-600', 'text-white', 'border-red-600');
-      btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-300', 'hover:border-red-600', 'hover:text-red-600');
-
+      syncSectorButtons();
       applyFilters();
     });
+  });
+
+  statusBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      activeStatus = btn.getAttribute('data-status') || 'All';
+      syncStatusButtons();
+      applyFilters();
+    });
+  });
+
+  sectorSelect?.addEventListener('change', () => {
+    if (!(sectorSelect instanceof HTMLSelectElement)) return;
+    activeSector = sectorSelect.value || 'All';
+    syncSectorButtons();
+    applyFilters();
+  });
+
+  statusSelect?.addEventListener('change', () => {
+    if (!(statusSelect instanceof HTMLSelectElement)) return;
+    activeStatus = statusSelect.value || 'All';
+    syncStatusButtons();
+    applyFilters();
   });
 
   function openSearch() {
@@ -413,7 +609,19 @@ const sortedProjects = [...staticProjects].sort((a, b) => {
     searchToggle.classList.remove('opacity-0', 'pointer-events-none');
     searchPanel.classList.add('opacity-0', 'pointer-events-none');
     searchInput.value = '';
+    if (searchInputMobile instanceof HTMLInputElement) searchInputMobile.value = '';
     searchQuery = '';
+    applyFilters();
+  }
+
+  function onSearchInput(value: string) {
+    searchQuery = value.trim().toLowerCase();
+    if (searchInput instanceof HTMLInputElement && searchInput !== document.activeElement) {
+      searchInput.value = value;
+    }
+    if (searchInputMobile instanceof HTMLInputElement && searchInputMobile !== document.activeElement) {
+      searchInputMobile.value = value;
+    }
     applyFilters();
   }
 
@@ -421,14 +629,90 @@ const sortedProjects = [...staticProjects].sort((a, b) => {
   searchClose?.addEventListener('click', closeSearch);
 
   searchInput?.addEventListener('input', () => {
-    searchQuery = (searchInput as HTMLInputElement).value.trim().toLowerCase();
-    applyFilters();
+    onSearchInput((searchInput as HTMLInputElement).value);
+  });
+
+  searchInputMobile?.addEventListener('input', () => {
+    onSearchInput((searchInputMobile as HTMLInputElement).value);
   });
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && searchRoot?.classList.contains('is-open')) {
       closeSearch();
     }
+  });
+
+  liveToggle?.addEventListener('click', () => {
+    if (!(livePanel instanceof HTMLElement) || !(liveToggle instanceof HTMLButtonElement)) return;
+    const willOpen = livePanel.hidden;
+    livePanel.hidden = !willOpen;
+    liveToggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    liveChevron?.classList.toggle('rotate-180', willOpen);
+    if (willOpen) {
+      window.dispatchEvent(new CustomEvent('rd-live-sites-open'));
+    }
+  });
+</script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script define:vars={{ liveSites }}>
+  import L from 'leaflet';
+
+  delete L.Icon.Default.prototype._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+    iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+  });
+
+  let liveMap = null;
+
+  function initLiveSitesMap() {
+    const mapEl = document.getElementById('rd-live-sites-map');
+    if (!mapEl || liveMap || !Array.isArray(liveSites) || liveSites.length === 0) return;
+
+    liveMap = L.map('rd-live-sites-map', {
+      center: [52.6, -1.3],
+      zoom: 7,
+      scrollWheelZoom: false,
+      zoomControl: true,
+    });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 19,
+    }).addTo(liveMap);
+
+    const pulseIcon = L.divIcon({
+      className: 'rd-live-marker',
+      html: '<span class="rd-live-pulse"></span>',
+      iconSize: [18, 18],
+      iconAnchor: [9, 9],
+    });
+
+    const bounds = [];
+    liveSites.forEach((site) => {
+      bounds.push([site.lat, site.lng]);
+      L.marker([site.lat, site.lng], { icon: pulseIcon })
+        .addTo(liveMap)
+        .bindPopup(`<strong>${site.title}</strong><br/><span style="color:#6b7280">${site.location}</span>`);
+    });
+
+    if (bounds.length > 1) {
+      liveMap.fitBounds(bounds, { padding: [40, 40], maxZoom: 9 });
+    } else if (bounds.length === 1) {
+      liveMap.setView(bounds[0], 9);
+    }
+
+    window.setTimeout(() => liveMap.invalidateSize(), 80);
+  }
+
+  window.addEventListener('rd-live-sites-open', () => {
+    initLiveSitesMap();
+    window.setTimeout(() => {
+      if (liveMap) liveMap.invalidateSize();
+    }, 220);
   });
 </script>
 
@@ -449,6 +733,46 @@ const sortedProjects = [...staticProjects].sort((a, b) => {
   @media (min-width: 640px) {
     .rd-project-search.is-open .rd-project-search-panel {
       width: 18rem;
+    }
+  }
+
+  .rd-mobile-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1rem;
+  }
+
+  .rd-live-sites-panel[hidden] {
+    display: none;
+  }
+
+  :global(.rd-live-marker) {
+    background: transparent;
+    border: 0;
+  }
+
+  :global(.rd-live-pulse) {
+    display: block;
+    width: 14px;
+    height: 14px;
+    margin: 2px;
+    border-radius: 999px;
+    background: #e23125;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 0 rgba(226, 49, 37, 0.55);
+    animation: rd-live-pulse 1.8s ease-out infinite;
+  }
+
+  @keyframes rd-live-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(226, 49, 37, 0.55);
+    }
+    70% {
+      box-shadow: 0 0 0 16px rgba(226, 49, 37, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(226, 49, 37, 0);
     }
   }
 </style>
