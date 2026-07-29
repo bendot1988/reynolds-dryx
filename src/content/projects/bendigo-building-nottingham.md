@@ -3,7 +3,7 @@ title: Bendigo Building
 location: "Nottingham, UK"
 contractor: Graham
 value: "£4.4m"
-status: "On Going"
+status: "Completed"
 sector: Residential
 image: /assets/reynolds/project-28rs.jpg
 description: A major residential development in Nottingham city centre, delivering high-quality drylining and ceiling solutions across multiple floors.

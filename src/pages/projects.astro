@@ -16,11 +16,35 @@ try {
 // Static fallback projects
 const staticProjects = [
   {
+    title: 'South Holland Health & Wellbeing Hub',
+    location: 'Spalding, UK',
+    contractor: 'Willmott Dixon',
+    value: '£500k',
+    status: 'Live',
+    sector: 'Hotels & Leisure',
+    image: '/assets/reynolds/project-image-coming-soon.svg',
+    services: ['Partitioning', 'Ceilings', 'Plastering'],
+    description:
+      'South Holland Health & Wellbeing Hub, Spalding is a modern leisure and wellbeing facility designed to promote healthier lifestyles through high-quality fitness, recreation and community spaces. The development features a state-of-the-art gym, swimming facilities, studios and flexible community areas, creating a welcoming environment for people of all ages to exercise, socialise and improve their overall wellbeing.',
+  },
+  {
+    title: 'Waltham Cross Industrial Development',
+    location: 'Waltham Cross, UK',
+    contractor: 'TanRo',
+    value: '£230k',
+    status: 'Complete 2026',
+    sector: 'Industrial',
+    image: '/assets/reynolds/project-image-coming-soon.svg',
+    services: ['Partitioning', 'Ceilings', 'Plastering'],
+    description:
+      'The Waltham Cross Industrial Development is a high-specification 60,000 sq ft industrial and logistics facility being delivered for TanRo on behalf of Wrenbridge. The project involves the complete demolition of the existing site before the construction of a modern warehouse with integrated first-floor office accommodation.',
+  },
+  {
     title: 'Bendigo Building',
     location: 'Nottingham, UK',
     contractor: 'Graham',
     value: '£4.4m',
-    status: 'On Going',
+    status: 'Completed',
     sector: 'Residential',
     image: '/assets/reynolds/project-28rs.jpg',
     services: ['Metal Stud Partitioning', 'Suspended Ceilings', 'SFS'],
@@ -31,7 +55,7 @@ const staticProjects = [
     location: 'Birmingham, UK',
     contractor: 'Winvic',
     value: '£4.4m',
-    status: 'On Going',
+    status: 'Completed',
     sector: 'Residential',
     image: '/assets/reynolds/project-untitled.jpg',
     services: ['Metal Stud Partitioning', 'Insulation', 'Plastering'],
@@ -104,21 +128,64 @@ const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Lei
 
   <!-- Filter bar -->
   <section class="bg-white border-b border-gray-200 px-6 lg:px-10 py-5 sticky top-16 z-30">
-    <div class="max-w-7xl mx-auto flex flex-wrap gap-3 items-center">
-      <span class="text-xs font-bold tracking-widest uppercase text-gray-500 mr-2">Filter:</span>
-      {sectors.map(sector => (
+    <div class="max-w-7xl mx-auto flex flex-wrap gap-3 items-center justify-between">
+      <div class="flex flex-wrap gap-3 items-center">
+        <span class="text-xs font-bold tracking-widest uppercase text-gray-500 mr-2">Filter:</span>
+        {sectors.map(sector => (
+          <button
+            type="button"
+            class="rd-filter-btn text-xs font-bold tracking-widest uppercase px-4 py-2 border transition-all duration-200"
+            data-sector={sector}
+            class:list={[
+              sector === 'All'
+                ? 'bg-red-600 text-white border-red-600'
+                : 'bg-white text-gray-600 border-gray-300 hover:border-red-600 hover:text-red-600'
+            ]}
+          >
+            {sector}
+          </button>
+        ))}
+      </div>
+
+      <div id="rd-project-search" class="rd-project-search relative ml-auto">
         <button
-          class="rd-filter-btn text-xs font-bold tracking-widest uppercase px-4 py-2 border transition-all duration-200"
-          data-sector={sector}
-          class:list={[
-            sector === 'All'
-              ? 'bg-red-600 text-white border-red-600'
-              : 'bg-white text-gray-600 border-gray-300 hover:border-red-600 hover:text-red-600'
-          ]}
+          type="button"
+          id="rd-project-search-toggle"
+          class="inline-flex h-9 w-9 items-center justify-center border border-gray-300 text-gray-600 transition-colors duration-200 hover:border-red-600 hover:text-red-600"
+          aria-label="Search projects"
+          aria-expanded="false"
+          aria-controls="rd-project-search-input"
         >
-          {sector}
+          <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
+          </svg>
         </button>
-      ))}
+        <div
+          id="rd-project-search-panel"
+          class="rd-project-search-panel absolute right-0 top-0 flex h-9 items-center overflow-hidden border border-red-600 bg-white opacity-0 pointer-events-none"
+        >
+          <svg class="ml-3 h-4 w-4 shrink-0 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
+          </svg>
+          <input
+            type="search"
+            id="rd-project-search-input"
+            class="h-full w-full min-w-0 border-0 bg-transparent px-3 text-sm text-gray-900 outline-none placeholder:text-gray-400"
+            placeholder="Search projects…"
+            autocomplete="off"
+          />
+          <button
+            type="button"
+            id="rd-project-search-close"
+            class="inline-flex h-9 w-9 shrink-0 items-center justify-center text-gray-500 transition-colors hover:text-red-600"
+            aria-label="Close search"
+          >
+            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -126,20 +193,33 @@ const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Lei
   <section class="bg-white py-16 px-6 lg:px-10">
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="rd-projects-grid">
-        {staticProjects.map((project, i) => (
+        {staticProjects.map((project, i) => {
+          const isOngoing = project.status === 'On Going' || project.status === 'Live';
+          const statusLabel = isOngoing ? (project.status === 'Live' ? 'Live' : 'On Going') : 'Complete';
+          return (
           <article
             class="rd-project-item group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300"
             data-sector={project.sector}
+            data-search={`${project.title} ${project.location} ${project.contractor} ${project.value} ${project.status} ${project.sector} ${project.services.join(' ')} ${project.description}`.toLowerCase()}
             data-animate
             data-delay={`${(i % 3) * 100}`}
           >
-            <div class="overflow-hidden">
+            <div class="relative overflow-hidden">
               <img
                 src={project.image}
                 alt={project.title}
                 class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
                 loading="lazy"
               />
+              <span
+                class:list={[
+                  'absolute top-3 right-3 z-10 inline-flex items-center gap-1.5 px-3 py-1.5 text-[0.65rem] font-bold tracking-widest uppercase text-white shadow-sm',
+                  isOngoing ? 'bg-orange-500' : 'bg-emerald-600',
+                ]}
+              >
+                <span class="h-1.5 w-1.5 rounded-full bg-white/90" aria-hidden="true"></span>
+                {statusLabel}
+              </span>
             </div>
             <div class="p-6">
               <!-- Sector badge -->
@@ -163,7 +243,7 @@ const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Lei
                 </div>
                 <div class="bg-gray-50 p-3 col-span-2">
                   <span class="block text-gray-400 font-bold tracking-widest uppercase mb-1">Status</span>
-                  <span class={`font-semibold ${project.status === 'On Going' ? 'text-green-600' : 'text-gray-900'}`}>
+                  <span class:list={['font-semibold', isOngoing ? 'text-orange-600' : 'text-emerald-700']}>
                     {project.status}
                   </span>
                 </div>
@@ -177,8 +257,12 @@ const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Lei
               </div>
             </div>
           </article>
-        ))}
+          );
+        })}
       </div>
+      <p id="rd-projects-empty" class="hidden mt-10 text-center text-gray-500 text-sm font-medium" hidden>
+        No projects match your search.
+      </p>
     </div>
   </section>
 
@@ -204,29 +288,106 @@ const sectors = ['All', 'Residential', 'Commercial', 'Industrial', 'Hotels & Lei
 <script>
   const filterBtns = document.querySelectorAll('.rd-filter-btn');
   const projectItems = document.querySelectorAll('.rd-project-item');
+  const searchRoot = document.getElementById('rd-project-search');
+  const searchToggle = document.getElementById('rd-project-search-toggle');
+  const searchPanel = document.getElementById('rd-project-search-panel');
+  const searchInput = document.getElementById('rd-project-search-input');
+  const searchClose = document.getElementById('rd-project-search-close');
+  const emptyState = document.getElementById('rd-projects-empty');
 
-  filterBtns.forEach(btn => {
+  let activeSector = 'All';
+  let searchQuery = '';
+
+  function applyFilters() {
+    let visibleCount = 0;
+
+    projectItems.forEach((item) => {
+      const el = item as HTMLElement;
+      const itemSector = el.getAttribute('data-sector') || '';
+      const haystack = el.getAttribute('data-search') || '';
+      const matchesSector = activeSector === 'All' || itemSector === activeSector;
+      const matchesSearch = !searchQuery || haystack.includes(searchQuery);
+      const isVisible = matchesSector && matchesSearch;
+      el.style.display = isVisible ? '' : 'none';
+      if (isVisible) visibleCount += 1;
+    });
+
+    if (emptyState) {
+      const showEmpty = visibleCount === 0;
+      emptyState.hidden = !showEmpty;
+      emptyState.classList.toggle('hidden', !showEmpty);
+    }
+  }
+
+  filterBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      const sector = btn.getAttribute('data-sector');
+      activeSector = btn.getAttribute('data-sector') || 'All';
 
       // Update active button — also manage hover utilities so active button
       // doesn't show red text on a red background when hovered.
-      filterBtns.forEach(b => {
+      filterBtns.forEach((b) => {
         b.classList.remove('bg-red-600', 'text-white', 'border-red-600');
         b.classList.add('bg-white', 'text-gray-600', 'border-gray-300', 'hover:border-red-600', 'hover:text-red-600');
       });
       btn.classList.add('bg-red-600', 'text-white', 'border-red-600');
       btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-300', 'hover:border-red-600', 'hover:text-red-600');
 
-      // Filter projects
-      projectItems.forEach(item => {
-        const itemSector = item.getAttribute('data-sector');
-        if (sector === 'All' || itemSector === sector) {
-          (item as HTMLElement).style.display = '';
-        } else {
-          (item as HTMLElement).style.display = 'none';
-        }
-      });
+      applyFilters();
     });
   });
+
+  function openSearch() {
+    if (!searchRoot || !searchToggle || !searchPanel || !searchInput) return;
+    searchRoot.classList.add('is-open');
+    searchToggle.setAttribute('aria-expanded', 'true');
+    searchToggle.classList.add('opacity-0', 'pointer-events-none');
+    searchPanel.classList.remove('opacity-0', 'pointer-events-none');
+    window.setTimeout(() => searchInput.focus(), 180);
+  }
+
+  function closeSearch() {
+    if (!searchRoot || !searchToggle || !searchPanel || !searchInput) return;
+    searchRoot.classList.remove('is-open');
+    searchToggle.setAttribute('aria-expanded', 'false');
+    searchToggle.classList.remove('opacity-0', 'pointer-events-none');
+    searchPanel.classList.add('opacity-0', 'pointer-events-none');
+    searchInput.value = '';
+    searchQuery = '';
+    applyFilters();
+  }
+
+  searchToggle?.addEventListener('click', openSearch);
+  searchClose?.addEventListener('click', closeSearch);
+
+  searchInput?.addEventListener('input', () => {
+    searchQuery = (searchInput as HTMLInputElement).value.trim().toLowerCase();
+    applyFilters();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && searchRoot?.classList.contains('is-open')) {
+      closeSearch();
+    }
+  });
 </script>
+
+<style>
+  .rd-project-search-panel {
+    width: 2.25rem;
+    transition:
+      width 220ms cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 180ms ease;
+  }
+
+  .rd-project-search.is-open .rd-project-search-panel {
+    width: min(18rem, calc(100vw - 3rem));
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (min-width: 640px) {
+    .rd-project-search.is-open .rd-project-search-panel {
+      width: 18rem;
+    }
+  }
+</style>
