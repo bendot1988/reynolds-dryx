@@ -649,29 +649,52 @@ const liveSites = staticProjects
     liveToggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
     liveChevron?.classList.toggle('rotate-180', willOpen);
     if (willOpen) {
-      window.dispatchEvent(new CustomEvent('rd-live-sites-open'));
+      const initMap = (window as Window & { __rdInitLiveSitesMap?: () => void }).__rdInitLiveSitesMap;
+      if (typeof initMap === 'function') initMap();
     }
   });
 </script>
 
+<script id="rd-live-sites-data" type="application/json" set:html={JSON.stringify(liveSites)} />
+
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script define:vars={{ liveSites }}>
+<script>
   import L from 'leaflet';
 
-  delete L.Icon.Default.prototype._getIconUrl;
+  delete (L.Icon.Default.prototype as any)._getIconUrl;
   L.Icon.Default.mergeOptions({
     iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
     iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
   });
 
-  let liveMap = null;
+  type LiveSite = { title: string; location: string; lat: number; lng: number };
+
+  let liveMap: L.Map | null = null;
+
+  function readLiveSites(): LiveSite[] {
+    const dataEl = document.getElementById('rd-live-sites-data');
+    if (!dataEl?.textContent) return [];
+    try {
+      const parsed = JSON.parse(dataEl.textContent);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
 
   function initLiveSitesMap() {
     const mapEl = document.getElementById('rd-live-sites-map');
-    if (!mapEl || liveMap || !Array.isArray(liveSites) || liveSites.length === 0) return;
+    const liveSites = readLiveSites();
+    if (!mapEl || liveSites.length === 0) return;
 
-    liveMap = L.map('rd-live-sites-map', {
+    if (liveMap) {
+      window.setTimeout(() => liveMap?.invalidateSize(), 50);
+      window.setTimeout(() => liveMap?.invalidateSize(), 250);
+      return;
+    }
+
+    liveMap = L.map(mapEl, {
       center: [52.6, -1.3],
       zoom: 7,
       scrollWheelZoom: false,
@@ -691,29 +714,25 @@ const liveSites = staticProjects
       iconAnchor: [9, 9],
     });
 
-    const bounds = [];
+    const bounds: L.LatLngExpression[] = [];
     liveSites.forEach((site) => {
       bounds.push([site.lat, site.lng]);
       L.marker([site.lat, site.lng], { icon: pulseIcon })
-        .addTo(liveMap)
+        .addTo(liveMap!)
         .bindPopup(`<strong>${site.title}</strong><br/><span style="color:#6b7280">${site.location}</span>`);
     });
 
     if (bounds.length > 1) {
-      liveMap.fitBounds(bounds, { padding: [40, 40], maxZoom: 9 });
+      liveMap.fitBounds(bounds as L.LatLngBoundsExpression, { padding: [40, 40], maxZoom: 9 });
     } else if (bounds.length === 1) {
       liveMap.setView(bounds[0], 9);
     }
 
-    window.setTimeout(() => liveMap.invalidateSize(), 80);
+    window.setTimeout(() => liveMap?.invalidateSize(), 50);
+    window.setTimeout(() => liveMap?.invalidateSize(), 250);
   }
 
-  window.addEventListener('rd-live-sites-open', () => {
-    initLiveSitesMap();
-    window.setTimeout(() => {
-      if (liveMap) liveMap.invalidateSize();
-    }, 220);
-  });
+  (window as Window & { __rdInitLiveSitesMap?: () => void }).__rdInitLiveSitesMap = initLiveSitesMap;
 </script>
 
 <style>
