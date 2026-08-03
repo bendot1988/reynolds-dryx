@@ -73,7 +73,11 @@ const services = [
   {
     slug: 'fire-stopping',
     title: 'Fire Stopping',
-    desc: 'Fire stopping keeps fire-rated walls, floors and ceilings performing as designed wherever services pass through them. We seal penetrations for pipes, cables, ducts and other openings with tested passive fire protection systems, so compartmentation holds and fire and smoke are contained for the required period.',
+    desc: [
+      'At Reynolds Dryline, we provide fully compliant passive fire protection and fire stopping solutions designed to maintain the integrity of fire-rated walls, floors and ceilings. Our experienced operatives install certified systems that help prevent the spread of fire, smoke and toxic gases, protecting both lives and property.',
+      'We deliver fire stopping across a wide range of sectors, including residential, student accommodation, healthcare, education, commercial and industrial developments. Working in accordance with manufacturers\' specifications and current industry standards, we ensure every penetration, joint and service opening is correctly sealed using tested and approved systems.',
+      'From new-build projects to refurbishment works, our focus is on quality, compliance and meticulous attention to detail. Comprehensive installation records and quality assurance processes provide our clients with confidence that every fire stopping installation meets the required performance standards.',
+    ],
     features: [
       'Penetration seals for pipes, cables and ducts',
       'Linear gap and joint seals',
@@ -126,7 +130,11 @@ const services = [
             <p class="rd-label mb-3">Our Services</p>
             <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-3">{service.title}</h2>
             <div class="w-10 h-1 bg-red-600 mb-5"></div>
-            <p class="text-gray-600 leading-relaxed mb-7">{service.desc}</p>
+            <div class="space-y-4 mb-7">
+              {(Array.isArray(service.desc) ? service.desc : [service.desc]).map((paragraph) => (
+                <p class="text-gray-600 leading-relaxed">{paragraph}</p>
+              ))}
+            </div>
 
             <ul class="space-y-2.5 mb-8">
               {service.features.map(feature => (
