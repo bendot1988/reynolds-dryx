@@ -3,26 +3,6 @@ import ReynoldsLayout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
-
-const teamPortraitUrl = 'https://reynoldsltd.co.uk/wp-content/uploads/2022/07/5.jpg';
-
-const team = [
-  {
-    name: 'Managing Director',
-    role: 'Leadership & Strategy',
-    desc: 'Overseeing the strategic direction of Reynolds Dryline, ensuring we continue to deliver exceptional results for our clients.',
-  },
-  {
-    name: 'Operations Director',
-    role: 'Project Delivery',
-    desc: 'Managing the day-to-day operations across all active sites, ensuring projects are delivered to programme and budget.',
-  },
-  {
-    name: 'Commercial Director',
-    role: 'Commercial & Estimating',
-    desc: 'Leading our commercial team to provide competitive, accurate pricing and manage contract negotiations.',
-  },
-];
 ---
 
 <ReynoldsLayout
@@ -125,52 +105,6 @@ const team = [
     </div>
   </section>
 
-  <!-- Meet the Team -->
-  <section class="rd-section rd-section--surface px-6 lg:px-10">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-14 lg:mb-16" data-animate>
-        <p class="rd-label mb-3">Our People</p>
-        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-4">Meet the Team</h2>
-        <div class="w-12 h-1 bg-red-600 mx-auto mb-6 rounded-full"></div>
-        <p class="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-          Our leadership brings decades of combined experience in specialist building finishes — the faces behind our commitment to quality on every project.
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 items-stretch">
-        {team.map((member, i) => (
-          <article
-            class="rd-team-card group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-md hover:shadow-xl transition-all duration-500"
-            data-animate
-            data-delay={`${i * 100}`}
-          >
-            <!-- Brand initial backdrop -->
-            <div class="rd-team-card__bg-r absolute inset-0 pointer-events-none overflow-hidden rounded-2xl" aria-hidden="true">
-              <span class="rd-team-card__letter">R</span>
-            </div>
-
-            <div class="relative z-[1] flex flex-col flex-1">
-              <div class="relative aspect-[3/4] overflow-hidden m-3 mb-0 rounded-xl bg-gray-50 ring-1 ring-gray-100">
-                <img
-                  src={teamPortraitUrl}
-                  alt={`${member.name} — Reynolds Dryline leadership`}
-                  class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div class="relative z-[1] p-6 pt-5 text-center flex-1 flex flex-col">
-                <h3 class="text-xl font-black text-gray-900 mb-1">{member.name}</h3>
-                <p class="text-red-600 text-sm font-bold tracking-widest uppercase mb-3">{member.role}</p>
-                <p class="text-gray-500 text-sm leading-relaxed flex-1">{member.desc}</p>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <!-- Stats bar -->
   <section class="rd-section rd-section--dark px-6 lg:px-10 !py-16">
     <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 text-center">
@@ -232,36 +166,3 @@ const team = [
 
   <Footer />
 </ReynoldsLayout>
-
-<style>
-  .rd-team-card__bg-r {
-    background: linear-gradient(165deg, #fff 0%, #fdf6f7 45%, #fce8ec 100%);
-  }
-
-  .rd-team-card__letter {
-    position: absolute;
-    right: -0.05em;
-    top: 50%;
-    transform: translateY(-52%);
-    font-size: clamp(6.5rem, 28vw, 11rem);
-    font-weight: 900;
-    line-height: 0.85;
-    letter-spacing: -0.06em;
-    color: rgba(226, 49, 37, 0.14);
-    user-select: none;
-    font-family: 'Montserrat', system-ui, sans-serif;
-    pointer-events: none;
-  }
-
-  @media (min-width: 768px) {
-    .rd-team-card__letter {
-      font-size: clamp(7rem, 19vw, 9.5rem);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .rd-team-card__letter {
-      font-size: clamp(6rem, 13vw, 8.5rem);
-    }
-  }
-</style>
