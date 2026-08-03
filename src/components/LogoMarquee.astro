@@ -9,14 +9,9 @@ interface Props {
 }
 
 const { logos } = Astro.props as Props;
-
-/** Repeat logos so one strip is always wider than a large desktop viewport. */
-const minItemsPerStrip = 12;
-const repeats = Math.max(1, Math.ceil(minItemsPerStrip / Math.max(logos.length, 1)));
-const stripLogos = Array.from({ length: repeats }, () => logos).flat();
 ---
 
-<!-- Static grid on small viewports; scrolling marquee from md breakpoint up -->
+<!-- Static grid on small viewports -->
 <ul
   class="logo-marquee-gallery m-0 list-none grid grid-cols-2 gap-5 p-8 sm:grid-cols-3 sm:gap-8 sm:p-10 md:hidden"
   aria-label="Partner logos"
@@ -34,22 +29,16 @@ const stripLogos = Array.from({ length: repeats }, () => logos).flat();
   ))}
 </ul>
 
-<div class="logo-marquee hidden md:block" aria-label="Partner logos marquee">
-  <div class="logo-marquee-track">
-    <ul class="logo-marquee-group">
-      {stripLogos.map((logo) => (
-        <li class="logo-marquee-item">
+<!-- Continuous marquee from md up: JS measures the sequence width so the loop has no gap -->
+<div class="logo-marquee hidden md:block" data-logo-marquee aria-label="Partner logos marquee">
+  <div class="logo-marquee-track" data-marquee-track>
+    <div class="logo-marquee-sequence" data-marquee-sequence>
+      {logos.map((logo) => (
+        <div class="logo-marquee-item">
           <img src={logo.src} alt={logo.alt} loading="eager" decoding="async" />
-        </li>
+        </div>
       ))}
-    </ul>
-    <ul class="logo-marquee-group" aria-hidden="true">
-      {stripLogos.map((logo) => (
-        <li class="logo-marquee-item">
-          <img src={logo.src} alt="" loading="eager" decoding="async" />
-        </li>
-      ))}
-    </ul>
+    </div>
   </div>
 </div>
 
@@ -62,22 +51,22 @@ const stripLogos = Array.from({ length: repeats }, () => logos).flat();
   .logo-marquee-track {
     display: flex;
     width: max-content;
-    animation: logo-marquee-scroll 55s linear infinite;
     will-change: transform;
-    transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
+    animation: logo-marquee-scroll var(--marquee-duration, 45s) linear infinite;
+  }
+
+  .logo-marquee.is-ready .logo-marquee-track {
+    animation-name: logo-marquee-scroll;
   }
 
   .logo-marquee:hover .logo-marquee-track {
     animation-play-state: paused;
   }
 
-  .logo-marquee-group {
+  .logo-marquee-sequence {
     display: flex;
     flex: 0 0 auto;
-    margin: 0;
-    padding: 0;
-    list-style: none;
   }
 
   .logo-marquee-item {
@@ -94,7 +83,6 @@ const stripLogos = Array.from({ length: repeats }, () => logos).flat();
     max-width: 100%;
     width: auto;
     object-fit: contain;
-    transform: translateZ(0);
   }
 
   @media (min-width: 1280px) {
@@ -108,29 +96,103 @@ const stripLogos = Array.from({ length: repeats }, () => logos).flat();
     }
   }
 
-  /* Move exactly one group width (-50% of the duplicated track). */
   @keyframes logo-marquee-scroll {
-    from { transform: translate3d(0, 0, 0); }
-    to { transform: translate3d(-50%, 0, 0); }
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(calc(-1 * var(--marquee-distance, 0px)), 0, 0);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .logo-marquee-track {
-      animation: none;
+      animation: none !important;
       width: 100%;
-      display: flex;
       flex-wrap: wrap;
       justify-content: center;
-    }
-
-    .logo-marquee-group[aria-hidden="true"] {
-      display: none;
-    }
-
-    .logo-marquee-group {
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
     }
   }
 </style>
+
+<script>
+  const cleaned = new WeakSet<HTMLElement>();
+
+  function initLogoMarquees() {
+    const roots = document.querySelectorAll<HTMLElement>('[data-logo-marquee]');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    roots.forEach((root) => {
+      const track = root.querySelector<HTMLElement>('[data-marquee-track]');
+      const sequence = root.querySelector<HTMLElement>('[data-marquee-sequence]');
+      if (!track || !sequence) return;
+
+      track.querySelectorAll('[data-marquee-clone]').forEach((node) => node.remove());
+      root.classList.remove('is-ready');
+
+      if (reduceMotion) {
+        root.classList.add('is-ready');
+        return;
+      }
+
+      const setup = () => {
+        track.querySelectorAll('[data-marquee-clone]').forEach((node) => node.remove());
+
+        const sequenceWidth = sequence.getBoundingClientRect().width;
+        if (sequenceWidth < 1) return;
+
+        const viewportWidth = root.getBoundingClientRect().width;
+        const copiesNeeded = Math.max(2, Math.ceil((viewportWidth * 2) / sequenceWidth) + 1);
+
+        for (let i = 1; i < copiesNeeded; i += 1) {
+          const clone = sequence.cloneNode(true) as HTMLElement;
+          clone.setAttribute('data-marquee-clone', '');
+          clone.setAttribute('aria-hidden', 'true');
+          clone.querySelectorAll('img').forEach((img) => {
+            img.setAttribute('alt', '');
+          });
+          track.appendChild(clone);
+        }
+
+        const pixelsPerSecond = 55;
+        const duration = Math.max(20, sequenceWidth / pixelsPerSecond);
+
+        track.style.setProperty('--marquee-distance', `${Math.round(sequenceWidth)}px`);
+        track.style.setProperty('--marquee-duration', `${duration}s`);
+
+        // Restart animation so the new distance takes effect cleanly
+        track.style.animation = 'none';
+        void track.offsetWidth;
+        track.style.animation = '';
+        root.classList.add('is-ready');
+      };
+
+      const images = Array.from(sequence.querySelectorAll('img'));
+      Promise.all(
+        images.map(
+          (img) =>
+            img.complete
+              ? Promise.resolve()
+              : new Promise<void>((resolve) => {
+                  img.addEventListener('load', () => resolve(), { once: true });
+                  img.addEventListener('error', () => resolve(), { once: true });
+                }),
+        ),
+      ).then(setup);
+
+      if (!cleaned.has(root)) {
+        cleaned.add(root);
+        window.addEventListener(
+          'resize',
+          () => {
+            window.requestAnimationFrame(setup);
+          },
+          { passive: true },
+        );
+      }
+    });
+  }
+
+  initLogoMarquees();
+  document.addEventListener('astro:page-load', initLogoMarquees);
+</script>

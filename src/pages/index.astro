@@ -190,10 +190,10 @@ const testimonials = [
       <div class="text-center mb-12" data-animate>
         <p class="rd-label mb-3">What We Offer</p>
         <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-3">Core Services, Built to Deliver</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">A complete drylining package from partitioning and ceilings to SFS and plastering.</p>
+        <p class="text-gray-600 max-w-2xl mx-auto">A complete drylining package from partitioning and ceilings to SFS, plastering and fire stopping.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
         <article class="rd-panel group overflow-hidden" data-animate>
           <img src="/assets/reynolds/services/partitions.png" alt="Metal stud partition installation" class="w-full h-52 lg:h-56 object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
           <div class="p-6">
@@ -223,6 +223,14 @@ const testimonials = [
           <div class="p-6">
             <h3 class="text-xl font-black text-gray-900 mb-2">Plastering</h3>
             <p class="text-gray-600 text-sm leading-relaxed">High-quality skim and tape-and-joint finishes delivered to programme with clean handover standards.</p>
+          </div>
+        </article>
+
+        <article class="rd-panel group overflow-hidden" data-animate data-delay="320">
+          <img src="/assets/reynolds/services/fire-stopping.png" alt="Fire stopping installation on a commercial site" class="w-full h-52 lg:h-56 object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
+          <div class="p-6">
+            <h3 class="text-xl font-black text-gray-900 mb-2">Fire Stopping</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">Tested seals for service penetrations and compartmentation, protecting the integrity of fire-rated walls and floors.</p>
           </div>
         </article>
       </div>
@@ -659,7 +667,7 @@ const testimonials = [
         <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-3">Who We Partner With</h2>
         <div class="w-12 h-1 bg-red-600 mx-auto"></div>
       </div>
-      <div class="rd-panel rd-panel--subtle p-0" data-animate data-delay="100">
+      <div class="rd-panel rd-panel--subtle p-0 overflow-hidden">
         <LogoMarquee logos={partnerLogos} />
       </div>
     </div>
