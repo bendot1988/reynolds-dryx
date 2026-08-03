@@ -235,133 +235,126 @@ const liveSites = staticProjects
     bgPosition="center"
   />
 
-  <!-- Filter bar -->
-  <section class="bg-white border-b border-gray-200 px-6 lg:px-10 py-4 md:py-5 sticky top-16 z-30">
-    <div class="max-w-7xl mx-auto space-y-3">
-      <!-- Mobile: compact dropdowns + always-open search -->
-      <div class="space-y-3 md:hidden">
-        <div class="grid grid-cols-2 gap-3">
-          <label class="block">
-            <span class="mb-1.5 block text-[0.65rem] font-bold tracking-widest uppercase text-gray-500">Filter</span>
-            <select
-              id="rd-sector-select"
-              class="rd-mobile-select w-full appearance-none border border-gray-300 bg-white px-3 py-2.5 pr-9 text-xs font-bold tracking-widest uppercase text-gray-700"
-            >
-              {sectors.map((sector) => (
-                <option value={sector}>{sector === 'All' ? 'All sectors' : sector}</option>
-              ))}
-            </select>
-          </label>
-          <label class="block">
-            <span class="mb-1.5 block text-[0.65rem] font-bold tracking-widest uppercase text-gray-500">Status</span>
-            <select
-              id="rd-status-select"
-              class="rd-mobile-select w-full appearance-none border border-gray-300 bg-white px-3 py-2.5 pr-9 text-xs font-bold tracking-widest uppercase text-gray-700"
-            >
-              {statusFilters.map((status) => (
-                <option value={status}>{status === 'All' ? 'All statuses' : status}</option>
-              ))}
-            </select>
-          </label>
-        </div>
+  <!-- Toolbar -->
+  <section class="bg-white border-b border-gray-200 px-6 lg:px-10 py-4 sticky top-16 z-30">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center gap-3">
+      <button
+        type="button"
+        id="rd-filter-open"
+        class="inline-flex h-11 items-center gap-2 border border-gray-300 bg-white px-4 text-xs font-bold tracking-widest uppercase text-gray-800 transition-colors hover:border-red-600 hover:text-red-600"
+        aria-haspopup="dialog"
+        aria-controls="rd-filter-drawer"
+        aria-expanded="false"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 4h18M6 12h12M10 20h4" />
+        </svg>
+        Filter
+        <span id="rd-filter-count" class="hidden ml-1 rounded-full bg-red-600 px-2 py-0.5 text-[0.65rem] font-bold tracking-normal text-white normal-case"></span>
+      </button>
 
-        <div class="flex h-11 items-center border border-gray-300 bg-white">
-          <svg class="ml-3 h-4 w-4 shrink-0 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
-          </svg>
-          <input
-            type="search"
-            id="rd-project-search-input-mobile"
-            class="h-full w-full min-w-0 border-0 bg-transparent px-3 text-sm text-gray-900 outline-none placeholder:text-gray-400"
-            placeholder="Search projects…"
-            autocomplete="off"
-          />
+      <div class="relative flex h-11 min-w-0 flex-1 items-center border border-gray-300 bg-white sm:max-w-md">
+        <svg class="ml-3 h-4 w-4 shrink-0 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
+        </svg>
+        <input
+          type="search"
+          id="rd-project-search-input"
+          class="h-full w-full min-w-0 border-0 bg-transparent px-3 text-sm text-gray-900 outline-none placeholder:text-gray-400"
+          placeholder="Search projects…"
+          autocomplete="off"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter drawer -->
+  <div
+    id="rd-filter-backdrop"
+    class="fixed inset-0 z-[70] bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300"
+    aria-hidden="true"
+  ></div>
+  <aside
+    id="rd-filter-drawer"
+    class="fixed top-0 left-0 z-[80] flex h-dvh w-[min(20rem,92vw)] -translate-x-full flex-col bg-white shadow-2xl transition-transform duration-300 ease-out"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="rd-filter-drawer-title"
+    aria-hidden="true"
+  >
+    <div class="flex items-center justify-between border-b border-gray-200 px-5 py-4">
+      <h2 id="rd-filter-drawer-title" class="text-sm font-black tracking-widest uppercase text-gray-900">Filters</h2>
+      <button
+        type="button"
+        id="rd-filter-close"
+        class="inline-flex h-9 w-9 items-center justify-center border border-gray-200 text-gray-600 transition-colors hover:border-red-600 hover:text-red-600"
+        aria-label="Close filters"
+      >
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-5 py-6 space-y-8">
+      <div>
+        <p class="mb-3 text-[0.65rem] font-bold tracking-[0.16em] uppercase text-gray-500">Sector</p>
+        <div class="space-y-2">
+          {sectors.map((sector) => (
+            <button
+              type="button"
+              class="rd-filter-btn flex w-full items-center justify-between border px-3 py-2.5 text-left text-xs font-bold tracking-widest uppercase transition-colors"
+              data-sector={sector}
+              class:list={[
+                sector === 'All'
+                  ? 'border-red-600 bg-red-600 text-white'
+                  : 'border-gray-200 bg-white text-gray-700 hover:border-red-600 hover:text-red-600'
+              ]}
+            >
+              <span>{sector === 'All' ? 'All sectors' : sector}</span>
+            </button>
+          ))}
         </div>
       </div>
 
-      <!-- Desktop: button filters + expandable search -->
-      <div class="hidden md:block space-y-3">
-        <div class="flex flex-wrap gap-3 items-center justify-between">
-          <div class="flex flex-wrap gap-3 items-center">
-            <span class="text-xs font-bold tracking-widest uppercase text-gray-500 mr-2">Filter:</span>
-            {sectors.map(sector => (
-              <button
-                type="button"
-                class="rd-filter-btn text-xs font-bold tracking-widest uppercase px-4 py-2 border transition-all duration-200"
-                data-filter-type="sector"
-                data-sector={sector}
-                class:list={[
-                  sector === 'All'
-                    ? 'bg-red-600 text-white border-red-600'
-                    : 'bg-white text-gray-600 border-gray-300 hover:border-red-600 hover:text-red-600'
-                ]}
-              >
-                {sector}
-              </button>
-            ))}
-          </div>
-
-          <div id="rd-project-search" class="rd-project-search relative ml-auto">
-            <button
-              type="button"
-              id="rd-project-search-toggle"
-              class="inline-flex h-9 w-9 items-center justify-center border border-gray-300 text-gray-600 transition-colors duration-200 hover:border-red-600 hover:text-red-600"
-              aria-label="Search projects"
-              aria-expanded="false"
-              aria-controls="rd-project-search-input"
-            >
-              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
-              </svg>
-            </button>
-            <div
-              id="rd-project-search-panel"
-              class="rd-project-search-panel absolute right-0 top-0 flex h-9 items-center overflow-hidden border border-red-600 bg-white opacity-0 pointer-events-none"
-            >
-              <svg class="ml-3 h-4 w-4 shrink-0 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z" />
-              </svg>
-              <input
-                type="search"
-                id="rd-project-search-input"
-                class="h-full w-full min-w-0 border-0 bg-transparent px-3 text-sm text-gray-900 outline-none placeholder:text-gray-400"
-                placeholder="Search projects…"
-                autocomplete="off"
-              />
-              <button
-                type="button"
-                id="rd-project-search-close"
-                class="inline-flex h-9 w-9 shrink-0 items-center justify-center text-gray-500 transition-colors hover:text-red-600"
-                aria-label="Close search"
-              >
-                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex flex-wrap gap-3 items-center">
-          <span class="text-xs font-bold tracking-widest uppercase text-gray-500 mr-2">Status:</span>
+      <div>
+        <p class="mb-3 text-[0.65rem] font-bold tracking-[0.16em] uppercase text-gray-500">Status</p>
+        <div class="space-y-2">
           {statusFilters.map((status) => (
             <button
               type="button"
-              class="rd-status-btn text-xs font-bold tracking-widest uppercase px-4 py-2 border transition-all duration-200"
+              class="rd-status-btn flex w-full items-center justify-between border px-3 py-2.5 text-left text-xs font-bold tracking-widest uppercase transition-colors"
               data-status={status}
               class:list={[
                 status === 'All'
-                  ? 'bg-slate-800 text-white border-slate-800'
-                  : 'bg-white text-gray-600 border-gray-300 hover:border-slate-800 hover:text-slate-800'
+                  ? 'border-slate-800 bg-slate-800 text-white'
+                  : 'border-gray-200 bg-white text-gray-700 hover:border-slate-800 hover:text-slate-800'
               ]}
             >
-              {status}
+              <span>{status === 'All' ? 'All statuses' : status}</span>
             </button>
           ))}
         </div>
       </div>
     </div>
-  </section>
+
+    <div class="border-t border-gray-200 p-4 space-y-2">
+      <button
+        type="button"
+        id="rd-filter-clear"
+        class="w-full border border-gray-300 px-4 py-3 text-xs font-bold tracking-widest uppercase text-gray-700 transition-colors hover:border-gray-900 hover:text-gray-900"
+      >
+        Clear filters
+      </button>
+      <button
+        type="button"
+        id="rd-filter-apply"
+        class="rd-btn-primary w-full justify-center"
+      >
+        Show results
+      </button>
+    </div>
+  </aside>
 
   <!-- Live sites map accordion -->
   <section class="bg-white border-b border-gray-200 px-6 lg:px-10">
@@ -406,14 +399,14 @@ const liveSites = staticProjects
           const contractorLogo = contractorLogos[project.contractor];
           return (
           <article
-            class="rd-project-item group bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            class="rd-project-item group flex h-full flex-col bg-white border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300"
             data-sector={project.sector}
             data-status={isOngoing ? 'Live' : 'Complete'}
             data-search={`${project.title} ${project.location} ${project.contractor} ${project.value} ${project.status} ${project.sector} ${project.services.join(' ')} ${project.description}`.toLowerCase()}
             data-animate
             data-delay={`${(i % 3) * 100}`}
           >
-            <div class="relative overflow-hidden">
+            <div class="relative overflow-hidden shrink-0">
               <img
                 src={project.image}
                 alt={project.title}
@@ -430,9 +423,9 @@ const liveSites = staticProjects
                 {statusLabel}
               </span>
             </div>
-            <div class="p-6">
+            <div class="flex flex-1 flex-col p-6">
               <!-- Sector badge -->
-              <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3">
+              <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3 self-start">
                 {project.sector}
               </span>
 
@@ -440,31 +433,33 @@ const liveSites = staticProjects
               <p class="text-gray-500 text-sm mb-4">{project.location}</p>
               <p class="text-gray-600 text-sm leading-relaxed mb-5">{project.description}</p>
 
-              <!-- Project details -->
-              <div class="grid grid-cols-2 gap-3 mb-5 text-xs">
-                <div class="bg-gray-50 p-3 flex items-center justify-center min-h-[4.5rem]">
-                  {contractorLogo ? (
-                    <img
-                      src={contractorLogo}
-                      alt={project.contractor}
-                      class="max-h-10 w-auto max-w-full object-contain"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <span class="text-gray-900 font-semibold">{project.contractor}</span>
-                  )}
+              <div class="mt-auto">
+                <!-- Project details -->
+                <div class="grid grid-cols-2 gap-3 mb-5 text-xs items-center">
+                  <div class="flex items-center justify-start min-h-[5.5rem]">
+                    {contractorLogo ? (
+                      <img
+                        src={contractorLogo}
+                        alt={project.contractor}
+                        class="h-full w-full max-h-[5.5rem] object-contain object-left"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span class="text-gray-900 font-semibold">{project.contractor}</span>
+                    )}
+                  </div>
+                  <div class="flex flex-col justify-center min-h-[5.5rem]">
+                    <span class="block text-gray-400 font-bold tracking-widest uppercase mb-1">Value</span>
+                    <span class="text-gray-900 font-semibold text-base">{project.value}</span>
+                  </div>
                 </div>
-                <div class="bg-gray-50 p-3 flex flex-col justify-center">
-                  <span class="block text-gray-400 font-bold tracking-widest uppercase mb-1">Value</span>
-                  <span class="text-gray-900 font-semibold">{project.value}</span>
-                </div>
-              </div>
 
-              <!-- Services tags -->
-              <div class="flex flex-wrap gap-2">
-                {project.services.map(service => (
-                  <span class="text-xs font-semibold px-2 py-1 bg-gray-100 text-gray-600">{service}</span>
-                ))}
+                <!-- Services tags -->
+                <div class="flex flex-wrap gap-2">
+                  {project.services.map(service => (
+                    <span class="text-xs font-semibold px-2 py-1 bg-gray-100 text-gray-600">{service}</span>
+                  ))}
+                </div>
               </div>
             </div>
           </article>
@@ -499,19 +494,19 @@ const liveSites = staticProjects
 <script>
   const filterBtns = document.querySelectorAll('.rd-filter-btn');
   const statusBtns = document.querySelectorAll('.rd-status-btn');
-  const sectorSelect = document.getElementById('rd-sector-select');
-  const statusSelect = document.getElementById('rd-status-select');
   const projectItems = document.querySelectorAll('.rd-project-item');
-  const searchRoot = document.getElementById('rd-project-search');
-  const searchToggle = document.getElementById('rd-project-search-toggle');
-  const searchPanel = document.getElementById('rd-project-search-panel');
   const searchInput = document.getElementById('rd-project-search-input');
-  const searchInputMobile = document.getElementById('rd-project-search-input-mobile');
-  const searchClose = document.getElementById('rd-project-search-close');
   const emptyState = document.getElementById('rd-projects-empty');
   const liveToggle = document.getElementById('rd-live-sites-toggle');
   const livePanel = document.getElementById('rd-live-sites-panel');
   const liveChevron = document.getElementById('rd-live-sites-chevron');
+  const filterOpen = document.getElementById('rd-filter-open');
+  const filterClose = document.getElementById('rd-filter-close');
+  const filterApply = document.getElementById('rd-filter-apply');
+  const filterClear = document.getElementById('rd-filter-clear');
+  const filterDrawer = document.getElementById('rd-filter-drawer');
+  const filterBackdrop = document.getElementById('rd-filter-backdrop');
+  const filterCount = document.getElementById('rd-filter-count');
 
   let activeSector = 'All';
   let activeStatus = 'All';
@@ -537,12 +532,11 @@ const liveSites = staticProjects
         setActiveButton(
           filterBtns,
           btn,
-          ['bg-red-600', 'text-white', 'border-red-600'],
-          ['bg-white', 'text-gray-600', 'border-gray-300', 'hover:border-red-600', 'hover:text-red-600'],
+          ['border-red-600', 'bg-red-600', 'text-white'],
+          ['border-gray-200', 'bg-white', 'text-gray-700', 'hover:border-red-600', 'hover:text-red-600'],
         );
       }
     });
-    if (sectorSelect instanceof HTMLSelectElement) sectorSelect.value = activeSector;
   }
 
   function syncStatusButtons() {
@@ -551,12 +545,25 @@ const liveSites = staticProjects
         setActiveButton(
           statusBtns,
           btn,
-          ['bg-slate-800', 'text-white', 'border-slate-800'],
-          ['bg-white', 'text-gray-600', 'border-gray-300', 'hover:border-slate-800', 'hover:text-slate-800'],
+          ['border-slate-800', 'bg-slate-800', 'text-white'],
+          ['border-gray-200', 'bg-white', 'text-gray-700', 'hover:border-slate-800', 'hover:text-slate-800'],
         );
       }
     });
-    if (statusSelect instanceof HTMLSelectElement) statusSelect.value = activeStatus;
+  }
+
+  function updateFilterCount() {
+    let count = 0;
+    if (activeSector !== 'All') count += 1;
+    if (activeStatus !== 'All') count += 1;
+    if (!(filterCount instanceof HTMLElement)) return;
+    if (count > 0) {
+      filterCount.textContent = String(count);
+      filterCount.classList.remove('hidden');
+    } else {
+      filterCount.textContent = '';
+      filterCount.classList.add('hidden');
+    }
   }
 
   function applyFilters() {
@@ -580,6 +587,30 @@ const liveSites = staticProjects
       emptyState.hidden = !showEmpty;
       emptyState.classList.toggle('hidden', !showEmpty);
     }
+
+    updateFilterCount();
+  }
+
+  function openDrawer() {
+    filterDrawer?.classList.remove('-translate-x-full');
+    filterDrawer?.classList.add('translate-x-0');
+    filterBackdrop?.classList.remove('opacity-0', 'pointer-events-none');
+    filterBackdrop?.classList.add('opacity-100', 'pointer-events-auto');
+    filterDrawer?.setAttribute('aria-hidden', 'false');
+    filterBackdrop?.setAttribute('aria-hidden', 'false');
+    filterOpen?.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('overflow-hidden');
+  }
+
+  function closeDrawer() {
+    filterDrawer?.classList.add('-translate-x-full');
+    filterDrawer?.classList.remove('translate-x-0');
+    filterBackdrop?.classList.add('opacity-0', 'pointer-events-none');
+    filterBackdrop?.classList.remove('opacity-100', 'pointer-events-auto');
+    filterDrawer?.setAttribute('aria-hidden', 'true');
+    filterBackdrop?.setAttribute('aria-hidden', 'true');
+    filterOpen?.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('overflow-hidden');
   }
 
   filterBtns.forEach((btn) => {
@@ -598,66 +629,29 @@ const liveSites = staticProjects
     });
   });
 
-  sectorSelect?.addEventListener('change', () => {
-    if (!(sectorSelect instanceof HTMLSelectElement)) return;
-    activeSector = sectorSelect.value || 'All';
-    syncSectorButtons();
-    applyFilters();
-  });
+  filterOpen?.addEventListener('click', openDrawer);
+  filterClose?.addEventListener('click', closeDrawer);
+  filterBackdrop?.addEventListener('click', closeDrawer);
+  filterApply?.addEventListener('click', closeDrawer);
 
-  statusSelect?.addEventListener('change', () => {
-    if (!(statusSelect instanceof HTMLSelectElement)) return;
-    activeStatus = statusSelect.value || 'All';
+  filterClear?.addEventListener('click', () => {
+    activeSector = 'All';
+    activeStatus = 'All';
+    searchQuery = '';
+    if (searchInput instanceof HTMLInputElement) searchInput.value = '';
+    syncSectorButtons();
     syncStatusButtons();
     applyFilters();
   });
 
-  function openSearch() {
-    if (!searchRoot || !searchToggle || !searchPanel || !searchInput) return;
-    searchRoot.classList.add('is-open');
-    searchToggle.setAttribute('aria-expanded', 'true');
-    searchToggle.classList.add('opacity-0', 'pointer-events-none');
-    searchPanel.classList.remove('opacity-0', 'pointer-events-none');
-    window.setTimeout(() => searchInput.focus(), 180);
-  }
-
-  function closeSearch() {
-    if (!searchRoot || !searchToggle || !searchPanel || !searchInput) return;
-    searchRoot.classList.remove('is-open');
-    searchToggle.setAttribute('aria-expanded', 'false');
-    searchToggle.classList.remove('opacity-0', 'pointer-events-none');
-    searchPanel.classList.add('opacity-0', 'pointer-events-none');
-    searchInput.value = '';
-    if (searchInputMobile instanceof HTMLInputElement) searchInputMobile.value = '';
-    searchQuery = '';
-    applyFilters();
-  }
-
-  function onSearchInput(value: string) {
-    searchQuery = value.trim().toLowerCase();
-    if (searchInput instanceof HTMLInputElement && searchInput !== document.activeElement) {
-      searchInput.value = value;
-    }
-    if (searchInputMobile instanceof HTMLInputElement && searchInputMobile !== document.activeElement) {
-      searchInputMobile.value = value;
-    }
-    applyFilters();
-  }
-
-  searchToggle?.addEventListener('click', openSearch);
-  searchClose?.addEventListener('click', closeSearch);
-
   searchInput?.addEventListener('input', () => {
-    onSearchInput((searchInput as HTMLInputElement).value);
-  });
-
-  searchInputMobile?.addEventListener('input', () => {
-    onSearchInput((searchInputMobile as HTMLInputElement).value);
+    searchQuery = (searchInput as HTMLInputElement).value.trim().toLowerCase();
+    applyFilters();
   });
 
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && searchRoot?.classList.contains('is-open')) {
-      closeSearch();
+    if (event.key === 'Escape' && filterDrawer?.classList.contains('translate-x-0')) {
+      closeDrawer();
     }
   });
 
@@ -755,32 +749,6 @@ const liveSites = staticProjects
 </script>
 
 <style>
-  .rd-project-search-panel {
-    width: 2.25rem;
-    transition:
-      width 220ms cubic-bezier(0.16, 1, 0.3, 1),
-      opacity 180ms ease;
-  }
-
-  .rd-project-search.is-open .rd-project-search-panel {
-    width: min(18rem, calc(100vw - 3rem));
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  @media (min-width: 640px) {
-    .rd-project-search.is-open .rd-project-search-panel {
-      width: 18rem;
-    }
-  }
-
-  .rd-mobile-select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.7rem center;
-    background-size: 1rem;
-  }
-
   .rd-live-sites-panel[hidden] {
     display: none;
   }

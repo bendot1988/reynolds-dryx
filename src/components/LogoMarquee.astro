@@ -9,6 +9,11 @@ interface Props {
 }
 
 const { logos } = Astro.props as Props;
+
+/** Repeat logos so one strip is always wider than a large desktop viewport. */
+const minItemsPerStrip = 12;
+const repeats = Math.max(1, Math.ceil(minItemsPerStrip / Math.max(logos.length, 1)));
+const stripLogos = Array.from({ length: repeats }, () => logos).flat();
 ---
 
 <!-- Static grid on small viewports; scrolling marquee from md breakpoint up -->
@@ -32,14 +37,14 @@ const { logos } = Astro.props as Props;
 <div class="logo-marquee hidden md:block" aria-label="Partner logos marquee">
   <div class="logo-marquee-track">
     <ul class="logo-marquee-group">
-      {logos.map((logo) => (
+      {stripLogos.map((logo) => (
         <li class="logo-marquee-item">
           <img src={logo.src} alt={logo.alt} loading="eager" decoding="async" />
         </li>
       ))}
     </ul>
     <ul class="logo-marquee-group" aria-hidden="true">
-      {logos.map((logo) => (
+      {stripLogos.map((logo) => (
         <li class="logo-marquee-item">
           <img src={logo.src} alt="" loading="eager" decoding="async" />
         </li>
@@ -57,17 +62,19 @@ const { logos } = Astro.props as Props;
   .logo-marquee-track {
     display: flex;
     width: max-content;
-    animation: logo-marquee-scroll 36s linear infinite;
+    animation: logo-marquee-scroll 55s linear infinite;
     will-change: transform;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
   }
 
+  .logo-marquee:hover .logo-marquee-track {
+    animation-play-state: paused;
+  }
+
   .logo-marquee-group {
     display: flex;
     flex: 0 0 auto;
-    width: max-content;
-    min-width: 100%;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -101,6 +108,7 @@ const { logos } = Astro.props as Props;
     }
   }
 
+  /* Move exactly one group width (-50% of the duplicated track). */
   @keyframes logo-marquee-scroll {
     from { transform: translate3d(0, 0, 0); }
     to { transform: translate3d(-50%, 0, 0); }
@@ -110,8 +118,9 @@ const { logos } = Astro.props as Props;
     .logo-marquee-track {
       animation: none;
       width: 100%;
-      display: grid;
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .logo-marquee-group[aria-hidden="true"] {
@@ -119,10 +128,9 @@ const { logos } = Astro.props as Props;
     }
 
     .logo-marquee-group {
-      width: 100%;
-      min-width: 100%;
       flex-wrap: wrap;
       justify-content: center;
+      width: 100%;
     }
   }
 </style>
