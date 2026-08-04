@@ -18,6 +18,5 @@
     "astro": "^7.1.6",
     "leaflet": "^1.9.4",
     "tailwindcss": "^4.2.2"
-  },
-  "packageManager": "npm@11.6.2"
+  }
 }
