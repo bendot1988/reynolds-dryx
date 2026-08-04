@@ -90,7 +90,7 @@ import PageHero from '../components/PageHero.astro';
           },
         ].map((val, i) => (
           <div
-            class="rd-panel p-8 border-t-4 border-t-red-600"
+            class="rd-panel rd-hover-bar p-8 border-t-4 border-t-red-600"
             data-animate
             data-delay={`${i * 100}`}
           >
@@ -109,60 +109,102 @@ import PageHero from '../components/PageHero.astro';
   <section class="rd-section rd-section--dark px-6 lg:px-10 !py-16">
     <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 text-center">
       {[
-        { number: '1963', label: 'Year Founded' },
-        { number: '60+', label: 'Years Experience' },
-        { number: '£100m+', label: 'Projects Delivered' },
-        { number: 'UK Wide', label: 'Coverage' },
+        { label: 'Year Founded', target: 1963, prefix: '', suffix: '' },
+        { label: 'Years Experience', target: 60, prefix: '', suffix: '+' },
+        { label: 'Projects Delivered', target: 950, prefix: '£', suffix: 'm+' },
+        { label: 'Coverage', text: 'UK Wide' },
       ].map((stat, i) => (
         <div
-          class="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-8 lg:py-10"
+          class="rd-hover-bar rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-8 lg:py-10 transition-colors duration-300 hover:border-red-500/50"
           data-animate
           data-delay={`${i * 100}`}
         >
-          <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-2">{stat.number}</div>
+          {'text' in stat && stat.text ? (
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-2">{stat.text}</div>
+          ) : (
+            <div class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-2">
+              <span
+                data-counter
+                data-target={stat.target}
+                data-prefix={stat.prefix}
+                data-suffix={stat.suffix}
+              >
+                {`${stat.prefix}${stat.target}${stat.suffix}`}
+              </span>
+            </div>
+          )}
           <div class="text-white/50 text-xs sm:text-sm font-bold tracking-widest uppercase">{stat.label}</div>
         </div>
       ))}
     </div>
   </section>
 
-  <!-- Accreditations -->
-  <section class="rd-section rd-section--surface px-6 lg:px-10 rounded-b-[2rem] sm:rounded-b-[2.5rem]">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-center mb-12" data-animate>
-        <p class="rd-label mb-3">Compliance & Quality</p>
-        <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-4">Accreditations &amp; Certifications</h2>
-        <div class="w-12 h-1 bg-red-600 mx-auto rounded-full"></div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-animate data-delay="100">
-        {[
-          {
-            title: 'Health & Safety',
-            desc: 'We maintain the highest standards of health and safety across all our sites, with regular training and audits.',
-          },
-          {
-            title: 'Quality Management',
-            desc: 'Our quality management systems ensure consistent, high-quality delivery on every project we undertake.',
-          },
-          {
-            title: 'Environmental',
-            desc: 'We are committed to reducing our environmental impact through responsible sourcing and waste management.',
-          },
-        ].map(cert => (
-          <div class="rd-panel p-8 text-center bg-gray-50/50 hover:bg-white">
-            <div class="w-16 h-16 bg-red-50 border-2 border-red-600 rounded-xl flex items-center justify-center mx-auto mb-5">
-              <svg class="w-8 h-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-black text-gray-900 mb-3">{cert.title}</h3>
-            <p class="text-gray-500 text-sm leading-relaxed">{cert.desc}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
   <Footer />
 </ReynoldsLayout>
+
+<script is:inline>
+  (function () {
+    const counters = document.querySelectorAll('[data-counter]');
+    if (!counters.length) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const numberFormatter = new Intl.NumberFormat('en-GB');
+    const animationDurationMs = 1600;
+
+    function easeOutStandard(progress) {
+      return 1 - Math.pow(1 - progress, 4);
+    }
+
+    function renderCounter(el, value) {
+      const prefix = el.getAttribute('data-prefix') || '';
+      const suffix = el.getAttribute('data-suffix') || '';
+      el.textContent = `${prefix}${numberFormatter.format(value)}${suffix}`;
+    }
+
+    function animateCounter(el) {
+      const target = Number(el.getAttribute('data-target') || '0');
+      if (!Number.isFinite(target) || target <= 0) {
+        renderCounter(el, 0);
+        return;
+      }
+      if (prefersReducedMotion) {
+        renderCounter(el, target);
+        return;
+      }
+
+      renderCounter(el, 0);
+      const start = performance.now();
+
+      function tick(now) {
+        const progress = Math.min((now - start) / animationDurationMs, 1);
+        const eased = easeOutStandard(progress);
+        renderCounter(el, Math.round(target * eased));
+
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        }
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    if (typeof window.IntersectionObserver !== 'function') {
+      counters.forEach((counter) => {
+        const target = Number(counter.getAttribute('data-target') || '0');
+        renderCounter(counter, Number.isFinite(target) && target > 0 ? target : 0);
+      });
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        animateCounter(el);
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.45 });
+
+    counters.forEach((counter) => observer.observe(counter));
+  })();
+</script>

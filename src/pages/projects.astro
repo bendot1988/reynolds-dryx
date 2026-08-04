@@ -357,7 +357,7 @@ const liveSites = staticProjects
   </aside>
 
   <!-- Live sites map accordion -->
-  <section class="bg-white border-b border-gray-200 px-6 lg:px-10">
+  <section id="live-sites" class="bg-white border-b border-gray-200 px-6 lg:px-10 scroll-mt-24">
     <div class="max-w-7xl mx-auto">
       <button
         type="button"
@@ -368,8 +368,8 @@ const liveSites = staticProjects
       >
         <span class="inline-flex items-center gap-3">
           <span class="relative flex h-2.5 w-2.5">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500/60"></span>
-            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-600"></span>
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/55"></span>
+            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
           </span>
           <span class="text-sm font-bold tracking-widest uppercase text-gray-900">Show live sites</span>
           <span class="text-xs font-semibold text-gray-500 normal-case tracking-normal">{liveSites.length} active</span>
@@ -666,6 +666,37 @@ const liveSites = staticProjects
       if (typeof initMap === 'function') initMap();
     }
   });
+
+  function openLiveSitesFromHash() {
+    if (window.location.hash !== '#live-sites') return;
+    if (!(livePanel instanceof HTMLElement) || !(liveToggle instanceof HTMLButtonElement)) return;
+
+    livePanel.hidden = false;
+    liveToggle.setAttribute('aria-expanded', 'true');
+    liveChevron?.classList.add('rotate-180');
+
+    const tryInitMap = () => {
+      const initMap = (window as Window & { __rdInitLiveSitesMap?: () => void }).__rdInitLiveSitesMap;
+      if (typeof initMap !== 'function') return false;
+      initMap();
+      return true;
+    };
+
+    if (!tryInitMap()) {
+      let attempts = 0;
+      const timer = window.setInterval(() => {
+        attempts += 1;
+        if (tryInitMap() || attempts > 40) window.clearInterval(timer);
+      }, 50);
+    }
+
+    window.requestAnimationFrame(() => {
+      document.getElementById('live-sites')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  openLiveSitesFromHash();
+  window.addEventListener('hashchange', openLiveSitesFromHash);
 </script>
 
 <script id="rd-live-sites-data" type="application/json" set:html={JSON.stringify(liveSites)} />

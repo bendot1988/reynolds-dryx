@@ -53,7 +53,6 @@ const services = [
       'Acoustic floor and wall systems',
       'Thermal performance solutions',
       'Fire barrier installations',
-      'Specialist acoustic consultancy',
     ],
     image: '/assets/reynolds/services/insulation-soundproofing.png',
   },
@@ -73,11 +72,7 @@ const services = [
   {
     slug: 'fire-stopping',
     title: 'Fire Stopping',
-    desc: [
-      'At Reynolds Dryline, we provide fully compliant passive fire protection and fire stopping solutions designed to maintain the integrity of fire-rated walls, floors and ceilings. Our experienced operatives install certified systems that help prevent the spread of fire, smoke and toxic gases, protecting both lives and property.',
-      'We deliver fire stopping across a wide range of sectors, including residential, student accommodation, healthcare, education, commercial and industrial developments. Working in accordance with manufacturers\' specifications and current industry standards, we ensure every penetration, joint and service opening is correctly sealed using tested and approved systems.',
-      'From new-build projects to refurbishment works, our focus is on quality, compliance and meticulous attention to detail. Comprehensive installation records and quality assurance processes provide our clients with confidence that every fire stopping installation meets the required performance standards.',
-    ],
+    desc: 'Compliant passive fire protection for walls, floors and ceilings, installed with tested systems across residential, commercial and industrial projects.',
     features: [
       'Penetration seals for pipes, cables and ducts',
       'Linear gap and joint seals',
@@ -120,9 +115,6 @@ const services = [
               class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
               loading="lazy"
             />
-            <div class="absolute top-3 left-3 z-10 bg-red-600 text-white text-[0.64rem] font-bold tracking-[0.16em] uppercase px-3 py-1.5 rounded-[5px]">
-              Service {String(i + 1).padStart(2, '0')}
-            </div>
           </div>
 
           <!-- Content -->
@@ -147,7 +139,7 @@ const services = [
               ))}
             </ul>
 
-            <a href="/contact" class="rd-btn-primary">
+            <a href="/contact" class="rd-btn-primary !bg-[#111111] hover:!bg-black" style="--rd-btn-accent-bar: var(--rd-red);">
               Enquire About This Service
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
