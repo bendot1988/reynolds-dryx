@@ -400,26 +400,26 @@ a.rd-link-underline-fill:focus-visible::after {
 }
 
 /* Hero + footer CTA band: no hover fill / lift; bottom-edge accent bar */
-a.rd-hero-cta.rd-btn-primary,
-a.rd-hero-cta.rd-btn-outline {
+.rd-hero-cta.rd-btn-primary,
+.rd-hero-cta.rd-btn-outline:not(.rd-hero-play) {
   overflow: hidden;
 }
 
-a.rd-hero-cta.rd-btn-primary:hover,
-a.rd-hero-cta.rd-btn-primary:focus-visible {
+.rd-hero-cta.rd-btn-primary:hover,
+.rd-hero-cta.rd-btn-primary:focus-visible {
   background-color: var(--rd-red);
   transform: none;
 }
 
-a.rd-hero-cta.rd-btn-outline:hover,
-a.rd-hero-cta.rd-btn-outline:focus-visible {
+.rd-hero-cta.rd-btn-outline:hover,
+.rd-hero-cta.rd-btn-outline:focus-visible {
   background-color: transparent;
   color: #fff;
   transform: none;
 }
 
-a.rd-hero-cta.rd-btn-primary::after,
-a.rd-hero-cta.rd-btn-outline::after {
+.rd-hero-cta.rd-btn-primary::after,
+.rd-hero-cta.rd-btn-outline::after {
   left: 0;
   right: 0;
   bottom: 0;
@@ -451,6 +451,62 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
 /* Utility: use white accent bar on dark surfaces for .rd-btn-primary. */
 .rd-btn-primary--on-dark {
   --rd-btn-accent-bar: #fff;
+}
+
+/* Homepage hero — “This is Reynolds” (outline CTA + red chase border) */
+@property --rd-snake-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.rd-hero-play {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+}
+
+.rd-hero-play::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: calc(var(--rd-radius-sm) + 1px);
+  padding: 2px;
+  background: conic-gradient(
+    from var(--rd-snake-angle),
+    transparent 0deg 255deg,
+    var(--rd-red) 290deg 320deg,
+    transparent 350deg 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rd-hero-play-snake 2.4s linear infinite;
+  pointer-events: none;
+}
+
+.rd-hero-play.rd-btn-outline::after {
+  display: none;
+}
+
+@keyframes rd-hero-play-snake {
+  to {
+    --rd-snake-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rd-hero-play::before {
+    animation: none;
+    background: var(--rd-red);
+    opacity: 0.85;
+  }
 }
 
 .rd-btn-outline-red {
