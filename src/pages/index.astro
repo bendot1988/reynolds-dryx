@@ -1015,30 +1015,63 @@ const testimonials = [
   })();
 </script>
 
-<script is:inline data-astro-rerun>
-  (function () {
+<script>
+  type HeroCleanup = () => void;
+  let heroCleanup: HeroCleanup | null = null;
+
+  function tryPlay(video: HTMLVideoElement) {
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === 'function') {
+      playPromise.catch(() => {});
+    }
+  }
+
+  /** Restart hero media after ClientRouter swaps — autoplay alone often won't. */
+  function restartHeroVideo(heroVideo: HTMLVideoElement, prefersReducedMotion: boolean) {
+    if (prefersReducedMotion) {
+      heroVideo.pause();
+      return;
+    }
+
+    heroVideo.muted = true;
+    heroVideo.defaultMuted = true;
+    heroVideo.loop = true;
+    heroVideo.playsInline = true;
+    heroVideo.setAttribute('playsinline', '');
+    heroVideo.setAttribute('muted', '');
+    heroVideo.setAttribute('autoplay', '');
+
+    const src = heroVideo.getAttribute('src') || heroVideo.currentSrc;
+    if (src) {
+      // Re-assign src so the browser reloads media after a view-transition swap
+      heroVideo.removeAttribute('src');
+      heroVideo.src = src;
+    }
+
+    heroVideo.load();
+
+    const onReady = () => tryPlay(heroVideo);
+    heroVideo.addEventListener('loadeddata', onReady, { once: true });
+    heroVideo.addEventListener('canplay', onReady, { once: true });
+    tryPlay(heroVideo);
+  }
+
+  function initHeroVideo() {
+    heroCleanup?.();
+    heroCleanup = null;
+
     const heroVideo = document.getElementById('rd-hero-video');
+    if (!(heroVideo instanceof HTMLVideoElement)) return;
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const playHero = () => restartHeroVideo(heroVideo, prefersReducedMotion);
+
+    playHero();
+
     const playButton = document.getElementById('rd-hero-play');
     const lightbox = document.getElementById('rd-hero-lightbox');
     const lightboxVideo = document.getElementById('rd-hero-lightbox-video');
     const closeButton = document.getElementById('rd-hero-lightbox-close');
-
-    if (!(heroVideo instanceof HTMLVideoElement)) return;
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    function playHero() {
-      if (prefersReducedMotion) {
-        heroVideo.pause();
-        return;
-      }
-      const playPromise = heroVideo.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(() => {});
-      }
-    }
-
-    playHero();
 
     if (
       !(playButton instanceof HTMLButtonElement) ||
@@ -1049,13 +1082,13 @@ const testimonials = [
       return;
     }
 
+    const controller = new AbortController();
+    const { signal } = controller;
+
     function openLightbox() {
       heroVideo.pause();
       lightbox.showModal();
-      const playPromise = lightboxVideo.play();
-      if (playPromise && typeof playPromise.catch === 'function') {
-        playPromise.catch(() => {});
-      }
+      tryPlay(lightboxVideo);
     }
 
     function closeLightbox() {
@@ -1065,18 +1098,28 @@ const testimonials = [
       playHero();
     }
 
-    playButton.addEventListener('click', openLightbox);
-    closeButton.addEventListener('click', closeLightbox);
+    playButton.addEventListener('click', openLightbox, { signal });
+    closeButton.addEventListener('click', closeLightbox, { signal });
+    lightbox.addEventListener(
+      'click',
+      (event) => {
+        if (event.target === lightbox) closeLightbox();
+      },
+      { signal }
+    );
+    lightbox.addEventListener(
+      'cancel',
+      (event) => {
+        event.preventDefault();
+        closeLightbox();
+      },
+      { signal }
+    );
 
-    lightbox.addEventListener('click', (event) => {
-      if (event.target === lightbox) closeLightbox();
-    });
+    heroCleanup = () => controller.abort();
+  }
 
-    lightbox.addEventListener('cancel', (event) => {
-      event.preventDefault();
-      closeLightbox();
-    });
-  })();
+  document.addEventListener('astro:page-load', initHeroVideo);
 </script>
 
 <!-- Leaflet map for coverage section -->
