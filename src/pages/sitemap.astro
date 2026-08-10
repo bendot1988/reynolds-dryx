@@ -1,0 +1,116 @@
+---
+import ReynoldsLayout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import { getCollection } from 'astro:content';
+
+const newsPosts = (await getCollection('news')).sort(
+  (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+
+const sections = [
+  {
+    title: 'Company',
+    links: [
+      { href: '/', label: 'Home' },
+      { href: '/about', label: 'About Reynolds Dryline' },
+      { href: '/who-we-work-with', label: 'Who We Work With' },
+      { href: '/careers', label: 'Careers' },
+      { href: '/contact', label: 'Contact' },
+    ],
+  },
+  {
+    title: 'Services',
+    links: [
+      { href: '/services', label: 'All Services' },
+      { href: '/services#metal-stud-partitioning', label: 'Metal Stud Partitioning' },
+      { href: '/services#suspended-ceilings', label: 'Suspended Ceilings' },
+      { href: '/services#structural-framing-systems', label: 'Structural Framing Systems' },
+      { href: '/services#insulation-sound-proofing', label: 'Insulation & Sound Proofing' },
+      { href: '/services#professional-plastering', label: 'Professional Plastering' },
+      { href: '/services#fire-stopping', label: 'Fire Stopping' },
+    ],
+  },
+  {
+    title: 'Projects',
+    links: [
+      { href: '/projects', label: 'Project Portfolio' },
+      { href: '/projects#live-sites', label: 'Live Sites Map' },
+    ],
+  },
+  {
+    title: 'News',
+    links: [
+      { href: '/news', label: 'News & Updates' },
+      ...newsPosts.map((post) => ({
+        href: `/news/${post.id}`,
+        label: post.data.title,
+      })),
+    ],
+  },
+];
+---
+
+<ReynoldsLayout
+  title="Sitemap | Reynolds Dryline"
+  description="Browse every page on the Reynolds Dryline website, or download the XML sitemap for search engines."
+  canonical="https://www.reynoldsdryline.co.uk/sitemap"
+>
+  <Header currentPath="/sitemap" />
+
+  <PageHero
+    title="Sitemap"
+    subtitle="A complete map of the Reynolds Dryline website — find any page quickly, or access the XML feed for search engines."
+    breadcrumb="Site Map"
+  />
+
+  <section class="rd-section rd-section--surface px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto space-y-10 lg:space-y-12">
+      <div class="rd-panel p-6 lg:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5" data-animate>
+        <div>
+          <p class="rd-label mb-2">For Search Engines</p>
+          <h2 class="text-2xl lg:text-3xl font-black text-gray-900 mb-2">XML Sitemap</h2>
+          <p class="text-gray-600 text-sm leading-relaxed max-w-xl">
+            Machine-readable sitemap used by Google and other search engines to discover and index our pages.
+          </p>
+        </div>
+        <a
+          href="/sitemap.xml"
+          class="rd-btn-primary shrink-0 self-start sm:self-center"
+        >
+          View XML Sitemap
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {sections.map((section, i) => (
+          <div class="rd-panel p-6 lg:p-8" data-animate data-delay={i * 80}>
+            <h2 class="text-xl font-black text-gray-900 mb-2">{section.title}</h2>
+            <div class="w-10 h-1 bg-red-600 mb-5"></div>
+            <ul class="space-y-3">
+              {section.links.map((link) => (
+                <li>
+                  <a
+                    href={link.href}
+                    class="rd-link-underline group inline-flex items-start gap-2 text-sm text-gray-700 hover:text-red-600 transition-colors duration-200"
+                  >
+                    <svg class="w-4 h-4 text-red-600 mt-0.5 shrink-0 opacity-70 group-hover:opacity-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                    <span>{link.label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</ReynoldsLayout>
