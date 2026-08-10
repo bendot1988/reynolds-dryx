@@ -55,7 +55,23 @@ const testimonials = [
   },
 ];
 
-/** Live schemes featured on the homepage — keep aligned with /projects */
+const contractorLogos: Record<string, string> = {
+  Winvic: '/assets/reynolds/partner-winvic.png',
+  Graham: '/assets/reynolds/partner-graham.png',
+  TanRo: '/assets/reynolds/partner-tanro.png',
+  'Willmott Dixon': '/assets/reynolds/partner-willmott-dixon.png',
+};
+
+/** Live sites with coordinates — same set as /projects live map */
+const liveSites = [
+  { title: 'Progress House', location: 'Coventry, UK', lat: 52.3833, lng: -1.5615 },
+  { title: 'Loughborough University', location: 'Loughborough, UK', lat: 52.765, lng: -1.2321 },
+  { title: 'Camphill', location: 'Birmingham, UK', lat: 52.4755, lng: -1.882 },
+  { title: 'Castle Rock School', location: 'Coalville, UK', lat: 52.7246, lng: -1.3649 },
+  { title: 'South Holland Health & Wellbeing Hub', location: 'Spalding, UK', lat: 52.787, lng: -0.1518 },
+];
+
+/** Live schemes featured on the homepage — same card data/layout as /projects */
 const featuredProjects = [
   {
     title: 'Progress House',
@@ -63,8 +79,11 @@ const featuredProjects = [
     contractor: 'Winvic',
     value: '£3.60m',
     status: 'Live',
+    sector: 'Residential',
     image: '/assets/reynolds/project-progress-house.jpg',
     services: ['Partitioning', 'Ceilings', 'Plastering'],
+    description:
+      'Progress House Student Accommodation, Coventry is a purpose-built student accommodation development delivering 544 modern en-suite bedrooms, together with high-quality communal, study and wellbeing spaces. Located close to the University of Warwick, the scheme has been designed to provide an outstanding living environment that supports both academic success and student wellbeing.',
   },
   {
     title: 'Loughborough University',
@@ -72,8 +91,23 @@ const featuredProjects = [
     contractor: 'Graham',
     value: '£3.61m',
     status: 'Live',
+    sector: 'Residential',
     image: '/assets/reynolds/project-loughborough-university.jpg',
     services: ['SFS', 'Partitioning', 'Ceilings', 'Plastering'],
+    description:
+      "Reynolds Dryline is delivering the drylining package for GRAHAM on Loughborough University's landmark new purpose-built student accommodation development. The £59 million scheme will provide 552 high-quality en-suite student bedrooms across five contemporary accommodation blocks, creating modern living spaces that enhance the student experience and support the University's continued growth.",
+  },
+  {
+    title: 'Camphill',
+    location: 'Birmingham, UK',
+    contractor: 'Winvic',
+    value: '£3.41m',
+    status: 'Live',
+    sector: 'Residential',
+    image: '/assets/reynolds/project-camphill.png',
+    services: ['Partitioning', 'Ceilings', 'Plastering'],
+    description:
+      'Reynolds Dryline is delivering specialist drylining works on the Camphill development in Birmingham, supporting Winvic Construction on this large-scale residential regeneration project. Our scope included internal partitions, plastering and associated drylining systems, helping create high-quality modern living spaces within the development.',
   },
 ];
 ---
@@ -602,61 +636,72 @@ const featuredProjects = [
         </a>
       </div>
 
-      <!-- Projects strip — live schemes from /projects -->
+      <!-- Same project cards as /projects — 3 live schemes -->
       <div class="rd-hscroll">
-        <div class="rd-hscroll__track md:grid md:grid-cols-2 md:gap-6">
-          {featuredProjects.map((project, index) => (
-            <div
-              class="rd-hscroll__item rd-panel bg-white flex flex-col sm:flex-row overflow-clip group"
-              data-animate
-              data-delay={index * 100}
-            >
-              <div class="sm:w-48 flex-shrink-0 overflow-clip rounded-tl-[15px] rounded-tr-[15px] sm:rounded-tr-none sm:rounded-bl-[15px] border-b border-gray-200 sm:border-b-0 sm:border-r sm:border-gray-200">
-                <img
-                  src={project.image}
-                  alt={`${project.title}, ${project.location}`}
-                  class="w-full h-48 sm:h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  loading="lazy"
-                />
-              </div>
-              <div class="p-6 flex flex-col justify-between">
-                <div>
-                  <h3 class="text-xl font-black text-red-600 mb-4">{project.title}</h3>
-                  <ul class="space-y-2 text-sm text-gray-600">
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                      </svg>
-                      {project.location}
-                    </li>
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                      </svg>
-                      Contractor: {project.contractor}
-                    </li>
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
-                      </svg>
-                      Value: {project.value}
-                    </li>
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/>
-                      </svg>
-                      Status: {project.status}
-                    </li>
-                  </ul>
+        <div class="rd-hscroll__track md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-8">
+          {featuredProjects.map((project, index) => {
+            const contractorLogo = contractorLogos[project.contractor];
+            const isLive = project.status === 'Live' || project.status === 'On Going';
+            const statusLabel = isLive ? (project.status === 'Live' ? 'Live' : 'On Going') : 'Complete';
+            return (
+              <article
+                class="rd-hscroll__item rd-panel group flex h-full flex-col overflow-clip hover:shadow-xl transition-shadow duration-300"
+                data-animate
+                data-delay={index * 100}
+              >
+                <div class="relative overflow-clip shrink-0">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <span
+                    class:list={[
+                      'absolute top-3 right-3 z-10 inline-flex items-center gap-1.5 rounded-[5px] px-3 py-1.5 text-[0.65rem] font-bold tracking-widest uppercase text-white shadow-sm',
+                      isLive ? 'bg-slate-800' : 'bg-emerald-600',
+                    ]}
+                  >
+                    <span class="h-1.5 w-1.5 rounded-full bg-white/90" aria-hidden="true"></span>
+                    {statusLabel}
+                  </span>
                 </div>
-                <div class="flex flex-wrap gap-2 mt-4">
-                  {project.services.map((service) => (
-                    <span class="rd-tag-light rounded-[5px]">{service}</span>
-                  ))}
+                <div class="flex flex-1 flex-col p-6">
+                  <span class="inline-block rounded-[5px] bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3 self-start">
+                    {project.sector}
+                  </span>
+                  <h3 class="text-2xl font-black text-gray-900 mb-1">{project.title}</h3>
+                  <p class="text-gray-500 text-sm mb-4">{project.location}</p>
+                  <p class="text-gray-600 text-sm leading-relaxed mb-5 line-clamp-4">{project.description}</p>
+                  <div class="mt-auto">
+                    <div class="grid grid-cols-2 gap-3 mb-5 text-xs items-center">
+                      <div class="flex items-center justify-start min-h-[5.5rem]">
+                        {contractorLogo ? (
+                          <img
+                            src={contractorLogo}
+                            alt={project.contractor}
+                            class="h-full w-full max-h-[5.5rem] object-contain object-left"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <span class="text-gray-900 font-semibold">{project.contractor}</span>
+                        )}
+                      </div>
+                      <div class="flex flex-col justify-center min-h-[5.5rem]">
+                        <span class="block text-gray-400 font-bold tracking-widest uppercase mb-1">Value</span>
+                        <span class="text-gray-900 font-semibold text-base">{project.value}</span>
+                      </div>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                      {project.services.map((service) => (
+                        <span class="rd-tag-light rounded-[5px] text-xs font-semibold px-2 py-1 bg-gray-100 text-gray-600">{service}</span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+              </article>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -678,42 +723,40 @@ const featuredProjects = [
   </section>
 
   <!-- ============================================================
-       NATIONWIDE COVERAGE
+       LIVE SITES MAP
   ============================================================ -->
   <section class="rd-section rd-section--muted px-6 lg:px-10">
     <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
       <div data-animate>
-        <p class="rd-label mb-3">Nationwide Coverage</p>
+        <p class="rd-label mb-3">Live Now</p>
         <h2 class="text-4xl lg:text-5xl font-black text-gray-900 mb-6 leading-tight">
-          We operate UK wide in these areas and beyond.
+          Active drylining sites across the UK
         </h2>
-        <p class="text-gray-700 text-lg leading-relaxed mb-8 max-w-2xl">
-          Nationwide, our teams deliver complete building finishes for projects of all scales.
+        <p class="text-gray-700 text-lg leading-relaxed mb-4 max-w-2xl">
+          These pulsing markers show Reynolds Dryline schemes currently live on programme.
+          Explore the full portfolio — live and completed — on our projects page.
         </p>
-        <div class="flex flex-wrap gap-4 mb-5">
-          <a href="/contact" class="rd-btn-primary">
-            Discuss Your Project
+        <p class="inline-flex items-center gap-2 text-sm font-bold text-emerald-700 mb-8">
+          <span class="relative flex h-2.5 w-2.5 shrink-0" aria-hidden="true">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/55"></span>
+            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+          </span>
+          {liveSites.length} live sites right now
+        </p>
+        <div class="flex flex-wrap gap-4">
+          <a href="/projects#live-sites" class="rd-btn-primary">
+            See Live Sites
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </a>
           <a href="/projects" class="rd-btn-outline-red">
-            View Projects
+            View All Projects
           </a>
         </div>
-        <a
-          href="/projects#live-sites"
-          class="inline-flex items-center gap-2.5 text-sm font-bold text-gray-800 transition-colors hover:text-emerald-700"
-        >
-          <span class="relative flex h-2.5 w-2.5 shrink-0" aria-hidden="true">
-            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/55"></span>
-            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
-          </span>
-          View our live projects
-        </a>
       </div>
-      <div class="rd-panel relative h-96 overflow-hidden" data-animate data-delay="100">
-        <div id="rd-coverage-map" class="w-full h-full rounded-[15px]"></div>
+      <div class="rd-panel relative h-96 overflow-clip" data-animate data-delay="100">
+        <div id="rd-home-live-map" class="w-full h-full bg-gray-100"></div>
         <noscript>
           <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
             <p>Interactive map requires JavaScript</p>
@@ -722,6 +765,8 @@ const featuredProjects = [
       </div>
     </div>
   </section>
+
+  <script id="rd-home-live-sites-data" type="application/json" set:html={JSON.stringify(liveSites)} />
 
   <!-- ============================================================
        LATEST NEWS
@@ -1125,20 +1170,37 @@ const featuredProjects = [
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
   });
 
-  let coverageMap: L.Map | null = null;
+  type LiveSite = { title: string; location: string; lat: number; lng: number };
 
-  function initCoverageMap() {
-    const mapEl = document.getElementById('rd-coverage-map') as (HTMLElement & { _leaflet_id?: number }) | null;
-    if (!mapEl) {
-      coverageMap = null;
+  let homeLiveMap: L.Map | null = null;
+
+  function readHomeLiveSites(): LiveSite[] {
+    const dataEl = document.getElementById('rd-home-live-sites-data');
+    if (!dataEl?.textContent) return [];
+    try {
+      const parsed = JSON.parse(dataEl.textContent);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function initHomeLiveMap() {
+    const mapEl = document.getElementById('rd-home-live-map') as (HTMLElement & { _leaflet_id?: number }) | null;
+    const sites = readHomeLiveSites();
+    if (!mapEl || sites.length === 0) {
+      homeLiveMap = null;
       return;
     }
-    if (mapEl._leaflet_id) return;
+    if (mapEl._leaflet_id) {
+      window.setTimeout(() => homeLiveMap?.invalidateSize(), 50);
+      return;
+    }
 
-    coverageMap?.remove();
-    coverageMap = L.map('rd-coverage-map', {
-      center: [52.5, -1.5],
-      zoom: 6,
+    homeLiveMap?.remove();
+    homeLiveMap = L.map(mapEl, {
+      center: [52.6, -1.3],
+      zoom: 7,
       scrollWheelZoom: false,
       zoomControl: true,
     });
@@ -1147,50 +1209,63 @@ const featuredProjects = [
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
       subdomains: 'abcd',
       maxZoom: 19,
-    }).addTo(coverageMap);
+    }).addTo(homeLiveMap);
 
-    const locations = [
-      { lat: 52.9548, lng: -1.1581, name: 'Bendigo Building, Nottingham' },
-      { lat: 52.4862, lng: -1.8904, name: 'Lancaster Street, Birmingham' },
-      { lat: 53.7997, lng: -1.5492, name: 'Leeds' },
-      { lat: 51.5074, lng: -0.1278, name: 'London' },
-      { lat: 52.6369, lng: -1.1398, name: 'Leicester' },
-      { lat: 53.3811, lng: -1.4701, name: 'Sheffield' },
-      { lat: 55.9533, lng: -3.1883, name: 'Edinburgh' },
-      { lat: 55.8642, lng: -4.2518, name: 'Glasgow' },
-      { lat: 57.1497, lng: -2.0943, name: 'Aberdeen' },
-      { lat: 56.4620, lng: -2.9707, name: 'Dundee' },
-      { lat: 54.9069, lng: -1.3838, name: 'Sunderland' },
-      { lat: 54.5742, lng: -1.2350, name: 'Middlesbrough' },
-      { lat: 53.9590, lng: -1.0815, name: 'York' },
-      { lat: 53.7676, lng: -0.3274, name: 'Hull' },
-      { lat: 53.4084, lng: -2.9916, name: 'Liverpool' },
-      { lat: 53.4808, lng: -2.2426, name: 'Manchester' },
-      { lat: 53.0027, lng: -2.1794, name: 'Stoke-on-Trent' },
-      { lat: 52.9225, lng: -1.4746, name: 'Derby' },
-      { lat: 52.4068, lng: -1.5197, name: 'Coventry' },
-      { lat: 51.4545, lng: -2.5879, name: 'Bristol' },
-      { lat: 51.4816, lng: -3.1791, name: 'Cardiff' },
-      { lat: 51.6214, lng: -3.9436, name: 'Swansea' },
-      { lat: 52.6309, lng: 1.2974, name: 'Norwich' },
-      { lat: 52.2053, lng: 0.1218, name: 'Cambridge' },
-      { lat: 51.7520, lng: -1.2577, name: 'Oxford' },
-      { lat: 50.9097, lng: -1.4044, name: 'Southampton' },
-    ];
-
-    const redIcon = L.divIcon({
-      className: '',
-      html: '<div style="width:12px;height:12px;background:#E23125;border-radius:50%;border:2px solid white;box-shadow:0 1px 3px rgba(0,0,0,0.4);"></div>',
-      iconSize: [12, 12],
-      iconAnchor: [6, 6],
+    const pulseIcon = L.divIcon({
+      className: 'rd-live-marker',
+      html: '<span class="rd-live-pulse"></span>',
+      iconSize: [18, 18],
+      iconAnchor: [9, 9],
     });
 
-    locations.forEach((loc) => {
-      L.marker([loc.lat, loc.lng], { icon: redIcon })
-        .addTo(coverageMap!)
-        .bindPopup(`<strong>${loc.name}</strong>`);
+    const bounds: L.LatLngExpression[] = [];
+    sites.forEach((site) => {
+      bounds.push([site.lat, site.lng]);
+      L.marker([site.lat, site.lng], { icon: pulseIcon })
+        .addTo(homeLiveMap!)
+        .bindPopup(`<strong>${site.title}</strong><br/><span style="color:#6b7280">${site.location}</span>`);
     });
+
+    if (bounds.length > 1) {
+      homeLiveMap.fitBounds(bounds as L.LatLngBoundsExpression, { padding: [40, 40], maxZoom: 9 });
+    } else if (bounds.length === 1) {
+      homeLiveMap.setView(bounds[0], 9);
+    }
+
+    window.setTimeout(() => homeLiveMap?.invalidateSize(), 50);
+    window.setTimeout(() => homeLiveMap?.invalidateSize(), 250);
   }
 
-  document.addEventListener('astro:page-load', initCoverageMap);
+  document.addEventListener('astro:page-load', initHomeLiveMap);
 </script>
+
+<style>
+  :global(.rd-live-marker) {
+    background: transparent;
+    border: 0;
+  }
+
+  :global(.rd-live-pulse) {
+    display: block;
+    width: 14px;
+    height: 14px;
+    margin: 2px;
+    border-radius: 999px;
+    background: #e23125;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 0 rgba(226, 49, 37, 0.55);
+    animation: rd-live-pulse 1.8s ease-out infinite;
+  }
+
+  @keyframes rd-live-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(226, 49, 37, 0.55);
+    }
+    70% {
+      box-shadow: 0 0 0 12px rgba(226, 49, 37, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(226, 49, 37, 0);
+    }
+  }
+</style>
