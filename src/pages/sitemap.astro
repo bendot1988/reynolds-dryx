@@ -1,7 +1,5 @@
 ---
 import ReynoldsLayout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
@@ -18,6 +16,9 @@ const sections = [
       { href: '/who-we-work-with', label: 'Who We Work With' },
       { href: '/careers', label: 'Careers' },
       { href: '/contact', label: 'Contact' },
+      { href: '/privacy', label: 'Privacy Policy' },
+      { href: '/terms', label: 'Terms & Conditions' },
+      { href: '/cookies', label: 'Cookie Policy' },
     ],
   },
   {
@@ -53,11 +54,10 @@ const sections = [
 ---
 
 <ReynoldsLayout
-  title="Sitemap | Reynolds Dryline"
-  description="Browse every page on the Reynolds Dryline website, or download the XML sitemap for search engines."
+  title="Website Sitemap | Reynolds Dryline Pages Directory"
+  description="Browse the full Reynolds Dryline website sitemap to find services, projects, news and contact pages, plus the XML feed used by search engines."
   canonical="https://www.reynoldsdryline.co.uk/sitemap"
 >
-  <Header currentPath="/sitemap" />
 
   <PageHero
     title="Sitemap"
@@ -112,5 +112,4 @@ const sections = [
     </div>
   </section>
 
-  <Footer />
 </ReynoldsLayout>

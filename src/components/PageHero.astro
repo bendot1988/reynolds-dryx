@@ -4,6 +4,8 @@ export interface Props {
   subtitle?: string;
   /** Absolute or site-root path, e.g. /assets/reynolds/hero.jpg */
   bgImage?: string;
+  /** Optional WebP/AVIF source for the hero background */
+  bgImageWebp?: string;
   /** CSS `object-position` for the photo (e.g. `center 35%`, `center top`) */
   bgPosition?: string;
   /** Darken image for text contrast; 0–1, default 0.7 */
@@ -15,6 +17,7 @@ const {
   title,
   subtitle,
   bgImage,
+  bgImageWebp,
   bgPosition = 'center',
   overlayOpacity = 0.82,
   breadcrumb,
@@ -22,6 +25,9 @@ const {
 
 const defaultBgImage = '/assets/reynolds/services/plastering.png';
 const resolvedBgImage = bgImage || defaultBgImage;
+const resolvedWebp =
+  bgImageWebp ||
+  (resolvedBgImage === defaultBgImage ? '/assets/reynolds/services/plastering.webp' : undefined);
 const overlayStyle = `background-color: rgba(0,0,0,${overlayOpacity});`;
 ---
 
@@ -32,16 +38,19 @@ const overlayStyle = `background-color: rgba(0,0,0,${overlayOpacity});`;
   ]}
 >
   <div class="absolute inset-0 z-0">
-    <img
-      src={resolvedBgImage}
-      alt=""
-      class="h-full w-full object-cover"
-      style={`object-position: ${bgPosition};`}
-      loading="eager"
-      fetchpriority="high"
-      decoding="async"
-      aria-hidden="true"
-    />
+    <picture>
+      {resolvedWebp && <source srcset={resolvedWebp} type="image/webp" />}
+      <img
+        src={resolvedBgImage}
+        alt=""
+        class="h-full w-full object-cover"
+        style={`object-position: ${bgPosition};`}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        aria-hidden="true"
+      />
+    </picture>
     <div class="absolute inset-0 z-[1]" style={overlayStyle} aria-hidden="true" />
   </div>
 

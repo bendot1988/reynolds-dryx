@@ -1,7 +1,5 @@
 ---
 import ReynoldsLayout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
 import PageHero from '../../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
@@ -18,11 +16,10 @@ function formatDate(date: Date) {
 ---
 
 <ReynoldsLayout
-  title="News & Updates | Reynolds Dryline"
-  description="The latest news, project updates, and industry insights from Reynolds Dryline — specialists in building finishes since 1963."
+  title="Drylining News Updates | Reynolds Dryline Leicester"
+  description="Read the latest Reynolds Dryline news, project wins and industry updates from our Leicestershire team delivering building finishes UK-wide today."
   canonical="https://www.reynoldsdryline.co.uk/news"
 >
-  <Header currentPath="/news" />
 
   <PageHero
     title="News & Updates"
@@ -50,7 +47,7 @@ function formatDate(date: Date) {
                 {post.data.category || 'News'}
               </span>
               <time class="block text-gray-400 text-sm mb-2">{formatDate(new Date(post.data.pubDate))}</time>
-              <h3 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
+              <h2 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
                 <a
                   href={`/news/${post.id}`}
                   class="before:absolute before:inset-0 before:content-['']"
@@ -58,7 +55,7 @@ function formatDate(date: Date) {
                 >
                   {post.data.title}
                 </a>
-              </h3>
+              </h2>
               <p class="text-gray-500 text-sm leading-relaxed mb-4">{post.data.description}</p>
               <span
                 class="inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase transition-all duration-200 group-hover:gap-3"
@@ -82,5 +79,4 @@ function formatDate(date: Date) {
     </div>
   </section>
 
-  <Footer />
 </ReynoldsLayout>

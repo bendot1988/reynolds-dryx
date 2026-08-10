@@ -1,7 +1,5 @@
 ---
 import ReynoldsLayout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 
 const partnerTypes = [
@@ -31,11 +29,10 @@ const projectFit = [
 ---
 
 <ReynoldsLayout
-  title="Who We Work With | Reynolds Dryline"
-  description="Learn who Reynolds Dryline partners with across the UK. We deliver specialist building finishes for major contractors, developers and large-scale commercial projects."
+  title="Who We Work With | Reynolds Dryline Client Partners"
+  description="Discover who Reynolds Dryline partners with: main contractors, developers and delivery teams on commercial drylining projects across the UK."
   canonical="https://www.reynoldsdryline.co.uk/who-we-work-with"
 >
-  <Header currentPath="/who-we-work-with" />
 
   <PageHero
     title="Who We Work With"
@@ -100,5 +97,4 @@ const projectFit = [
     </div>
   </section>
 
-  <Footer />
 </ReynoldsLayout>

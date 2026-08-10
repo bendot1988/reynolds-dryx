@@ -1,0 +1,382 @@
+---
+/**
+ * Cookie consent + optional-script gate.
+ * Essential scripts always run. Analytics (Dotwall monitor) loads only after consent.
+ */
+const ANALYTICS_SRC =
+  'https://monitor.dotwall.co.uk/api/public/tracker/e208e1a3-eb0b-4604-bb0a-179ca7844c41';
+---
+
+<div
+  id="rd-cookie-root"
+  class="rd-cookie-root"
+  transition:persist="rd-cookie-root"
+  data-analytics-src={ANALYTICS_SRC}
+>
+  <div
+    id="rd-cookie-banner"
+    class="rd-cookie-banner"
+    role="dialog"
+    aria-modal="false"
+    aria-labelledby="rd-cookie-title"
+    aria-describedby="rd-cookie-desc"
+    hidden
+  >
+    <div class="rd-cookie-banner__inner">
+      <div class="rd-cookie-banner__copy">
+        <p id="rd-cookie-title" class="rd-cookie-banner__title">We use cookies</p>
+        <p id="rd-cookie-desc" class="rd-cookie-banner__text">
+          We use essential cookies to run this site, and optional analytics cookies to understand how it is used.
+          See our
+          <a href="/cookies" class="rd-link-underline text-red-600 font-semibold">Cookie Policy</a>
+          and
+          <a href="/privacy" class="rd-link-underline text-red-600 font-semibold">Privacy Policy</a>.
+        </p>
+      </div>
+
+      <div id="rd-cookie-prefs" class="rd-cookie-prefs" hidden>
+        <label class="rd-cookie-pref">
+          <input type="checkbox" checked disabled />
+          <span>
+            <strong>Essential</strong>
+            <em>Required for security, forms and basic site operation.</em>
+          </span>
+        </label>
+        <label class="rd-cookie-pref">
+          <input type="checkbox" id="rd-cookie-analytics" />
+          <span>
+            <strong>Analytics</strong>
+            <em>Helps us measure traffic and improve the website (Dotwall monitor).</em>
+          </span>
+        </label>
+      </div>
+
+      <div class="rd-cookie-banner__actions">
+        <button type="button" id="rd-cookie-reject" class="rd-cookie-btn rd-cookie-btn--ghost">
+          Reject non-essential
+        </button>
+        <button type="button" id="rd-cookie-manage" class="rd-cookie-btn rd-cookie-btn--ghost">
+          Manage
+        </button>
+        <button type="button" id="rd-cookie-save" class="rd-cookie-btn rd-cookie-btn--ghost" hidden>
+          Save choices
+        </button>
+        <button type="button" id="rd-cookie-accept" class="rd-cookie-btn rd-cookie-btn--primary">
+          Accept all
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var STORAGE_KEY = 'rd_cookie_consent_v1';
+    var COOKIE_NAME = 'rd_cookie_consent';
+    var COOKIE_DAYS = 180;
+
+    function root() {
+      return document.getElementById('rd-cookie-root');
+    }
+
+    function banner() {
+      return document.getElementById('rd-cookie-banner');
+    }
+
+    function readConsent() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) {}
+      return null;
+    }
+
+    function writeCookie(value) {
+      var maxAge = COOKIE_DAYS * 24 * 60 * 60;
+      document.cookie =
+        COOKIE_NAME +
+        '=' +
+        encodeURIComponent(value) +
+        '; path=/; max-age=' +
+        maxAge +
+        '; SameSite=Lax';
+    }
+
+    function saveConsent(consent) {
+      var payload = {
+        essential: true,
+        analytics: !!consent.analytics,
+        updatedAt: new Date().toISOString(),
+      };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+      } catch (e) {}
+      writeCookie(payload.analytics ? 'analytics' : 'essential');
+      return payload;
+    }
+
+    function loadAnalytics() {
+      var el = root();
+      if (!el) return;
+      var src = el.getAttribute('data-analytics-src');
+      if (!src) return;
+      if (document.getElementById('rd-analytics-tracker')) return;
+
+      var s = document.createElement('script');
+      s.id = 'rd-analytics-tracker';
+      s.async = true;
+      s.src = src;
+      document.head.appendChild(s);
+    }
+
+    function unloadAnalytics() {
+      var s = document.getElementById('rd-analytics-tracker');
+      if (s) s.remove();
+    }
+
+    function applyConsent(consent) {
+      if (consent && consent.analytics) {
+        loadAnalytics();
+      } else {
+        unloadAnalytics();
+      }
+    }
+
+    function showBanner(manage) {
+      var b = banner();
+      var prefs = document.getElementById('rd-cookie-prefs');
+      var manageBtn = document.getElementById('rd-cookie-manage');
+      var saveBtn = document.getElementById('rd-cookie-save');
+      if (!b) return;
+      b.hidden = false;
+      document.documentElement.classList.add('rd-cookie-open');
+
+      if (manage) {
+        if (prefs) prefs.hidden = false;
+        if (manageBtn) manageBtn.hidden = true;
+        if (saveBtn) saveBtn.hidden = false;
+        var existing = readConsent();
+        var analyticsBox = document.getElementById('rd-cookie-analytics');
+        if (analyticsBox) analyticsBox.checked = !!(existing && existing.analytics);
+      } else {
+        if (prefs) prefs.hidden = true;
+        if (manageBtn) manageBtn.hidden = false;
+        if (saveBtn) saveBtn.hidden = true;
+      }
+    }
+
+    function hideBanner() {
+      var b = banner();
+      if (b) b.hidden = true;
+      document.documentElement.classList.remove('rd-cookie-open');
+    }
+
+    function bindOnce() {
+      if (window.__rdCookieBound) return;
+      window.__rdCookieBound = true;
+
+      document.getElementById('rd-cookie-accept')?.addEventListener('click', function () {
+        var consent = saveConsent({ analytics: true });
+        applyConsent(consent);
+        hideBanner();
+      });
+
+      document.getElementById('rd-cookie-reject')?.addEventListener('click', function () {
+        var consent = saveConsent({ analytics: false });
+        applyConsent(consent);
+        hideBanner();
+      });
+
+      document.getElementById('rd-cookie-manage')?.addEventListener('click', function () {
+        showBanner(true);
+      });
+
+      document.getElementById('rd-cookie-save')?.addEventListener('click', function () {
+        var analyticsBox = document.getElementById('rd-cookie-analytics');
+        var consent = saveConsent({ analytics: !!(analyticsBox && analyticsBox.checked) });
+        applyConsent(consent);
+        hideBanner();
+      });
+
+      document.addEventListener('rd:open-cookie-settings', function () {
+        showBanner(true);
+      });
+    }
+
+    function init() {
+      bindOnce();
+      var consent = readConsent();
+      if (!consent) {
+        showBanner(false);
+        return;
+      }
+      applyConsent(consent);
+      hideBanner();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+    document.addEventListener('astro:page-load', function () {
+      // Re-apply after navigations; do not re-prompt if already decided
+      var consent = readConsent();
+      if (consent) applyConsent(consent);
+      else showBanner(false);
+    });
+
+    window.rdOpenCookieSettings = function () {
+      document.dispatchEvent(new CustomEvent('rd:open-cookie-settings'));
+    };
+  })();
+</script>
+
+<style is:global>
+  .rd-cookie-banner {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+    padding: 1rem;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    pointer-events: none;
+  }
+
+  .rd-cookie-banner[hidden] {
+    display: none !important;
+  }
+
+  .rd-cookie-banner__inner {
+    pointer-events: auto;
+    max-width: 72rem;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid rgba(17, 24, 39, 0.12);
+    border-radius: 15px;
+    box-shadow: 0 18px 50px -20px rgba(17, 17, 17, 0.35);
+    padding: 1.25rem 1.35rem;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 900px) {
+    .rd-cookie-banner__inner {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      padding: 1.35rem 1.5rem;
+    }
+
+    .rd-cookie-prefs {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .rd-cookie-banner__title {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 900;
+    font-size: 1.05rem;
+    color: #111827;
+    margin: 0 0 0.35rem;
+  }
+
+  .rd-cookie-banner__text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: #4b5563;
+  }
+
+  .rd-cookie-banner__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-start;
+  }
+
+  @media (min-width: 900px) {
+    .rd-cookie-banner__actions {
+      justify-content: flex-end;
+    }
+  }
+
+  .rd-cookie-btn {
+    min-height: 44px;
+    padding: 0.65rem 1rem;
+    border-radius: 5px;
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition:
+      background-color 180ms ease,
+      color 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .rd-cookie-btn--primary {
+    background: var(--rd-red, #e23125);
+    color: #fff;
+    border-color: var(--rd-red, #e23125);
+  }
+
+  .rd-cookie-btn--primary:hover {
+    background: var(--rd-red-dark, #b8191e);
+    border-color: var(--rd-red-dark, #b8191e);
+  }
+
+  .rd-cookie-btn--ghost {
+    background: transparent;
+    color: #111827;
+    border-color: rgba(17, 24, 39, 0.2);
+  }
+
+  .rd-cookie-btn--ghost:hover {
+    border-color: #111827;
+  }
+
+  .rd-cookie-prefs {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: #f6f7f8;
+    border-radius: 10px;
+  }
+
+  .rd-cookie-prefs[hidden] {
+    display: none !important;
+  }
+
+  .rd-cookie-pref {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    font-size: 0.875rem;
+    color: #374151;
+    cursor: pointer;
+  }
+
+  .rd-cookie-pref input {
+    margin-top: 0.2rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: var(--rd-red, #e23125);
+  }
+
+  .rd-cookie-pref strong {
+    display: block;
+    color: #111827;
+    font-weight: 700;
+  }
+
+  .rd-cookie-pref em {
+    display: block;
+    font-style: normal;
+    color: #6b7280;
+    margin-top: 0.15rem;
+  }
+</style>

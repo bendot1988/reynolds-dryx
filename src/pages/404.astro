@@ -1,0 +1,79 @@
+---
+import ReynoldsLayout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const helpfulLinks = [
+  { href: '/', label: 'Home', desc: 'Back to the homepage' },
+  { href: '/services', label: 'Services', desc: 'What we deliver' },
+  { href: '/projects', label: 'Projects', desc: 'Our portfolio' },
+  { href: '/about', label: 'About', desc: 'Our story since 1963' },
+  { href: '/news', label: 'News', desc: 'Latest updates' },
+  { href: '/contact', label: 'Contact', desc: 'Speak to the team' },
+  { href: '/careers', label: 'Careers', desc: 'Join Reynolds Dryline' },
+  { href: '/sitemap', label: 'Sitemap', desc: 'Browse every page' },
+];
+---
+
+<ReynoldsLayout
+  title="Page Not Found | Reynolds Dryline Helpful Next Steps"
+  description="Sorry, this Reynolds Dryline page could not be found. Head home or explore our drylining services, projects and contact options across the UK."
+  noindex={true}
+>
+  <PageHero
+    title="Page Not Found"
+    subtitle="This page doesn’t exist or may have moved. Use the links below to get back on track."
+    breadcrumb="Error 404"
+  />
+
+  <section class="rd-section rd-section--surface px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto">
+      <div class="rd-panel p-6 lg:p-10 mb-10 lg:mb-12" data-animate>
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+          <div>
+            <p class="rd-label mb-3">404</p>
+            <h2 class="text-3xl lg:text-4xl font-black text-gray-900 mb-3">Let’s get you back</h2>
+            <p class="text-gray-600 leading-relaxed max-w-xl">
+              The address may be mistyped, or the page may no longer be available. Head home, explore our work, or get in touch.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a href="/" class="rd-btn-primary">
+              Back to Home
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" />
+              </svg>
+            </a>
+            <a href="/contact" class="rd-btn-outline-red">
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mb-8" data-animate>
+        <p class="rd-label mb-3">Quick Links</p>
+        <h2 class="text-3xl lg:text-4xl font-black text-gray-900">Useful Pages</h2>
+        <div class="w-12 h-1 bg-red-600 mx-auto mt-3"></div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
+        {helpfulLinks.map((link, i) => (
+          <a
+            href={link.href}
+            class="rd-panel rd-hover-bar group block p-5 lg:p-6 transition-colors duration-200 hover:border-red-500/40"
+            data-animate
+            data-delay={i * 40}
+          >
+            <span class="inline-flex items-center gap-2 text-base font-black text-gray-900 group-hover:text-red-600 transition-colors duration-200">
+              {link.label}
+              <svg class="w-4 h-4 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </span>
+            <span class="block mt-1.5 text-sm text-gray-500">{link.desc}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</ReynoldsLayout>

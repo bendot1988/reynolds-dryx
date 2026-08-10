@@ -1,16 +1,13 @@
 ---
 import ReynoldsLayout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 ---
 
 <ReynoldsLayout
-  title="Contact Reynolds Dryline | Get in Touch"
-  description="Contact Reynolds Dryline for expert drylining, metal stud partitioning, suspended ceilings and building finishes. Based in Leicestershire, working nationwide."
+  title="Contact Reynolds Dryline | Mountsorrel Head Office"
+  description="Contact Reynolds Dryline in Mountsorrel, Leicestershire for drylining and building finishes enquiries. Nationwide delivery — call 01509 816 600."
   canonical="https://www.reynoldsdryline.co.uk/contact"
 >
-  <Header currentPath="/contact" />
 
   <PageHero
     title="Get in Touch"
@@ -221,7 +218,6 @@ import PageHero from '../components/PageHero.astro';
     </div>
   </section>
 
-  <Footer />
 </ReynoldsLayout>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -235,54 +231,66 @@ import PageHero from '../components/PageHero.astro';
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
   });
 
-  const mapEl = document.getElementById('rd-contact-map');
-  if (mapEl) {
-    const map = L.map('rd-contact-map', {
-      center: [52.7175, -1.1474],
-      zoom: 14,
-      scrollWheelZoom: false,
-    });
+  let contactMap: L.Map | null = null;
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-      subdomains: 'abcd',
-      maxZoom: 19,
-    }).addTo(map);
+  function initContactPage() {
+    const mapEl = document.getElementById('rd-contact-map');
+    const form = document.getElementById('rd-contact-form') as HTMLFormElement | null;
+    const successMsg = document.getElementById('rd-form-success');
 
-    const redIcon = L.divIcon({
-      className: '',
-      html: '<div style="width:16px;height:16px;background:#E23125;border-radius:50%;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.4);"></div>',
-      iconSize: [16, 16],
-      iconAnchor: [8, 8],
-    });
-
-    L.marker([52.7175, -1.1474], { icon: redIcon })
-      .addTo(map)
-      .bindPopup('<strong>Reynolds Dryline</strong><br>9 Quorn Business Quarter<br>Mountsorrel, LE12 7XF')
-      .openPopup();
-  }
-
-  // Form handling
-  const form = document.getElementById('rd-contact-form') as HTMLFormElement | null;
-  const successMsg = document.getElementById('rd-form-success');
-
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any).toString(),
+    if (mapEl && !mapEl.dataset.mapReady) {
+      contactMap?.remove();
+      contactMap = L.map('rd-contact-map', {
+        center: [52.7175, -1.1474],
+        zoom: 14,
+        scrollWheelZoom: false,
       });
 
-      if (response.ok) {
-        form.style.display = 'none';
-        successMsg?.classList.remove('hidden');
-      }
-    } catch (err) {
-      console.error('Form submission error:', err);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+        subdomains: 'abcd',
+        maxZoom: 19,
+      }).addTo(contactMap);
+
+      const redIcon = L.divIcon({
+        className: '',
+        html: '<div style="width:16px;height:16px;background:#E23125;border-radius:50%;border:3px solid white;box-shadow:0 2px 6px rgba(0,0,0,0.4);"></div>',
+        iconSize: [16, 16],
+        iconAnchor: [8, 8],
+      });
+
+      L.marker([52.7175, -1.1474], { icon: redIcon })
+        .addTo(contactMap)
+        .bindPopup('<strong>Reynolds Dryline</strong><br>9 Quorn Business Quarter<br>Mountsorrel, LE12 7XF')
+        .openPopup();
+
+      mapEl.dataset.mapReady = 'true';
+      requestAnimationFrame(() => contactMap?.invalidateSize());
     }
-  });
+
+    if (form && form.dataset.bound !== 'true') {
+      form.dataset.bound = 'true';
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData as any).toString(),
+          });
+
+          if (response.ok) {
+            form.style.display = 'none';
+            successMsg?.classList.remove('hidden');
+          }
+        } catch (err) {
+          console.error('Form submission error:', err);
+        }
+      });
+    }
+  }
+
+  document.addEventListener('astro:page-load', initContactPage);
 </script>

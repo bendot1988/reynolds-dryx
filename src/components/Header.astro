@@ -15,7 +15,7 @@ const navLinks = [
 ];
 ---
 
-<header id="rd-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+<header id="rd-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" data-rd-header>
   <div id="rd-header-inner" class="flex items-center justify-between px-6 lg:px-10 h-16 lg:h-20 transition-all duration-300">
     <!-- Logo -->
     <a href="/" class="flex-shrink-0" aria-label="Reynolds Dryline Home">
@@ -31,11 +31,11 @@ const navLinks = [
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden lg:flex items-center gap-8" aria-label="Main navigation">
+    <nav class="hidden lg:flex items-center gap-2" aria-label="Main navigation">
       {navLinks.map(link => (
         <a
           href={link.href}
-          class={`rd-link-underline text-xs font-bold tracking-widest uppercase transition-colors duration-200 ${
+          class={`rd-link-underline inline-flex min-h-11 items-center px-3 text-xs font-bold tracking-widest uppercase transition-colors duration-200 ${
             currentPath === link.href || currentPath.startsWith(link.href + '/')
               ? 'text-white'
               : 'text-white hover:text-white'
@@ -62,7 +62,7 @@ const navLinks = [
       <!-- Mobile hamburger -->
       <button
         id="rd-mobile-toggle"
-        class="lg:hidden flex flex-col gap-1.5 p-2 text-white"
+        class="lg:hidden inline-flex min-h-11 min-w-11 flex-col items-center justify-center gap-1.5 p-2 text-white"
         aria-label="Open menu"
         aria-expanded="false"
       >
@@ -115,7 +115,7 @@ const navLinks = [
         {navLinks.map((link, i) => (
           <a
             href={link.href}
-            class="rd-mobile-nav-link text-white text-lg font-bold tracking-widest uppercase"
+            class="rd-mobile-nav-link inline-flex min-h-11 items-center text-white text-lg font-bold tracking-widest uppercase"
             style={`--stagger: ${100 + i * 60}ms`}
           >
             {link.label}
@@ -138,20 +138,37 @@ const navLinks = [
 </header>
 
 <script>
-  const headerInner = document.getElementById('rd-header-inner') as HTMLElement | null;
-  const headerLogo = document.getElementById('rd-header-logo') as HTMLImageElement | null;
-  const mobileToggle = document.getElementById('rd-mobile-toggle') as HTMLButtonElement | null;
-  const mobileMenuRoot = document.getElementById('rd-mobile-menu-root');
-  const mobileDismiss = document.getElementById('rd-mobile-dismiss');
-  const mobilePanel = document.getElementById('rd-mobile-panel');
-  const mobileClose = document.getElementById('rd-mobile-close');
-  const iconMenu = document.getElementById('rd-icon-menu');
-  const iconClose = document.getElementById('rd-icon-close');
+  declare global {
+    interface Window {
+      __rdHeaderBound?: boolean;
+    }
+  }
 
-  let lastScrollY = window.scrollY;
+  function getHeaderEls() {
+    return {
+      headerInner: document.getElementById('rd-header-inner') as HTMLElement | null,
+      headerLogo: document.getElementById('rd-header-logo') as HTMLImageElement | null,
+      mobileToggle: document.getElementById('rd-mobile-toggle') as HTMLButtonElement | null,
+      mobileMenuRoot: document.getElementById('rd-mobile-menu-root'),
+      mobileDismiss: document.getElementById('rd-mobile-dismiss'),
+      mobilePanel: document.getElementById('rd-mobile-panel'),
+      mobileClose: document.getElementById('rd-mobile-close'),
+      iconMenu: document.getElementById('rd-icon-menu'),
+      iconClose: document.getElementById('rd-icon-close'),
+    };
+  }
+
   let menuOpen = false;
 
   function setMenuOpen(open: boolean) {
+    const {
+      mobileToggle,
+      mobileMenuRoot,
+      mobilePanel,
+      mobileDismiss,
+      iconMenu,
+      iconClose,
+    } = getHeaderEls();
     menuOpen = open;
     if (!mobileToggle || !mobileMenuRoot || !mobilePanel || !mobileDismiss) return;
     mobileToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -172,6 +189,7 @@ const navLinks = [
   }
 
   function updateHeader() {
+    const { headerInner, headerLogo } = getHeaderEls();
     if (!headerInner) return;
     const currentScrollY = window.scrollY;
     if (currentScrollY <= 30) {
@@ -183,20 +201,43 @@ const navLinks = [
       headerLogo?.classList.remove('rd-logo-red');
       headerLogo?.classList.add('rd-logo-white');
     }
-    lastScrollY = currentScrollY;
   }
 
-  updateHeader();
-  window.addEventListener('scroll', updateHeader, { passive: true });
-  mobileToggle?.addEventListener('click', () => setMenuOpen(!menuOpen));
-  mobileClose?.addEventListener('click', () => setMenuOpen(false));
-  mobileDismiss?.addEventListener('click', () => setMenuOpen(false));
-  mobilePanel?.querySelectorAll('a').forEach(el => {
-    el.addEventListener('click', () => setMenuOpen(false));
-  });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && menuOpen) setMenuOpen(false);
-  });
+  function syncActiveNav() {
+    const path = window.location.pathname.replace(/\/$/, '') || '/';
+    document.querySelectorAll<HTMLAnchorElement>('#rd-header nav a[href]').forEach((link) => {
+      const href = link.getAttribute('href') || '';
+      const active = href === path || (href !== '/' && path.startsWith(href));
+      link.setAttribute('aria-current', active ? 'page' : 'false');
+    });
+  }
+
+  function onPageReady() {
+    setMenuOpen(false);
+    syncActiveNav();
+    updateHeader();
+  }
+
+  function bindHeaderOnce() {
+    if (window.__rdHeaderBound) return;
+    window.__rdHeaderBound = true;
+
+    const { mobileToggle, mobileClose, mobileDismiss, mobilePanel } = getHeaderEls();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    mobileToggle?.addEventListener('click', () => setMenuOpen(!menuOpen));
+    mobileClose?.addEventListener('click', () => setMenuOpen(false));
+    mobileDismiss?.addEventListener('click', () => setMenuOpen(false));
+    mobilePanel?.querySelectorAll('a').forEach((el) => {
+      el.addEventListener('click', () => setMenuOpen(false));
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menuOpen) setMenuOpen(false);
+    });
+  }
+
+  bindHeaderOnce();
+  onPageReady();
+  document.addEventListener('astro:page-load', onPageReady);
 </script>
 
 <style>

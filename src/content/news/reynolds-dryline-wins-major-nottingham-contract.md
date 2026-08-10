@@ -1,6 +1,6 @@
 ---
-title: Reynolds Dryline Wins Major Nottingham Contract
-description: We are proud to announce our partnership with Graham on the prestigious Bendigo Building development in Nottingham city centre.
+title: Nottingham Drylining Contract Awarded
+description: Reynolds Dryline wins a major Nottingham drylining contract with Graham on Bendigo Building, delivering specialist finishes in the city centre.
 pubDate: 2024-02-02
 author: Reynolds Dryline
 category: Projects

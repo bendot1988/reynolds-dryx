@@ -1,7 +1,5 @@
 ---
 import ReynoldsLayout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import LogoMarquee from '../components/LogoMarquee.astro';
 
 const partnerLogos = [
@@ -59,15 +57,14 @@ const testimonials = [
 ---
 
 <ReynoldsLayout
-  title="Reynolds Dryline | Providing Complete Dryline Solutions Since 1963"
-  description="Leaders in specialist building finishes. Fulfilling high-value projects to programme, budget, and unmatched quality standards. Established 1963."
+  title="Specialist Drylining Contractors | Reynolds Dryline"
+  description="Reynolds Dryline delivers specialist drylining and building finishes across Leicestershire and the wider UK. Programme-led packages since 1963."
   canonical="https://www.reynoldsdryline.co.uk/"
 >
   <Fragment slot="head">
     <link rel="preload" href="/assets/reynolds/hero-poster.jpg" as="image" fetchpriority="high" />
   </Fragment>
 
-  <Header currentPath="/" />
 
   <!-- ============================================================
        HERO SECTION — Full-screen video background
@@ -217,7 +214,10 @@ const testimonials = [
         </article>
 
         <article class="rd-panel group overflow-hidden lg:col-span-2" data-animate data-delay="180">
-          <img src="/assets/reynolds/services/ceilings.jpg" alt="Suspended ceiling installation" class="w-full h-52 lg:h-56 object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
+          <picture>
+            <source srcset="/assets/reynolds/services/ceilings.webp" type="image/webp" />
+            <img src="/assets/reynolds/services/ceilings.jpg" alt="Completed suspended ceiling in a commercial office fit-out" class="w-full h-52 lg:h-56 object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" decoding="async" />
+          </picture>
           <div class="p-6">
             <h3 class="text-xl font-black text-gray-900 mb-2">Ceilings</h3>
             <p class="text-gray-600 text-sm leading-relaxed">Suspended ceiling solutions across commercial and residential schemes with precise finishing.</p>
@@ -290,12 +290,16 @@ const testimonials = [
 
         <!-- Commercial Office Space -->
         <div class="rd-sector-card group rounded-[15px] overflow-hidden" data-animate data-delay="100">
-          <img
-            src="/assets/reynolds/parkside-coventry-hero.png"
-            alt="Commercial Office Space drylining project"
-            class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-105"
-            loading="lazy"
-          />
+          <picture>
+            <source srcset="/assets/reynolds/parkside-coventry-hero.webp" type="image/webp" />
+            <img
+              src="/assets/reynolds/parkside-coventry-hero.png"
+              alt="Commercial office development exterior drylining project"
+              class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
           <div class="rd-sector-card-overlay rounded-[15px]"></div>
           <div class="rd-sector-card-content">
             <div class="flex items-center gap-2 mb-3">
@@ -380,12 +384,17 @@ const testimonials = [
        PHOTO-BACKED STATS / COUNTERS
   ============================================================ -->
   <section class="rd-section relative px-6 lg:px-10 overflow-hidden">
-    <img
-      src="/assets/reynolds/home-stats-bg.png"
-      alt="Reynolds Dryline team installing internal walls"
-      class="absolute inset-0 w-full h-full object-cover"
-      loading="eager"
-    />
+    <picture>
+      <source srcset="/assets/reynolds/home-stats-bg.webp" type="image/webp" />
+      <img
+        src="/assets/reynolds/home-stats-bg.png"
+        alt="Reynolds Dryline team installing internal walls on site"
+        class="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </picture>
     <div class="absolute inset-0 bg-black/55"></div>
 
     <div class="relative z-10 max-w-7xl mx-auto">
@@ -398,7 +407,7 @@ const testimonials = [
         <article class="rd-stat-card bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate>
           <img
             src="/assets/reynolds/stats-icon-studwall.png"
-            alt="Drylining icon"
+            alt="Icon representing square metres of drylining installed"
             class="h-20 w-auto mb-5 object-contain"
             loading="lazy"
           />
@@ -413,7 +422,7 @@ const testimonials = [
         <article class="rd-stat-card bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate data-delay="100">
           <img
             src="/assets/reynolds/stats-icon-buildings.png"
-            alt="Buildings icon"
+            alt="Icon representing buildings and projects completed"
             class="h-20 w-auto mb-5 object-contain"
             loading="lazy"
           />
@@ -428,7 +437,7 @@ const testimonials = [
         <article class="rd-stat-card bg-red-600/95 backdrop-blur-sm text-white p-8 rounded-[15px] border border-white/20 shadow-2xl shadow-black/30" data-animate data-delay="200">
           <img
             src="/assets/reynolds/stats-icon-revenue.png"
-            alt="Revenue icon"
+            alt="Icon representing project value delivered"
             class="h-20 w-auto mb-5 object-contain"
             loading="lazy"
           />
@@ -749,9 +758,9 @@ const testimonials = [
           <div>
             <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3 rounded-[5px]">Heritage</span>
             <time class="block text-gray-400 text-sm mb-2">Jan 15, 2024</time>
-            <h3 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
+            <h2 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
               <a href="/news/celebrating-60-years-of-excellence" class="rd-link-underline">Celebrating 60 Years of Excellence</a>
-            </h3>
+            </h2>
             <p class="text-gray-500 text-sm leading-relaxed mb-4">From our humble beginnings in 1963 to becoming one of the most trusted names in the UK building finishes sector.</p>
             <a href="/news/celebrating-60-years-of-excellence" class="rd-link-underline inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase hover:gap-3 transition-all duration-200">
               Read Article
@@ -767,7 +776,7 @@ const testimonials = [
           <div class="overflow-hidden mb-5 rounded-[15px]">
             <img
               src="/assets/reynolds/project-28rs.jpg"
-              alt="Reynolds Dryline Wins Major Nottingham Contract"
+              alt="Bendigo Building Nottingham project exterior"
               class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
@@ -775,10 +784,10 @@ const testimonials = [
           <div>
             <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3 rounded-[5px]">Projects</span>
             <time class="block text-gray-400 text-sm mb-2">Feb 02, 2024</time>
-            <h3 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
-              <a href="/news/reynolds-dryline-wins-major-nottingham-contract" class="rd-link-underline">Reynolds Dryline Wins Major Nottingham Contract</a>
-            </h3>
-            <p class="text-gray-500 text-sm leading-relaxed mb-4">We are proud to announce our partnership with Graham on the prestigious Bendigo Building development.</p>
+            <h2 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
+              <a href="/news/reynolds-dryline-wins-major-nottingham-contract" class="rd-link-underline">Major Nottingham Contract Win</a>
+            </h2>
+            <p class="text-gray-500 text-sm leading-relaxed mb-4">Reynolds Dryline partners with Graham on the Bendigo Building drylining package in Nottingham city centre.</p>
             <a href="/news/reynolds-dryline-wins-major-nottingham-contract" class="rd-link-underline inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase hover:gap-3 transition-all duration-200">
               Read Article
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -793,7 +802,7 @@ const testimonials = [
           <div class="overflow-hidden mb-5 rounded-[15px]">
             <img
               src="/assets/reynolds/drylining-01.jpg"
-              alt="Advancing Sustainable Construction Finishes"
+              alt="Drylining works supporting sustainable construction finishes"
               class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
@@ -801,9 +810,9 @@ const testimonials = [
           <div>
             <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3 rounded-[5px]">Innovation</span>
             <time class="block text-gray-400 text-sm mb-2">Mar 10, 2024</time>
-            <h3 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
-              <a href="/news/advancing-sustainable-construction-finishes" class="rd-link-underline">Advancing Sustainable Construction Finishes</a>
-            </h3>
+            <h2 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
+              <a href="/news/advancing-sustainable-construction-finishes" class="rd-link-underline">Sustainable Construction Finishes</a>
+            </h2>
             <p class="text-gray-500 text-sm leading-relaxed mb-4">Implementing new insulation and drylining techniques that reduce building carbon footprints across all our sites.</p>
             <a href="/news/advancing-sustainable-construction-finishes" class="rd-link-underline inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase hover:gap-3 transition-all duration-200">
               Read Article
@@ -817,10 +826,9 @@ const testimonials = [
     </div>
   </section>
 
-  <Footer />
 </ReynoldsLayout>
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   (function () {
     const counters = document.querySelectorAll('[data-counter]');
     if (!counters.length) return;
@@ -888,7 +896,7 @@ const testimonials = [
   })();
 </script>
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   (function () {
     const root = document.getElementById('rd-testimonial-carousel');
     if (!root) return;
@@ -1007,7 +1015,7 @@ const testimonials = [
   })();
 </script>
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   (function () {
     const heroVideo = document.getElementById('rd-hero-video');
     const playButton = document.getElementById('rd-hero-play');
@@ -1083,9 +1091,18 @@ const testimonials = [
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
   });
 
-  const mapEl = document.getElementById('rd-coverage-map');
-  if (mapEl) {
-    const map = L.map('rd-coverage-map', {
+  let coverageMap: L.Map | null = null;
+
+  function initCoverageMap() {
+    const mapEl = document.getElementById('rd-coverage-map') as (HTMLElement & { _leaflet_id?: number }) | null;
+    if (!mapEl) {
+      coverageMap = null;
+      return;
+    }
+    if (mapEl._leaflet_id) return;
+
+    coverageMap?.remove();
+    coverageMap = L.map('rd-coverage-map', {
       center: [52.5, -1.5],
       zoom: 6,
       scrollWheelZoom: false,
@@ -1096,7 +1113,7 @@ const testimonials = [
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
       subdomains: 'abcd',
       maxZoom: 19,
-    }).addTo(map);
+    }).addTo(coverageMap);
 
     const locations = [
       { lat: 52.9548, lng: -1.1581, name: 'Bendigo Building, Nottingham' },
@@ -1134,10 +1151,12 @@ const testimonials = [
       iconAnchor: [6, 6],
     });
 
-    locations.forEach(loc => {
+    locations.forEach((loc) => {
       L.marker([loc.lat, loc.lng], { icon: redIcon })
-        .addTo(map)
+        .addTo(coverageMap!)
         .bindPopup(`<strong>${loc.name}</strong>`);
     });
   }
+
+  document.addEventListener('astro:page-load', initCoverageMap);
 </script>

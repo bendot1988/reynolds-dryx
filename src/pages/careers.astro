@@ -1,7 +1,5 @@
 ---
 import ReynoldsLayout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 
 const roles = [
@@ -33,11 +31,10 @@ const roles = [
 ---
 
 <ReynoldsLayout
-  title="Careers at Reynolds Dryline | Join Our Team"
-  description="Join the Reynolds Dryline team. We are always looking for talented drylining operatives, supervisors, estimators, and contracts managers to join our growing business."
+  title="Drylining Careers Open | Jobs with Reynolds Dryline"
+  description="Join Reynolds Dryline in Leicestershire and across the UK. We hire drylining operatives, supervisors, estimators and contracts managers today."
   canonical="https://www.reynoldsdryline.co.uk/careers"
 >
-  <Header currentPath="/careers" />
 
   <PageHero
     title="Join Our Team"
@@ -287,31 +284,36 @@ const roles = [
     </div>
   </section>
 
-  <Footer />
 </ReynoldsLayout>
 
 
 <script>
-  const form = document.getElementById('rd-careers-form') as HTMLFormElement | null;
-  const successMsg = document.getElementById('rd-careers-success');
+  function initCareersForm() {
+    const form = document.getElementById('rd-careers-form') as HTMLFormElement | null;
+    const successMsg = document.getElementById('rd-careers-success');
+    if (!form || form.dataset.bound === 'true') return;
+    form.dataset.bound = 'true';
 
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new FormData(form);
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
 
-    try {
-      const response = await fetch('/', {
-        method: 'POST',
-        body: formData,
-      });
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          body: formData,
+        });
 
-      if (response.ok) {
-        form.style.display = 'none';
-        successMsg?.classList.remove('hidden');
+        if (response.ok) {
+          form.style.display = 'none';
+          successMsg?.classList.remove('hidden');
+        }
+      } catch (err) {
+        console.error('Form submission error:', err);
       }
-    } catch (err) {
-      console.error('Form submission error:', err);
-    }
-  });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initCareersForm);
 </script>
 

@@ -11,7 +11,7 @@ const credentials = [
 ];
 ---
 
-<footer class="bg-[#111111] text-white">
+<footer class="bg-[#111111] text-white" data-rd-footer>
   <!-- CTA Band -->
   <div class="rd-footer-cta relative overflow-hidden py-16 px-6 lg:px-10 text-center">
     <div class="relative z-10">
@@ -139,6 +139,7 @@ const credentials = [
             <address class="text-white/60 text-sm not-italic leading-relaxed">
               9 Quorn Business Quarter,<br />
               Loughborough Road,<br />
+              Mountsorrel,<br />
               Leicestershire, LE12 7XF
             </address>
           </li>
@@ -197,10 +198,36 @@ const credentials = [
         <a href="/terms" class="rd-link-underline text-white/40 hover:text-white/70 text-xs transition-colors duration-200">Terms &amp; Conditions</a>
         <a href="/privacy" class="rd-link-underline text-white/40 hover:text-white/70 text-xs transition-colors duration-200">Privacy Policy</a>
         <a href="/cookies" class="rd-link-underline text-white/40 hover:text-white/70 text-xs transition-colors duration-200">Cookies</a>
+        <button
+          type="button"
+          id="rd-open-cookie-settings"
+          class="rd-link-underline text-white/40 hover:text-white/70 text-xs transition-colors duration-200 bg-transparent border-0 p-0 cursor-pointer min-h-11"
+        >
+          Cookie settings
+        </button>
       </div>
     </div>
   </div>
 </footer>
+
+<script is:inline>
+  (function () {
+    function bindCookieSettings() {
+      var btn = document.getElementById('rd-open-cookie-settings');
+      if (!btn || btn.dataset.bound === 'true') return;
+      btn.dataset.bound = 'true';
+      btn.addEventListener('click', function () {
+        if (typeof window.rdOpenCookieSettings === 'function') {
+          window.rdOpenCookieSettings();
+        } else {
+          document.dispatchEvent(new CustomEvent('rd:open-cookie-settings'));
+        }
+      });
+    }
+    bindCookieSettings();
+    document.addEventListener('astro:page-load', bindCookieSettings);
+  })();
+</script>
 
 <style>
   .rd-footer-cta {

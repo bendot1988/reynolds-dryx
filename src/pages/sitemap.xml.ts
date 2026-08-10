@@ -1,7 +1,8 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import { siteConfig } from '../config/site';
 
-const SITE = 'https://www.reynoldsdryline.co.uk';
+const SITE = siteConfig.url;
 
 const staticPages = [
   { loc: '/', changefreq: 'weekly', priority: '1.0' },
@@ -13,6 +14,9 @@ const staticPages = [
   { loc: '/contact', changefreq: 'monthly', priority: '0.8' },
   { loc: '/who-we-work-with', changefreq: 'monthly', priority: '0.7' },
   { loc: '/sitemap', changefreq: 'monthly', priority: '0.3' },
+  { loc: '/privacy', changefreq: 'yearly', priority: '0.2' },
+  { loc: '/terms', changefreq: 'yearly', priority: '0.2' },
+  { loc: '/cookies', changefreq: 'yearly', priority: '0.2' },
 ];
 
 function escapeXml(value: string) {

@@ -1,16 +1,13 @@
 ---
 import ReynoldsLayout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 ---
 
 <ReynoldsLayout
-  title="About Reynolds Dryline | Our Story Since 1963"
-  description="Learn about Reynolds Dryline — over 60 years of excellence in specialist building finishes, metal stud partitioning, suspended ceilings and drylining across the UK."
+  title="About Reynolds Dryline | Leicestershire Since 1963"
+  description="Learn about Reynolds Dryline, Leicestershire drylining specialists since 1963. Expertise in partitioning, ceilings and building finishes UK-wide."
   canonical="https://www.reynoldsdryline.co.uk/about"
 >
-  <Header currentPath="/about" />
 
   <PageHero
     title="About Reynolds Dryline"
@@ -140,10 +137,9 @@ import PageHero from '../components/PageHero.astro';
     </div>
   </section>
 
-  <Footer />
 </ReynoldsLayout>
 
-<script is:inline>
+<script is:inline data-astro-rerun>
   (function () {
     const counters = document.querySelectorAll('[data-counter]');
     if (!counters.length) return;

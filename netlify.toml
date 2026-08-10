@@ -4,3 +4,50 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+# Force HTTPS + www (Netlify edge)
+[[redirects]]
+  from = "http://reynoldsdryline.co.uk/*"
+  to = "https://www.reynoldsdryline.co.uk/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.reynoldsdryline.co.uk/*"
+  to = "https://www.reynoldsdryline.co.uk/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://reynoldsdryline.co.uk/*"
+  to = "https://www.reynoldsdryline.co.uk/:splat"
+  status = 301
+  force = true
+
+# Prefer non-trailing-slash URLs (except root)
+[[redirects]]
+  from = "/*/"
+  to = "/:splat"
+  status = 301
+  force = true
+
+# Legacy reynoldsltd.co.uk paths
+[[redirects]]
+  from = "/contact-us"
+  to = "/contact"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/contact-us/"
+  to = "/contact"
+  status = 301
+  force = true
+
+# Legacy project detail URLs → portfolio index
+# e.g. /projects/parkside/ → /projects
+[[redirects]]
+  from = "/projects/*"
+  to = "/projects"
+  status = 301
+  force = true

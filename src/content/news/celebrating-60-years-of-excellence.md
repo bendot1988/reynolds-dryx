@@ -1,6 +1,6 @@
 ---
-title: Celebrating 60 Years of Excellence
-description: From our humble beginnings in 1963 to becoming one of the most trusted names in the UK building finishes sector.
+title: 60 Years of Drylining Excellence Marked
+description: Celebrating 60 years of Reynolds Dryline — from 1963 beginnings to trusted specialist drylining and building finishes delivery across the UK.
 pubDate: 2024-01-15
 author: Reynolds Dryline
 category: Heritage

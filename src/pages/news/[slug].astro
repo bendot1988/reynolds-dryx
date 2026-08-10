@@ -1,8 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
 import ReynoldsLayout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
 import PageHero from '../../components/PageHero.astro';
 
 export async function getStaticPaths() {
@@ -27,12 +25,12 @@ function formatDate(date: Date) {
 ---
 
 <ReynoldsLayout
-  title={`${post.data.title} | Reynolds Dryline News`}
+  title={`${post.data.title} | Reynolds Dryline`}
   description={post.data.description}
   canonical={`https://www.reynoldsdryline.co.uk/news/${post.id}`}
   ogImage={post.data.image}
+  ogType="article"
 >
-  <Header currentPath="/news" />
 
   <PageHero
     title={post.data.title}
@@ -82,7 +80,7 @@ function formatDate(date: Date) {
       <aside class="lg:col-span-1 space-y-8">
         {otherPosts.length > 0 && (
           <div class="rd-panel p-6">
-            <p class="rd-label mb-5">More from Reynolds Dryline</p>
+            <h2 class="rd-label mb-5">More from Reynolds Dryline</h2>
             <ul class="space-y-5 m-0 p-0 list-none">
               {otherPosts.map((other) => (
                 <li class="border-b border-gray-100 last:border-b-0 pb-5 last:pb-0">
@@ -91,7 +89,7 @@ function formatDate(date: Date) {
                       <div class="flex-shrink-0 overflow-hidden rounded-[10px] w-20 h-20 border border-gray-100">
                         <img
                           src={other.data.image}
-                          alt={other.data.title}
+                          alt={`Thumbnail for ${other.data.title}`}
                           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                           loading="lazy"
                           decoding="async"
@@ -127,7 +125,7 @@ function formatDate(date: Date) {
           <p class="text-[0.62rem] font-bold tracking-[0.18em] uppercase text-white/80 mb-3">
             Specialist Drylining
           </p>
-          <h3 class="text-2xl font-black text-white mb-3 leading-tight">Have a Project in Mind?</h3>
+          <h2 class="text-2xl font-black text-white mb-3 leading-tight">Have a Project in Mind?</h2>
           <p class="text-white/90 text-sm leading-relaxed mb-5">
             Talk to our team about your next build, refurbishment, or fit-out. Trusted by the UK's leading contractors since 1963.
           </p>
@@ -145,5 +143,4 @@ function formatDate(date: Date) {
     </div>
   </section>
 
-  <Footer />
 </ReynoldsLayout>

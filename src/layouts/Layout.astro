@@ -1,88 +1,166 @@
 ---
 import '../styles/global.css';
+import { ClientRouter, fade } from 'astro:transitions';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import SEO from '../components/SEO.astro';
+import { absoluteUrl, siteConfig } from '../config/site';
 
 export interface Props {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
+  /** @deprecated Prefer `url` — kept for existing page props */
   canonical?: string;
+  url?: string;
+  /** @deprecated Prefer `image` — kept for existing page props */
   ogImage?: string;
+  image?: string;
   noindex?: boolean;
+  /** @deprecated Prefer `type` — kept for existing page props */
+  ogType?: 'website' | 'article';
+  type?: string;
 }
 
-const { title, description, canonical, ogImage, noindex = false } = Astro.props;
-const canonicalURL = canonical || new URL(Astro.url.pathname, 'https://www.reynoldsdryline.co.uk').toString();
-const ogImageURL = ogImage || 'https://www.reynoldsdryline.co.uk/og-image.jpg';
+const {
+  title,
+  description,
+  canonical,
+  url,
+  ogImage,
+  image,
+  noindex = false,
+  ogType,
+  type,
+} = Astro.props;
+
+const seoUrl = url || canonical;
+const seoImage = image || ogImage;
+const seoType = type || ogType || 'website';
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${siteConfig.url}/#business`,
+  name: siteConfig.name,
+  legalName: siteConfig.legalName,
+  description: siteConfig.description,
+  url: siteConfig.url,
+  logo: absoluteUrl(siteConfig.logo),
+  image: absoluteUrl(siteConfig.image),
+  telephone: siteConfig.phone,
+  email: siteConfig.email,
+  foundingDate: '1963',
+  areaServed: {
+    '@type': 'Country',
+    name: 'United Kingdom',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    ...siteConfig.address,
+  },
+  // Matches hours shown on /contact — confirm if these change
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '17:00',
+    },
+  ],
+  sameAs: [...siteConfig.sameAs],
+};
 ---
 <!doctype html>
-<html lang="en">
+<html lang={siteConfig.language}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    {noindex && <meta name="robots" content="noindex, nofollow, noarchive" />}
-    {noindex && <meta name="googlebot" content="noindex, nofollow, noarchive" />}
-    <link rel="canonical" href={canonicalURL} />
-    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <SEO
+      title={title}
+      description={description}
+      image={seoImage}
+      url={seoUrl}
+      type={seoType}
+      noindex={noindex}
+    />
+
+    <!-- Favicon set -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#e23125" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet" />
-    <!-- Netlify Identity — required for Decap CMS /admin login redirect -->
-    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <!-- Open Graph -->
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content={ogImageURL} />
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageURL} />
+
     <!-- Schema.org LocalBusiness -->
-    <script type="application/ld+json" is:inline>
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Reynolds Dryline",
-      "description": "Leaders in specialist building finishes. Providing complete dryline solutions since 1963.",
-      "url": "https://www.reynoldsdryline.co.uk",
-      "telephone": "01509816600",
-      "email": "info@reynoldsltd.co.uk",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "9 Quorn Business Quarter, Loughborough Road",
-        "addressLocality": "Mountsorrel",
-        "addressRegion": "Leicestershire",
-        "postalCode": "LE12 7XF",
-        "addressCountry": "GB"
-      },
-      "foundingDate": "1963",
-      "areaServed": "United Kingdom"
-    }
-    </script>
-    <!-- Optional per-page head content -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <ClientRouter />
     <slot name="head" />
   </head>
-  <body class="min-h-screen bg-white text-gray-900 antialiased" style="font-family: 'Montserrat', system-ui, sans-serif;">
-    <slot />
-    <!-- Netlify Identity redirect handler -->
+  <body class="min-h-screen bg-white text-gray-900 antialiased text-base" style="font-family: 'Montserrat', system-ui, sans-serif;">
+    <div
+      id="rd-nav-progress"
+      class="rd-nav-progress"
+      transition:persist="rd-nav-progress"
+      aria-hidden="true"
+    >
+      <div class="rd-nav-progress__bar"></div>
+    </div>
+
+    <Header currentPath={currentPath} transition:persist="rd-header" />
+
+    <main id="rd-main" transition:animate={fade({ duration: '280ms' })}>
+      <slot />
+    </main>
+
+    <Footer transition:persist="rd-footer" />
+    <CookieConsent />
+
+    <!-- Netlify Identity — deferred until idle so it stays off the critical path -->
     <script is:inline>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on('init', function(user) {
-          if (!user) {
-            window.netlifyIdentity.on('login', function() {
-              document.location.href = '/admin/';
-            });
-          }
-        });
-      }
+      (function () {
+        function loadIdentity() {
+          if (document.getElementById('rd-netlify-identity')) return;
+          var s = document.createElement('script');
+          s.id = 'rd-netlify-identity';
+          s.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
+          s.defer = true;
+          s.onload = function () {
+            if (window.netlifyIdentity) {
+              window.netlifyIdentity.on('init', function (user) {
+                if (!user) {
+                  window.netlifyIdentity.on('login', function () {
+                    document.location.href = '/admin/';
+                  });
+                }
+              });
+            }
+          };
+          document.body.appendChild(s);
+        }
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(loadIdentity, { timeout: 4000 });
+        } else {
+          window.addEventListener('load', function () {
+            setTimeout(loadIdentity, 1500);
+          });
+        }
+      })();
     </script>
-    <!-- Scroll animations -->
+
+    <!-- Scroll animations + nav progress (view transitions aware) -->
     <script is:inline>
       (function () {
         document.body.classList.add('js-ready');
+
         var observer = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
             if (entry.isIntersecting) {
@@ -95,11 +173,81 @@ const ogImageURL = ogImage || 'https://www.reynoldsdryline.co.uk/og-image.jpg';
             }
           });
         }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
         function initObservers() {
-          document.querySelectorAll('[data-animate]').forEach(function (el) {
+          document.querySelectorAll('[data-animate]:not(.animate-in)').forEach(function (el) {
             observer.observe(el);
           });
         }
+
+        var trickleTimer = null;
+        var finishTimer = null;
+
+        function progressRoot() {
+          return document.getElementById('rd-nav-progress');
+        }
+
+        function progressBar() {
+          var root = progressRoot();
+          return root ? root.querySelector('.rd-nav-progress__bar') : null;
+        }
+
+        function clearProgressTimers() {
+          if (trickleTimer) {
+            clearInterval(trickleTimer);
+            trickleTimer = null;
+          }
+          if (finishTimer) {
+            clearTimeout(finishTimer);
+            finishTimer = null;
+          }
+        }
+
+        function startProgress() {
+          var root = progressRoot();
+          var bar = progressBar();
+          if (!root || !bar) return;
+
+          clearProgressTimers();
+          root.classList.add('is-active');
+          bar.style.width = '0%';
+
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            bar.style.width = '40%';
+            return;
+          }
+
+          var progress = 0;
+          trickleTimer = setInterval(function () {
+            progress += Math.max(0.6, (92 - progress) * 0.075);
+            if (progress > 92) progress = 92;
+            bar.style.width = progress + '%';
+          }, 180);
+        }
+
+        function finishProgress() {
+          var root = progressRoot();
+          var bar = progressBar();
+          if (!root || !bar || !root.classList.contains('is-active')) return;
+
+          clearProgressTimers();
+          bar.style.width = '100%';
+          root.classList.add('is-finishing');
+
+          finishTimer = setTimeout(function () {
+            root.classList.remove('is-active', 'is-finishing');
+            bar.style.width = '0%';
+            finishTimer = null;
+          }, 220);
+        }
+
+        document.addEventListener('astro:before-preparation', startProgress);
+        document.addEventListener('astro:after-swap', finishProgress);
+        document.addEventListener('astro:page-load', function () {
+          finishProgress();
+          initObservers();
+        });
+
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', initObservers);
         } else {

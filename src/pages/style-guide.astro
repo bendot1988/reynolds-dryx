@@ -1,7 +1,5 @@
 ---
 import ReynoldsLayout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 
 const coreColors = [
   { token: '--rd-red', value: '#e23125', usage: 'Primary brand actions, highlights, CTA backgrounds' },
@@ -108,14 +106,13 @@ Accessibility and quality:
 ---
 
 <ReynoldsLayout
-  title="Reynolds Dryline | Internal Style Guide"
-  description="Internal style guide documenting current Reynolds Dryline design tokens, typography, spacing, and component styling."
+  title="Style Guide | Reynolds Dryline Brand Design System"
+  description="Internal Reynolds Dryline style guide documenting brand colours, typography, spacing and component patterns used across the company website."
   canonical="https://www.reynoldsdryline.co.uk/style-guide"
   noindex={true}
 >
-  <Header currentPath="/style-guide" />
 
-  <main class="bg-white text-gray-900">
+  <div class="bg-white text-gray-900">
     <section class="rd-section rd-section--surface !pt-0 px-0 pb-14 lg:pb-16">
       <div class="relative h-56 lg:h-72 overflow-hidden">
         <img
@@ -136,7 +133,7 @@ Accessibility and quality:
         </p>
         <div class="rd-panel mt-8 p-5 lg:p-6">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <h3 class="text-xl font-black text-gray-900">Copy/Paste AI Design Brief</h3>
+            <h2 class="text-xl font-black text-gray-900">Copy/Paste AI Design Brief</h2>
             <button
               id="copy-design-brief"
               type="button"
@@ -287,9 +284,7 @@ Accessibility and quality:
         </div>
       </div>
     </section>
-  </main>
-
-  <Footer />
+  </div>
 
   <script is:inline>
     const copyButton = document.getElementById('copy-design-brief');

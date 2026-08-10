@@ -1,0 +1,70 @@
+---
+import { absoluteUrl, canonicalUrl, siteConfig } from '../config/site';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  /** Path or absolute URL for the share image */
+  image?: string;
+  /** Canonical page URL (path or absolute). Defaults to current page. */
+  url?: string;
+  type?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = siteConfig.title,
+  description = siteConfig.description,
+  image = siteConfig.image,
+  url,
+  type = siteConfig.type,
+  noindex = false,
+} = Astro.props;
+
+function resolvePageUrl(value?: string) {
+  if (!value) return canonicalUrl(Astro.url.pathname);
+
+  // Absolute URL passed from a page
+  if (/^https?:\/\//i.test(value)) {
+    const parsed = new URL(value);
+    if (parsed.pathname === '/' || parsed.pathname === '') {
+      return `${parsed.origin}/`;
+    }
+    return `${parsed.origin}${parsed.pathname.replace(/\/+$/, '')}${parsed.search}`;
+  }
+
+  // Site-relative path
+  return canonicalUrl(value.replace(/\/+$/, '') || '/');
+}
+
+const pageUrl = resolvePageUrl(url);
+const imageUrl = absoluteUrl(image);
+const imageIsDefault = absoluteUrl(image) === absoluteUrl(siteConfig.image);
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex, nofollow, noarchive" />}
+{noindex && <meta name="googlebot" content="noindex, nofollow, noarchive" />}
+<link rel="canonical" href={pageUrl} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:width" content={String(siteConfig.imageWidth)} />
+<meta property="og:image:height" content={String(siteConfig.imageHeight)} />
+<meta
+  property="og:image:alt"
+  content={imageIsDefault ? siteConfig.imageAlt : title}
+/>
+<meta property="og:url" content={pageUrl} />
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={siteConfig.name} />
+<meta property="og:locale" content={siteConfig.locale} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />

@@ -1,7 +1,5 @@
 ---
 import ReynoldsLayout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 import { getCollection } from 'astro:content';
 
@@ -197,11 +195,10 @@ const liveSites = staticProjects
 ---
 
 <ReynoldsLayout
-  title="Project Portfolio | Reynolds Dryline"
-  description="Browse Reynolds Dryline's project portfolio. We have delivered high-value drylining and building finishes projects across the UK for leading contractors."
+  title="Drylining Projects Portfolio | Reynolds Dryline UK"
+  description="Browse the Reynolds Dryline project portfolio across the UK, with live and completed drylining schemes for leading contractors and developers."
   canonical="https://www.reynoldsdryline.co.uk/projects"
 >
-  <Header currentPath="/projects" />
 
   <PageHero
     title="Project Portfolio"
@@ -405,7 +402,7 @@ const liveSites = staticProjects
                 {project.sector}
               </span>
 
-              <h3 class="text-2xl font-black text-gray-900 mb-1">{project.title}</h3>
+              <h2 class="text-2xl font-black text-gray-900 mb-1">{project.title}</h2>
               <p class="text-gray-500 text-sm mb-4">{project.location}</p>
               <p class="text-gray-600 text-sm leading-relaxed mb-5">{project.description}</p>
 
@@ -464,10 +461,25 @@ const liveSites = staticProjects
     </div>
   </section>
 
-  <Footer />
 </ReynoldsLayout>
 
 <script>
+  declare global {
+    interface Window {
+      __rdProjectsAbort?: AbortController;
+    }
+  }
+
+  document.addEventListener('astro:page-load', () => {
+  window.__rdProjectsAbort?.abort();
+
+  const filterOpen = document.getElementById('rd-filter-open');
+  if (!filterOpen) return;
+
+  const abort = new AbortController();
+  window.__rdProjectsAbort = abort;
+  const { signal } = abort;
+
   const filterBtns = document.querySelectorAll('.rd-filter-btn');
   const statusBtns = document.querySelectorAll('.rd-status-btn');
   const projectItems = document.querySelectorAll('.rd-project-item');
@@ -476,7 +488,6 @@ const liveSites = staticProjects
   const liveToggle = document.getElementById('rd-live-sites-toggle');
   const livePanel = document.getElementById('rd-live-sites-panel');
   const liveChevron = document.getElementById('rd-live-sites-chevron');
-  const filterOpen = document.getElementById('rd-filter-open');
   const filterClose = document.getElementById('rd-filter-close');
   const filterApply = document.getElementById('rd-filter-apply');
   const filterClear = document.getElementById('rd-filter-clear');
@@ -594,7 +605,7 @@ const liveSites = staticProjects
       activeSector = btn.getAttribute('data-sector') || 'All';
       syncSectorButtons();
       applyFilters();
-    });
+    }, { signal });
   });
 
   statusBtns.forEach((btn) => {
@@ -602,13 +613,13 @@ const liveSites = staticProjects
       activeStatus = btn.getAttribute('data-status') || 'All';
       syncStatusButtons();
       applyFilters();
-    });
+    }, { signal });
   });
 
-  filterOpen?.addEventListener('click', openDrawer);
-  filterClose?.addEventListener('click', closeDrawer);
-  filterBackdrop?.addEventListener('click', closeDrawer);
-  filterApply?.addEventListener('click', closeDrawer);
+  filterOpen.addEventListener('click', openDrawer, { signal });
+  filterClose?.addEventListener('click', closeDrawer, { signal });
+  filterBackdrop?.addEventListener('click', closeDrawer, { signal });
+  filterApply?.addEventListener('click', closeDrawer, { signal });
 
   filterClear?.addEventListener('click', () => {
     activeSector = 'All';
@@ -618,18 +629,18 @@ const liveSites = staticProjects
     syncSectorButtons();
     syncStatusButtons();
     applyFilters();
-  });
+  }, { signal });
 
   searchInput?.addEventListener('input', () => {
     searchQuery = (searchInput as HTMLInputElement).value.trim().toLowerCase();
     applyFilters();
-  });
+  }, { signal });
 
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && filterDrawer?.classList.contains('translate-x-0')) {
       closeDrawer();
     }
-  });
+  }, { signal });
 
   liveToggle?.addEventListener('click', () => {
     if (!(livePanel instanceof HTMLElement) || !(liveToggle instanceof HTMLButtonElement)) return;
@@ -641,7 +652,7 @@ const liveSites = staticProjects
       const initMap = (window as Window & { __rdInitLiveSitesMap?: () => void }).__rdInitLiveSitesMap;
       if (typeof initMap === 'function') initMap();
     }
-  });
+  }, { signal });
 
   function openLiveSitesFromHash() {
     if (window.location.hash !== '#live-sites') return;
@@ -672,7 +683,8 @@ const liveSites = staticProjects
   }
 
   openLiveSitesFromHash();
-  window.addEventListener('hashchange', openLiveSitesFromHash);
+  window.addEventListener('hashchange', openLiveSitesFromHash, { signal });
+  });
 </script>
 
 <script id="rd-live-sites-data" type="application/json" set:html={JSON.stringify(liveSites)} />
@@ -704,16 +716,17 @@ const liveSites = staticProjects
   }
 
   function initLiveSitesMap() {
-    const mapEl = document.getElementById('rd-live-sites-map');
+    const mapEl = document.getElementById('rd-live-sites-map') as (HTMLElement & { _leaflet_id?: number }) | null;
     const liveSites = readLiveSites();
     if (!mapEl || liveSites.length === 0) return;
 
-    if (liveMap) {
+    if (liveMap && mapEl._leaflet_id) {
       window.setTimeout(() => liveMap?.invalidateSize(), 50);
       window.setTimeout(() => liveMap?.invalidateSize(), 250);
       return;
     }
 
+    liveMap = null;
     liveMap = L.map(mapEl, {
       center: [52.6, -1.3],
       zoom: 7,
@@ -753,6 +766,14 @@ const liveSites = staticProjects
   }
 
   (window as Window & { __rdInitLiveSitesMap?: () => void }).__rdInitLiveSitesMap = initLiveSitesMap;
+
+  document.addEventListener('astro:page-load', () => {
+    const mapEl = document.getElementById('rd-live-sites-map') as (HTMLElement & { _leaflet_id?: number }) | null;
+    if (!mapEl || !mapEl._leaflet_id) {
+      liveMap = null;
+    }
+    (window as Window & { __rdInitLiveSitesMap?: () => void }).__rdInitLiveSitesMap = initLiveSitesMap;
+  });
 </script>
 
 <style>

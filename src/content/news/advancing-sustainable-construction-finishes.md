@@ -1,6 +1,6 @@
 ---
-title: Advancing Sustainable Construction Finishes
-description: Implementing new insulation and drylining techniques that reduce building carbon footprints across all our sites.
+title: Sustainable Drylining Finishes Advances
+description: Reynolds Dryline advances sustainable drylining and insulation techniques that help reduce carbon footprints on construction sites across the UK.
 pubDate: 2024-03-10
 author: Reynolds Dryline
 category: Innovation

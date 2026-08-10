@@ -41,6 +41,8 @@
     0 10px 22px -12px rgba(17, 17, 17, 0.08);
   --rd-shadow-float-red: 0 26px 52px -12px rgba(0, 0, 0, 0.38),
     0 12px 28px -14px rgba(0, 0, 0, 0.22);
+  /* Brand accent alias used by nav progress + shared accents */
+  --color-accent: var(--rd-red);
 
   /* Border radius scale */
   --rd-radius-sm: 5px;   /* buttons, badges, tags */
@@ -48,11 +50,73 @@
   --rd-radius-lg: 15px;  /* images, large cards, panels */
 }
 
+/* View-transition nav progress (ClientRouter) */
+.rd-nav-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 120;
+  height: 2px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--rd-motion-fast) var(--rd-motion-ease);
+}
+
+.rd-nav-progress.is-active {
+  opacity: 1;
+}
+
+.rd-nav-progress__bar {
+  height: 100%;
+  width: 0%;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--color-accent) 55%, transparent);
+  transition: width 180ms linear;
+}
+
+.rd-nav-progress.is-finishing .rd-nav-progress__bar {
+  transition-duration: 160ms;
+  transition-timing-function: var(--rd-motion-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rd-nav-progress,
+  .rd-nav-progress__bar {
+    transition: none;
+  }
+}
+
 /* =============================================
    Reynolds Dryline — Base Typography
    ============================================= */
 body {
   font-family: 'Montserrat', system-ui, sans-serif;
+  font-size: 1rem; /* 16px — meets 14px minimum body text */
+  line-height: 1.6;
+  overflow-x: clip;
+}
+
+/* Prefer readable body copy; keep intentional micro-labels smaller */
+p,
+li,
+address,
+input,
+textarea,
+select,
+button,
+label {
+  font-size: inherit;
+}
+
+/* Tap targets: interactive controls at least ~44px tall where practical */
+a.rd-btn-primary,
+a.rd-btn-outline,
+a.rd-btn-outline-red,
+button.rd-btn-primary,
+button.rd-btn-outline,
+button.rd-btn-outline-red {
+  min-height: 44px;
 }
 
 :where(a, button, [role='button'], input, textarea, select):focus-visible {
@@ -121,6 +185,33 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
   margin-top: 1.5em;
   margin-bottom: 0.65em;
+}
+
+.prose p {
+  color: #4b5563;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.prose h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #111827;
+  margin-top: 1.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0 0 1rem;
+  color: #4b5563;
+}
+
+.prose li {
+  margin-bottom: 0.4rem;
+  line-height: 1.65;
 }
 
 @media (min-width: 1024px) {
