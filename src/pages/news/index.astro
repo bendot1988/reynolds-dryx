@@ -31,44 +31,46 @@ function formatDate(date: Date) {
   <section class="bg-white py-20 px-6 lg:px-10">
     <div class="max-w-7xl mx-auto">
       <!-- All posts grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {displayPosts.map((post, i) => (
-          <article class="rd-panel rd-hover-bar group overflow-hidden p-5" data-animate data-delay={`${(i % 3) * 100}`}>
-            <div class="overflow-hidden mb-5 rounded-[15px]">
-              <img
-                src={post.data.image || '/assets/reynolds/hero-bg.jpg'}
-                alt={post.data.title}
-                class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-              />
-            </div>
-            <div>
-              <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3 rounded-[5px]">
-                {post.data.category || 'News'}
-              </span>
-              <time class="block text-gray-400 text-sm mb-2">{formatDate(new Date(post.data.pubDate))}</time>
-              <h2 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
-                <a
-                  href={`/news/${post.id}`}
-                  class="before:absolute before:inset-0 before:content-['']"
-                  aria-label={`Read article: ${post.data.title}`}
+      <div class="rd-hscroll">
+        <div class="rd-hscroll__track md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8">
+          {displayPosts.map((post, i) => (
+            <article class="rd-hscroll__item rd-panel rd-hover-bar group overflow-clip p-5" data-animate data-delay={`${(i % 3) * 100}`}>
+              <div class="overflow-clip mb-5 rounded-[15px]">
+                <img
+                  src={post.data.image || '/assets/reynolds/hero-bg.jpg'}
+                  alt={post.data.title}
+                  class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+              <div>
+                <span class="inline-block bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 mb-3 rounded-[5px]">
+                  {post.data.category || 'News'}
+                </span>
+                <time class="block text-gray-400 text-sm mb-2">{formatDate(new Date(post.data.pubDate))}</time>
+                <h2 class="text-xl font-black text-gray-900 mb-3 group-hover:text-red-600 transition-colors duration-200">
+                  <a
+                    href={`/news/${post.id}`}
+                    class="before:absolute before:inset-0 before:content-['']"
+                    aria-label={`Read article: ${post.data.title}`}
+                  >
+                    {post.data.title}
+                  </a>
+                </h2>
+                <p class="text-gray-500 text-sm leading-relaxed mb-4">{post.data.description}</p>
+                <span
+                  class="inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase transition-all duration-200 group-hover:gap-3"
+                  aria-hidden="true"
                 >
-                  {post.data.title}
-                </a>
-              </h2>
-              <p class="text-gray-500 text-sm leading-relaxed mb-4">{post.data.description}</p>
-              <span
-                class="inline-flex items-center gap-2 text-red-600 text-sm font-bold tracking-wider uppercase transition-all duration-200 group-hover:gap-3"
-                aria-hidden="true"
-              >
-                Read Article
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </span>
-            </div>
-          </article>
-        ))}
+                  Read Article
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
 
       {displayPosts.length === 0 && (

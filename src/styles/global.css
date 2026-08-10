@@ -109,6 +109,14 @@ label {
   font-size: inherit;
 }
 
+/* Section h2s (text-4xl lg:text-5xl): a bit smaller on desktop than full 5xl */
+@media (min-width: 1024px) {
+  h2.text-4xl {
+    font-size: 2.5rem; /* ~40px — between 4xl (36px) and 5xl (48px) */
+    line-height: 1.12;
+  }
+}
+
 /* Tap targets: interactive controls at least ~44px tall where practical */
 a.rd-btn-primary,
 a.rd-btn-outline,
@@ -117,6 +125,60 @@ button.rd-btn-primary,
 button.rd-btn-outline,
 button.rd-btn-outline-red {
   min-height: 44px;
+}
+
+/* =============================================
+   Mobile type + button scale (site-wide)
+   ============================================= */
+@media (max-width: 767px) {
+  body {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.55;
+  }
+
+  /* Most page copy uses Tailwind text-sm / text-base */
+  .text-base {
+    font-size: 0.875rem;
+  }
+
+  .text-sm {
+    font-size: 0.8125rem; /* 13px */
+  }
+
+  .prose p,
+  .prose li {
+    font-size: 0.875rem;
+  }
+
+  .rd-btn-primary,
+  .rd-btn-outline,
+  .rd-btn-outline-red {
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    padding: 0.55rem 1.05rem;
+    gap: 0.35rem;
+  }
+
+  a.rd-btn-primary,
+  a.rd-btn-outline,
+  a.rd-btn-outline-red,
+  button.rd-btn-primary,
+  button.rd-btn-outline,
+  button.rd-btn-outline-red {
+    min-height: 2.5rem; /* 40px — still comfortable, denser on mobile */
+  }
+
+  a.rd-hero-cta--on-red.rd-btn-primary {
+    font-size: 0.72rem;
+    padding: 0.7rem 1.25rem;
+  }
+
+  /* Common non–rd-btn form / CTA buttons */
+  button[type='submit'],
+  input[type='submit'] {
+    font-size: 0.72rem;
+    padding-block: 0.7rem;
+  }
 }
 
 :where(a, button, [role='button'], input, textarea, select):focus-visible {
@@ -677,6 +739,62 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
   border-color: rgba(17, 24, 39, 0.16);
 }
 
+/* =============================================
+   Mobile horizontal card carousels — native scroll
+   Vertical page scroll + horizontal swipe without JS locks.
+   ============================================= */
+.rd-hscroll {
+  --rd-hscroll-gutter: 1.5rem; /* matches section px-6 */
+}
+
+@media (max-width: 767px) {
+  .rd-hscroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-x: contain;
+    overscroll-behavior-y: auto;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x pan-y;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--rd-hscroll-gutter);
+    margin-inline: calc(-1 * var(--rd-hscroll-gutter));
+    padding-inline: var(--rd-hscroll-gutter);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .rd-hscroll::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .rd-hscroll__track {
+    display: flex;
+    width: max-content;
+    gap: 1rem;
+    padding-block: 0.25rem; /* keep card shadows from clipping */
+  }
+
+  .rd-hscroll__item {
+    flex: 0 0 auto;
+    width: min(82vw, 22rem);
+    scroll-snap-align: center;
+    overflow: clip;
+    overscroll-behavior: none;
+  }
+
+  /* Don’t re-trigger fade/slide while swiping the strip */
+  body.js-ready .rd-hscroll [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+}
+
+/* md+: track/item sizing left to Tailwind grid utilities */
+
 .rd-panel--subtle:hover {
   transform: translate3d(0, -4px, 0);
   box-shadow: var(--rd-shadow-float);
@@ -688,7 +806,7 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
    consistent Reynolds hover signature. */
 .rd-hover-bar {
   position: relative;
-  overflow: hidden;
+  overflow: clip; /* clip avoids iOS rubber-band traps that overflow:hidden can cause */
 }
 
 .rd-hover-bar::after {
@@ -773,7 +891,7 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
    ============================================= */
 .rd-sector-card {
   position: relative;
-  overflow: hidden;
+  overflow: clip;
   cursor: pointer;
   border-radius: var(--rd-radius-lg);
   box-shadow: var(--rd-shadow-soft);
@@ -809,6 +927,13 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
 
 .rd-sector-card:hover .rd-sector-card-overlay {
   background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.15) 100%);
+}
+
+/* Mobile: copy always shown — use the stronger hover overlay for readability */
+@media (max-width: 767px) {
+  .rd-sector-card .rd-sector-card-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.15) 100%);
+  }
 }
 
 .rd-sector-card-content {

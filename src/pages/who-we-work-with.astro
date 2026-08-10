@@ -50,13 +50,15 @@ const projectFit = [
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {partnerTypes.map((item, index) => (
-          <article class="rd-panel rd-hover-bar p-6 lg:p-7" data-animate data-delay={index * 80}>
-            <h3 class="text-xl font-black text-gray-900 mb-3">{item.title}</h3>
-            <p class="text-gray-600 leading-relaxed text-sm">{item.description}</p>
-          </article>
-        ))}
+      <div class="rd-hscroll">
+        <div class="rd-hscroll__track md:grid md:grid-cols-3 md:gap-6">
+          {partnerTypes.map((item, index) => (
+            <article class="rd-hscroll__item rd-panel rd-hover-bar overflow-clip p-6 lg:p-7" data-animate data-delay={index * 80}>
+              <h3 class="text-xl font-black text-gray-900 mb-3">{item.title}</h3>
+              <p class="text-gray-600 leading-relaxed text-sm">{item.description}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   </section>
