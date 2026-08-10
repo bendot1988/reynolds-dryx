@@ -24,12 +24,9 @@
   status = 301
   force = true
 
-# Prefer non-trailing-slash URLs (except root)
-[[redirects]]
-  from = "/*/"
-  to = "/:splat"
-  status = 301
-  force = true
+# Do NOT add a blanket "/*/" → "/:splat" rule — on Netlify it matches
+# the site root "/" with an empty splat and 301-loops forever
+# (ERR_TOO_MANY_REDIRECTS). Astro trailingSlash: 'never' is enough.
 
 # Legacy reynoldsltd.co.uk paths
 [[redirects]]
