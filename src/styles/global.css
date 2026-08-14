@@ -1048,11 +1048,13 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
    ============================================= */
 .rd-mobile-menu {
   clip-path: circle(0% at calc(100% - 1.5rem) 2rem);
+  pointer-events: none;
   transition: clip-path var(--rd-motion-slow) var(--rd-motion-ease);
 }
 
 .rd-mobile-menu.is-open {
   clip-path: circle(150% at calc(100% - 1.5rem) 2rem);
+  pointer-events: auto;
 }
 
 .rd-mobile-nav-link {
