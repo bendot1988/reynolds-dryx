@@ -784,6 +784,15 @@ a.rd-hero-cta--on-red.rd-btn-primary::after {
     overscroll-behavior: none;
   }
 
+  .rd-project-card-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    line-height: 1.35;
+    min-height: 3rem;
+  }
+
   /* Don’t re-trigger fade/slide while swiping the strip */
   body.js-ready .rd-hscroll [data-animate] {
     opacity: 1 !important;
