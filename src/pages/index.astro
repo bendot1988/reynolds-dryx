@@ -756,7 +756,7 @@ const featuredProjects = [
         </div>
       </div>
       <div class="rd-panel relative h-96 overflow-clip" data-animate data-delay="100">
-        <div id="rd-home-live-map" class="w-full h-full bg-gray-100"></div>
+        <div id="rd-home-live-map" class="w-full h-full bg-neutral-800"></div>
         <noscript>
           <div class="w-full h-full flex items-center justify-center bg-gray-200 text-gray-500">
             <p>Interactive map requires JavaScript</p>
@@ -1200,14 +1200,19 @@ const featuredProjects = [
     homeLiveMap?.remove();
     homeLiveMap = L.map(mapEl, {
       center: [52.6, -1.3],
-      zoom: 7,
+      zoom: 6,
       scrollWheelZoom: false,
       zoomControl: true,
     });
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-      maxZoom: 19,
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+      attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+      maxZoom: 16,
+    }).addTo(homeLiveMap);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '',
+      maxZoom: 16,
+      opacity: 0.85,
     }).addTo(homeLiveMap);
 
     const pulseIcon = L.divIcon({
@@ -1226,9 +1231,9 @@ const featuredProjects = [
     });
 
     if (bounds.length > 1) {
-      homeLiveMap.fitBounds(bounds as L.LatLngBoundsExpression, { padding: [40, 40], maxZoom: 9 });
+      homeLiveMap.fitBounds(bounds as L.LatLngBoundsExpression, { padding: [56, 56], maxZoom: 7 });
     } else if (bounds.length === 1) {
-      homeLiveMap.setView(bounds[0], 9);
+      homeLiveMap.setView(bounds[0], 7);
     }
 
     window.setTimeout(() => homeLiveMap?.invalidateSize(), 50);
